@@ -3,6 +3,8 @@ from django.db import models
 from utils.constants import Constants
 
 from ..categories.models import Category
+from ..ingredients.models import Ingredient
+
 
 class Recipe(models.Model):
 
@@ -23,6 +25,7 @@ class Recipe(models.Model):
   servings = models.CharField(max_length=Constants.max_char_field_length)
   difficulty = models.IntegerField(choices=Difficulty.choices)
   categories = models.ManyToManyField(Category)
+  ingredients = models.ManyToManyField(Ingredient)
 
 
   def __str__(self):
