@@ -1,3 +1,5 @@
+<br />
+
 <p align="center"><img src="logo.svg" alt="Cookify logo" /></p>
 
 <h2>About</h2>
