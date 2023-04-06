@@ -4,6 +4,7 @@ from utils.constants import Constants
 
 from ..categories.models import Category
 from ..ingredients.models import Ingredient
+from ..preparation_steps.models import PreparationStep
 
 
 class Recipe(models.Model):
@@ -26,6 +27,7 @@ class Recipe(models.Model):
   difficulty = models.IntegerField(choices=Difficulty.choices)
   categories = models.ManyToManyField(Category)
   ingredients = models.ManyToManyField(Ingredient)
+  preparation_steps = models.ManyToManyField(PreparationStep)
 
 
   def __str__(self):
