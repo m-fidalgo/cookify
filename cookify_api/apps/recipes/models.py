@@ -1,10 +1,9 @@
 from django.db import models
 
+from apps.categories.models import Category
+from apps.ingredients.models import Ingredient
+from apps.preparation_steps.models import PreparationStep
 from utils.constants import Constants
-
-from ..categories.models import Category
-from ..ingredients.models import Ingredient
-from ..preparation_steps.models import PreparationStep
 
 class Difficulty(models.IntegerChoices):
   EASY = 0
