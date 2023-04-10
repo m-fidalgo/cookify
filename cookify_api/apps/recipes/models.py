@@ -6,19 +6,12 @@ from ..categories.models import Category
 from ..ingredients.models import Ingredient
 from ..preparation_steps.models import PreparationStep
 
+class Difficulty(models.IntegerChoices):
+  EASY = 0
+  MEDIUM = 1
+  HARD = 2
 
 class Recipe(models.Model):
-
-  class Meta:
-    db_table = "recipes"
-
-
-  class Difficulty(models.IntegerChoices):
-    EASY = 0
-    MEDIUM = 1
-    HARD = 2
-
-
   title = models.CharField(max_length=Constants.max_char_field_length)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
@@ -28,6 +21,9 @@ class Recipe(models.Model):
   categories = models.ManyToManyField(Category)
   ingredients = models.ManyToManyField(Ingredient)
   preparation_steps = models.ManyToManyField(PreparationStep)
+
+  class Meta:
+    db_table = "recipes"
 
 
   def __str__(self):
