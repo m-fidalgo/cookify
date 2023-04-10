@@ -25,6 +25,8 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "users.User"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
   'apps.categories',
   'apps.ingredients',
   'apps.preparation_steps',
+  'apps.users'
 ]
 
 MIDDLEWARE = [
