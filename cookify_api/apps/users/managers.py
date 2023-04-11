@@ -1,10 +1,11 @@
 from django.contrib.auth.base_user import BaseUserManager
 
 from utils.exceptions import EmailRequiredException, SuperuserTrueException
+from utils.validations import empty_field
 
 class UserManager(BaseUserManager):
   def create_user(self, email, password, **extra_fields):
-    if not email:
+    if empty_field(email):
       raise EmailRequiredException()
     
     email = self.normalize_email(email)
