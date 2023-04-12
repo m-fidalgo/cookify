@@ -16,7 +16,7 @@ class Recipe(models.Model):
   servings = models.CharField(max_length=Constants.max_char_field_length)
   difficulty = models.IntegerField(choices=Difficulty.choices)
   categories = models.ManyToManyField(Category)
-  creator = models.ForeignKey("users.User", on_delete=models.CASCADE)
+  creator = models.ForeignKey("users.User", on_delete=models.CASCADE, default=0)
 
   class Meta:
     db_table = "recipes"
@@ -24,3 +24,9 @@ class Recipe(models.Model):
 
   def __str__(self):
     return self.title
+  
+
+  @classmethod
+  def get_default_pk(cls):
+    exam, created = cls.objects.get_or_create(title='default recipe', time=0, difficulty=0)
+    return exam.pk
