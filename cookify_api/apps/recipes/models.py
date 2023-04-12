@@ -1,8 +1,6 @@
 from django.db import models
 
 from apps.categories.models import Category
-from apps.ingredients.models import Ingredient
-from apps.preparation_steps.models import PreparationStep
 from utils.constants import Constants
 
 class Difficulty(models.IntegerChoices):
@@ -18,8 +16,7 @@ class Recipe(models.Model):
   servings = models.CharField(max_length=Constants.max_char_field_length)
   difficulty = models.IntegerField(choices=Difficulty.choices)
   categories = models.ManyToManyField(Category)
-  ingredients = models.ManyToManyField(Ingredient)
-  preparation_steps = models.ManyToManyField(PreparationStep)
+  creator = models.ForeignKey("users.User", on_delete=models.CASCADE)
 
   class Meta:
     db_table = "recipes"
