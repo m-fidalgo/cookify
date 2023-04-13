@@ -10,7 +10,7 @@ router.registry.extend(category_router.registry)
 router.registry.extend(recipe_router.registry)
 
 urlpatterns = [
-  path('admin/', admin.site.urls),
-  path('auth/', include('apps.users.urls')),
-  path('', include(router.urls))
+    path("admin/", admin.site.urls),
+    path("auth/", include("apps.users.urls")),
+    path("", include(router.urls)),
 ]

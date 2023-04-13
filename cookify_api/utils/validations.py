@@ -1,2 +1,2 @@
 def empty_field(field):
-  return not field.strip()
+    return not field.strip()
