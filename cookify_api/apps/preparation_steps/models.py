@@ -1,6 +1,5 @@
-from django.db import models
-
 from apps.recipes.models import Recipe
+from django.db import models
 
 
 class PreparationStep(models.Model):

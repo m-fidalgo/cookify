@@ -1,9 +1,8 @@
+from apps.recipes.models import Recipe
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
-
 from utils.constants import Constants
 
-from apps.recipes.models import Recipe
 from .managers import UserManager
 
 

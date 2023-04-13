@@ -1,5 +1,4 @@
 from django.contrib.auth.base_user import BaseUserManager
-
 from utils.exceptions import EmailRequiredException, SuperuserTrueException
 from utils.validations import empty_field
 

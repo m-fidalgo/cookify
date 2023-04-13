@@ -1,5 +1,4 @@
 from django.db import models
-
 from utils.constants import Constants
 
 

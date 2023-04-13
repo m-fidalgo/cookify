@@ -1,15 +1,12 @@
-from rest_framework import serializers
-
 from apps.categories.serializers import CategorySerializer
-from apps.users.serializers import UserSerializer
 from apps.ingredients.models import Ingredient
 from apps.ingredients.serializers import IngredientSerializer
 from apps.preparation_steps.models import PreparationStep
 from apps.preparation_steps.serializers import PreparationStepSerializer
-from utils.exceptions import (
-    IngredientNotInRecipeException,
-    PreparationStepNotInRecipeException,
-)
+from apps.users.serializers import UserSerializer
+from rest_framework import serializers
+from utils.exceptions import (IngredientNotInRecipeException,
+                              PreparationStepNotInRecipeException)
 from utils.functions import attempt_json_deserialize
 
 from .models import Recipe
