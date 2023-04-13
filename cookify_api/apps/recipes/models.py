@@ -1,6 +1,5 @@
-from django.db import models
-
 from apps.categories.models import Category
+from django.db import models
 from utils.constants import Constants
 
 
@@ -18,7 +17,9 @@ class Recipe(models.Model):
     servings = models.CharField(max_length=Constants.max_char_field_length)
     difficulty = models.IntegerField(choices=Difficulty.choices)
     categories = models.ManyToManyField(Category)
-    creator = models.ForeignKey("users.User", on_delete=models.CASCADE, default=0)
+    creator = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, blank=True, null=True
+    )
 
     class Meta:
         db_table = "recipes"

@@ -4,16 +4,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('recipes', '0007_recipe_creator'),
-        ('users', '0002_alter_user_email_alter_user_name'),
+        ("recipes", "0006_remove_recipe_ingredients_and_more"),
+        ("users", "0002_alter_user_email_alter_user_name"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='saved_recipes',
-            field=models.ManyToManyField(to='recipes.recipe'),
+            model_name="user",
+            name="saved_recipes",
+            field=models.ManyToManyField(to="recipes.recipe"),
         ),
     ]

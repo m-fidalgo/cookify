@@ -12,3 +12,4 @@ venv.bak/
 
 .idea
 .DS_store
+.python-version
