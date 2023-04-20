@@ -3,8 +3,9 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",
+    "moduleResolution": "node",
     "paths": {
-      "*": ["app/*"]
+      "app/*": ["./app/*"]
     }
   }
 }
