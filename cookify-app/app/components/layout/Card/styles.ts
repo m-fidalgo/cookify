@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { BORDER_RADIUS, DEFAULT_SHADOW_STYLES, HUES, PADDING } from 'app/constants/styles';
+import { BORDER_RADIUS, HUES, PADDING } from 'app/constants/styles';
 
 const DEFAULT_CARD_HEIGHT_IN_PX = 190;
 const DEFAULT_CARD_IMAGE_HEIGHT_IN_PX = 140;

@@ -1,5 +1,3 @@
-import { css } from 'styled-components/native';
-
 import { HUES } from './palette';
 
 export const DEFAULT_SHADOW_STYLES = {
