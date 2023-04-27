@@ -14,8 +14,8 @@ export type StyleProps = {
 export const CardContainer = styled.TouchableOpacity<StyleProps>`
   background-color: ${HUES.white};
   border-color: ${HUES.lightGray};
-  border-width: 1;
   border-radius: ${BORDER_RADIUS.small};
+  border-width: 1;
   box-sizing: border-box;
   height: ${DEFAULT_CARD_HEIGHT_IN_PX}px;
   width: ${({ small }) => (small ? SMALL_CARD_WIDTH_IN_PX : DEFAULT_CARD_WIDTH_IN_PX)}px;

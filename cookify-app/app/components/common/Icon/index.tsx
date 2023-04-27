@@ -8,5 +8,11 @@ import { IconProps } from './types';
 export * from './types';
 
 export const Icon: React.FC<IconProps> = ({ name, color, size = 'regular' }) => {
-  return <MaterialIcons name={name} size={size === 'regular' ? 24 : 16} color={HUES[color]} />;
+  return (
+    <MaterialIcons
+      name={name}
+      size={size === 'small' ? 16 : size === 'medium' ? 24 : 32}
+      color={HUES[color]}
+    />
+  );
 };

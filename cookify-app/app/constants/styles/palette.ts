@@ -2,7 +2,6 @@ export const HUES = {
   yellow: '#FFA62B',
   white: '#FFFDFA',
   lightGray: '#EDE7E2',
-  opaqueGray: 'rgba(134, 134, 134, 0.5)',
   gray: '#868686',
   lightBlue: '#82C0CC',
   blue: '#489FB5',

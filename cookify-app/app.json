@@ -24,6 +24,14 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFA62B"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Cookify accesses your photos to let you choose one for your recipe!"
+        }
+      ]
+    ]
   }
 }

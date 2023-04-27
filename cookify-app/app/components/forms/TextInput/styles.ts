@@ -11,8 +11,8 @@ type StyleProps = {
 export const TextInputContainer = styled.View<StyleProps>`
   align-items: center;
   border-color: ${({ focused = false }) => (focused ? HUES.lightBlue : HUES.lightGray)};
-  border-width: 1;
   border-radius: ${BORDER_RADIUS.small};
+  border-width: 1;
   display: flex;
   flex-direction: row;
   padding: ${PADDING.small};

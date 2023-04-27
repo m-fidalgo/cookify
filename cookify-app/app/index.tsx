@@ -12,7 +12,7 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { EventProvider } from 'react-native-outside-press';
 
-import { Button, Chip, SectionButton, TextInput } from 'app/components';
+import { Button, Chip, ImageUploader, SectionButton, TextInput } from 'app/components';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -38,12 +38,8 @@ export default function App() {
         <Button onPress={() => console.log('ok')}>aaa</Button>
         <SectionButton color="aqua" onPress={() => console.log('ok')} title="Title" />
         <Chip text="Categoria!" />
-        <TextInput
-          leadingIcon="chevron-right"
-          placeholder="Placheolder"
-          value={value}
-          onChange={setValue}
-        />
+        <TextInput placeholder="Placheolder" value={value} onChange={setValue} />
+        <ImageUploader />
       </View>
     </EventProvider>
   );
