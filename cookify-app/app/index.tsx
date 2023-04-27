@@ -10,8 +10,9 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { EventProvider } from 'react-native-outside-press';
 
-import { Button, Chip, SectionButton } from 'app/components';
+import { Button, Chip, SectionButton, TextInput } from 'app/components';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,14 +28,24 @@ export default function App() {
     await SplashScreen.hideAsync();
   }, [fontsLoaded]);
 
+  const [value, setValue] = React.useState<string | undefined>();
+
   if (!fontsLoaded) return null;
 
   return (
-    <View style={styles.container} onLayout={removeSplashScreen}>
-      <Button onPress={() => console.log('ok')}>aaa</Button>
-      <SectionButton color="aqua" onPress={() => console.log('ok')} title="Title" />
-      <Chip text="Categoria!" />
-    </View>
+    <EventProvider style={{ flex: 1 }}>
+      <View style={styles.container} onLayout={removeSplashScreen}>
+        <Button onPress={() => console.log('ok')}>aaa</Button>
+        <SectionButton color="aqua" onPress={() => console.log('ok')} title="Title" />
+        <Chip text="Categoria!" />
+        <TextInput
+          leadingIcon="chevron-right"
+          placeholder="Placheolder"
+          value={value}
+          onChange={setValue}
+        />
+      </View>
+    </EventProvider>
   );
 }
 

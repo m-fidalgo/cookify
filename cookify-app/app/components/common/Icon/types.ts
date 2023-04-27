@@ -1,11 +1,8 @@
-import { MaterialIcons } from '@expo/vector-icons';
-
 import { Hue } from 'app/constants';
-
-export type IconSize = 'small' | 'regular';
+import { IconName, IconSize } from 'app/types';
 
 export type IconProps = {
-  name: keyof typeof MaterialIcons.glyphMap;
+  name: IconName;
   color: Hue;
   size?: IconSize;
 };
