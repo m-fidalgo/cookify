@@ -6,7 +6,7 @@ export type StyleProps = {
   color?: Hue;
 };
 
-export const ChipContainer = styled.TouchableOpacity<StyleProps>`
+export const ChipContainer = styled.View<StyleProps>`
   background-color: ${({ color = 'lightBlue' }) => HUES[color]};
   border-radius: ${BORDER_RADIUS.large};
   padding: ${PADDING.small};

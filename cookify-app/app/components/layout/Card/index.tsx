@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Subtitle } from 'app/components';
+import { Subtitle } from 'app/components/typography';
 import { DEFAULT_SHADOW_STYLES } from 'app/constants';
 
 import { CardContainer, CardImage, CardTitleContainer } from './styles';

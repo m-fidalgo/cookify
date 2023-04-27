@@ -8,11 +8,10 @@ import {
   useFonts,
 } from '@expo-google-fonts/dm-sans';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { Chip, SectionButton } from 'app/components';
+import { Button, Chip, SectionButton } from 'app/components';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -32,8 +31,8 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={removeSplashScreen}>
+      <Button onPress={() => console.log('ok')}>aaa</Button>
       <SectionButton color="aqua" onPress={() => console.log('ok')} title="Title" />
-
       <Chip text="Categoria!" />
     </View>
   );
