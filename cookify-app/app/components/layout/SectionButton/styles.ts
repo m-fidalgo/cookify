@@ -14,5 +14,5 @@ export const SectionButtonContainer = styled.TouchableOpacity<StyleProps>`
   flex-direction: row;
   justify-content: space-between;
   padding: ${PADDING.medium} ${PADDING.extraSmall} ${PADDING.medium} ${PADDING.medium};
-  width: 80%;
+  width: 100%;
 `;

@@ -12,7 +12,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { SectionButton } from 'app/components';
+import { Chip, SectionButton } from 'app/components';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -33,6 +33,8 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={removeSplashScreen}>
       <SectionButton color="aqua" onPress={() => console.log('ok')} title="Title" />
+
+      <Chip text="Categoria!" />
     </View>
   );
 }
