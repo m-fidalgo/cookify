@@ -13,6 +13,8 @@
   <img src="https://img.shields.io/badge/django-%23092e20.svg?logo=django&logoColor=white&style=for-the-badge" alt="Django" />
   <img src="https://img.shields.io/badge/python-%2314354c.svg?logo=python&logoColor=white&style=for-the-badge" alt="Python" />
   <img src="https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React Native" />
+  <img src="https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37" alt="Expo" />
+  <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="Styled Components" />
 </p>
 
 <br />
