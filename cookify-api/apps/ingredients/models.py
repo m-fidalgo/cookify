@@ -5,6 +5,8 @@ from utils.constants import Constants
 
 class Ingredient(models.Model):
     text = models.CharField(max_length=Constants.max_char_field_length)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     recipe = models.ForeignKey(
         "recipes.Recipe",
         on_delete=models.CASCADE,

@@ -10,6 +10,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=Constants.max_char_field_length, unique=True)
     name = models.CharField(max_length=Constants.max_char_field_length)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     saved_recipes = models.ManyToManyField(Recipe)
 
     USERNAME_FIELD = "email"

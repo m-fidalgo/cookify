@@ -1,4 +1,5 @@
 from django.contrib.auth.password_validation import validate_password
+from django.db.models.functions import Now
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -43,6 +44,8 @@ class UserTokenPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super(UserTokenPairSerializer, cls).get_token(user)
         token["email"] = user.email
+        user.last_login = Now()
+        user.save()
         return token
 
 

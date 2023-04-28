@@ -5,6 +5,8 @@ from django.db import models
 class PreparationStep(models.Model):
     text = models.TextField()
     position = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     recipe = models.ForeignKey(
         "recipes.Recipe",
         on_delete=models.CASCADE,
