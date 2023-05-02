@@ -29,6 +29,7 @@ export default function App() {
   }, [fontsLoaded]);
 
   const [value, setValue] = React.useState<string | undefined>();
+  const [imageUri, setImageUri] = React.useState<string | undefined>();
 
   if (!fontsLoaded) return null;
 
@@ -39,7 +40,7 @@ export default function App() {
         <SectionButton color="aqua" onPress={() => console.log('ok')} title="Title" />
         <Chip text="Categoria!" />
         <TextInput placeholder="Placheolder" value={value} onChange={setValue} />
-        <ImageUploader />
+        <ImageUploader imageUri={imageUri} onChange={setImageUri} />
       </View>
     </EventProvider>
   );

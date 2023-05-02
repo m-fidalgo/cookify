@@ -1,8 +1,8 @@
-import env from '@env';
+import { API_BASE_URL } from '@env';
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: env.API_BASE_URL,
+  baseURL: API_BASE_URL,
 });
 
 type RequestParams = {

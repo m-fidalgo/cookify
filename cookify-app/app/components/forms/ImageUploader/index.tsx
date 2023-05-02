@@ -3,23 +3,29 @@ import * as React from 'react';
 
 import { Icon } from 'app/components/common';
 
-import { Image, ImageUploaderContainer } from './styles';
+import { IconContainer, Image, ImageUploaderContainer } from './styles';
 import { ImageUploaderProps } from './types';
 
 export const ImageUploader: React.FC<ImageUploaderProps> = ({ imageUri, onChange }) => {
   const chooseImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({ quality: 1 });
+    console.log(result);
     if (!result.canceled) onChange(result.assets[0].uri);
   };
 
   const handleOnPress = () => {
-    if (!imageUri) chooseImage();
+    imageUri ? onChange() : chooseImage();
   };
 
   return (
     <ImageUploaderContainer onPress={handleOnPress}>
       {imageUri ? (
-        <Image source={{ uri: imageUri }} />
+        <>
+          <IconContainer>
+            <Icon name="close" color="aqua" size="small" />
+          </IconContainer>
+          <Image source={{ uri: imageUri }} />
+        </>
       ) : (
         <Icon name="photo-library" color="aqua" size="large" />
       )}
