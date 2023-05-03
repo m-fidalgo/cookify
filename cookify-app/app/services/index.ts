@@ -17,8 +17,9 @@ export const request = async ({
   data,
 }: RequestParams): Promise<object | undefined> => {
   try {
-    return await api.request({ url: path, method, data });
+    const response = await api.request({ url: path, method, data });
+    return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };

@@ -8,5 +8,5 @@
 4. Install the required packages with `pip install -r requirements.txt`
 5. Create your `.env` file
 6. Run all migrations with `python manage.py migrate`
-7. Run the server with `python manage.py runserver`
+7. Run the server with `python manage.py runserver 0.0.0.0:8000`
 8. That's it! The server should be running on `http://localhost:8000`

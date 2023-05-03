@@ -14,6 +14,8 @@ import { EventProvider } from 'react-native-outside-press';
 
 import { Button, Chip, ImageUploader, SectionButton, TextInput } from 'app/components';
 
+import { request } from './services';
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     DMSans_400Regular,
@@ -31,13 +33,18 @@ export default function App() {
   const [value, setValue] = React.useState<string | undefined>();
   const [imageUri, setImageUri] = React.useState<string | undefined>();
 
+  const test = async () => {
+    const a = await request({ path: 'categories', method: 'get' });
+    console.log(a);
+  };
+
   if (!fontsLoaded) return null;
 
   return (
     <EventProvider style={{ flex: 1 }}>
       <View style={styles.container} onLayout={removeSplashScreen}>
         <Button onPress={() => console.log('ok')}>aaa</Button>
-        <SectionButton color="aqua" onPress={() => console.log('ok')} title="Title" />
+        <SectionButton color="aqua" onPress={() => test()} title="Title" />
         <Chip text="Categoria!" />
         <TextInput placeholder="Placheolder" value={value} onChange={setValue} />
         <ImageUploader imageUri={imageUri} onChange={setImageUri} />
