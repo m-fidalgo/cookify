@@ -12,9 +12,7 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { EventProvider } from 'react-native-outside-press';
 
-import { Button, Chip, ImageUploader, SectionButton, TextInput } from 'app/components';
-
-import { request } from './services';
+import { Select, TextInput } from 'app/components';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,28 +24,36 @@ export default function App() {
     DMSans_700Bold_Italic,
   });
 
+  const data = [
+    { label: 'Item 1', value: '1' },
+    { label: 'Item 2', value: '2' },
+    { label: 'Item 3', value: '3' },
+    { label: 'Item 4', value: '4' },
+    { label: 'Item 5', value: '5' },
+    { label: 'Item 6', value: '6' },
+    { label: 'Item 7', value: '7' },
+    { label: 'Item 8', value: '8' },
+  ];
+
+  const [value, setValue] = React.useState<string[]>();
+
   const removeSplashScreen = React.useCallback(async () => {
     await SplashScreen.hideAsync();
   }, [fontsLoaded]);
-
-  const [value, setValue] = React.useState<string | undefined>();
-  const [imageUri, setImageUri] = React.useState<string | undefined>();
-
-  const test = async () => {
-    const a = await request({ path: 'categories', method: 'get' });
-    console.log(a);
-  };
 
   if (!fontsLoaded) return null;
 
   return (
     <EventProvider style={{ flex: 1 }}>
       <View style={styles.container} onLayout={removeSplashScreen}>
-        <Button onPress={() => console.log('ok')}>aaa</Button>
-        <SectionButton color="aqua" onPress={() => test()} title="Title" />
-        <Chip text="Categoria!" />
-        <TextInput placeholder="Placheolder" value={value} onChange={setValue} />
-        <ImageUploader imageUri={imageUri} onChange={setImageUri} />
+        <TextInput placeholder="Placheolder" onChange={() => console.log('ok')} />
+        <Select
+          placeholder="Placheolder"
+          searchPlaceholder="search"
+          items={data}
+          value={value}
+          onChange={setValue}
+        />
       </View>
     </EventProvider>
   );

@@ -10,17 +10,20 @@ type StyleProps = {
 
 export const TextInputContainer = styled.View<StyleProps>`
   align-items: center;
+  background-color: ${HUES.trueWhite};
   border-color: ${({ focused = false }) => (focused ? HUES.lightBlue : HUES.lightGray)};
   border-radius: ${BORDER_RADIUS.small};
   border-width: 1;
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
+  min-width: ${INPUT_MIN_WIDTH_IN_PX}px;
   padding: ${PADDING.small};
 `;
 
 export const StyledTextInput = styled.TextInput`
   color: ${HUES.black};
   font-size: 16px;
-  min-width: ${INPUT_MIN_WIDTH_IN_PX}px;
+  width: 85%;
   padding: 0;
 `;
