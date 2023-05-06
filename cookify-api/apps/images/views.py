@@ -2,7 +2,7 @@ import cloudinary
 from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser
 from rest_framework.viewsets import ModelViewSet
-from utils.constants import Constants
+from utils.constants import Actions
 
 from .models import Image
 from .serializers import ImageSerializer
@@ -15,8 +15,12 @@ class ImageViewSet(ModelViewSet):
     queryset = Image.objects.all()
 
     def get_permissions(self):
-        if self.action == Constants.list_action or Constants.get_action:
+        if (
+            self.action == Actions.LIST_ACTION.value
+            or self.action == Actions.GET_ACTION.value
+        ):
             return [permissions.AllowAny()]
+
         return super().get_permissions()
 
     def perform_destroy(self, instance):

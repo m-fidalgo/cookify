@@ -1,7 +1,6 @@
-from rest_framework.viewsets import ModelViewSet
 from rest_framework import permissions
-
-from utils.constants import Constants
+from rest_framework.viewsets import ModelViewSet
+from utils.constants import Actions
 
 from .models import Category
 from .serializers import CategorySerializer
@@ -13,6 +12,6 @@ class CategoryViewSet(ModelViewSet):
     serializer_class = CategorySerializer
 
     def get_permissions(self):
-        if self.action == Constants.list_action:
+        if self.action == Actions.LIST_ACTION.value:
             return [permissions.AllowAny()]
         return super().get_permissions()

@@ -1,5 +1,14 @@
-class Constants:
-    max_char_field_length = 150
-    cloudinary_url = "https://res.cloudinary.com"
-    get_action = "get"
-    list_action = "list"
+from enum import Enum
+
+
+class Cloudinary(Enum):
+    CLOUDINARY_URL = "https://res.cloudinary.com"
+
+
+class Actions(Enum):
+    GET_ACTION = "retrieve"
+    LIST_ACTION = "list"
+
+
+class Fields(Enum):
+    MAX_CHAR_FIELD_LENGTH = 150

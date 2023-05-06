@@ -1,4 +1,5 @@
 from apps.categories.serializers import CategorySerializer
+from apps.images.serializers import ImageSerializer
 from apps.ingredients.models import Ingredient
 from apps.ingredients.serializers import IngredientSerializer
 from apps.preparation_steps.models import PreparationStep
@@ -19,6 +20,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     creator = UserSerializer(read_only=True)
     ingredients = IngredientSerializer(read_only=True, many=True)
     preparation_steps = PreparationStepSerializer(read_only=True, many=True)
+    images = ImageSerializer(read_only=True, many=True)
 
     class Meta:
         model = Recipe
@@ -32,6 +34,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             "ingredients",
             "categories",
             "preparation_steps",
+            "images",
         )
 
     def create(self, validated_data):

@@ -1,9 +1,9 @@
 from django.db import models
-from utils.constants import Constants
+from utils.constants import Fields
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=Constants.max_char_field_length)
+    name = models.CharField(max_length=Fields.MAX_CHAR_FIELD_LENGTH.value)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
