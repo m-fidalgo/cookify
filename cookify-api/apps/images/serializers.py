@@ -1,4 +1,3 @@
-import cloudinary
 from rest_framework import serializers
 
 from .models import Image
@@ -16,9 +15,3 @@ class ImageSerializer(serializers.ModelSerializer):
         representation.pop("image")
 
         return representation
-
-    def delete(self, instance):
-        cloudinary.uploader.destroy(instance.image.public_id, invalidate=True)
-        super().delete(instance)
-
-        return "OK"

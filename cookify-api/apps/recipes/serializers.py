@@ -5,8 +5,10 @@ from apps.preparation_steps.models import PreparationStep
 from apps.preparation_steps.serializers import PreparationStepSerializer
 from apps.users.serializers import UserSerializer
 from rest_framework import serializers
-from utils.exceptions import (IngredientNotInRecipeException,
-                              PreparationStepNotInRecipeException)
+from utils.exceptions import (
+    IngredientNotInRecipeException,
+    PreparationStepNotInRecipeException,
+)
 from utils.functions import attempt_json_deserialize
 
 from .models import Recipe
@@ -82,8 +84,3 @@ class RecipeSerializer(serializers.ModelSerializer):
             PreparationStep.objects.filter(pk=data["id"]).update(**data)
 
         return recipe
-
-    def delete(self, instance):
-        super().delete(instance)
-
-        return "OK"
