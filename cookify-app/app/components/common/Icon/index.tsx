@@ -5,9 +5,7 @@ import { HUES } from 'app/constants';
 
 import { IconProps } from './types';
 
-export * from './types';
-
-export const Icon: React.FC<IconProps> = ({ name, color, size = 'regular' }) => {
+export const Icon: React.FC<IconProps> = ({ name, color, size = 'medium' }) => {
   return (
     <MaterialIcons
       name={name}
