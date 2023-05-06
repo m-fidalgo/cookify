@@ -13,7 +13,6 @@ class CategoryViewSet(ModelViewSet):
     serializer_class = CategorySerializer
 
     def get_permissions(self):
-        print(self.action)
         if self.action == Constants.list_action:
             return [permissions.AllowAny()]
         return super().get_permissions()

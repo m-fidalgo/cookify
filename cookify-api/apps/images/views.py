@@ -15,7 +15,6 @@ class ImageViewSet(ModelViewSet):
     queryset = Image.objects.all()
     
     def get_permissions(self):
-        print(self.action)
         if self.action == Constants.list_action or Constants.get_action:
             return [permissions.AllowAny()]
         return super().get_permissions()
