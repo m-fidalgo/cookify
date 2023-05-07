@@ -12,6 +12,6 @@ export const BottomBar = styled.View`
   flex-direction: row;
   justify-content: space-around;
   padding: ${PADDING.large} 0;
-  position: absolute;
+  position: fixed;
   width: 100%;
 `;

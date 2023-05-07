@@ -1,6 +1,5 @@
-import { Image } from 'react-native';
-
 import { Difficulty } from './difficulty';
+import { Image } from './image';
 import { Ingredient } from './ingredient';
 import { PreparationStep } from './preparationStep';
 import { User } from './user';

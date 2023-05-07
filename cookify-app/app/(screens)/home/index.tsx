@@ -1,35 +1,50 @@
 import * as React from 'react';
-import { View } from 'react-native';
 
-import { Body, CarouselSection } from 'app/components';
+import { Divider, RecipesPreviewSection } from 'app/components';
 
 const HomeScreen: React.FC = () => {
-  const item = {
-    id: 1,
-    title: 'item',
-    imageUrl: 'https://res.cloudinary.com/dabr0d1ey/hlsjd7ghg9yuxtc01wre',
+  const defaultParams = {
+    page: 1,
+    pageSize: 5,
   };
+
+  const sections = [
+    {
+      title: 'Recentes',
+      params: defaultParams,
+    },
+    {
+      title: 'Recomendados',
+      params: defaultParams,
+    },
+    {
+      title: 'Novos em Massas',
+      params: defaultParams,
+    },
+  ];
 
   const handlePressItem = (id: number) => {
     console.log(id);
   };
 
+  const handlePressSeeMore = () => {
+    console.log('a');
+  };
+
   return (
-    <View>
-      <Body>home</Body>
-      <CarouselSection
-        title="Recentes"
-        data={[item, item, item]}
-        onPressItem={handlePressItem}
-        onPressSeeMore={() => console.log('seemore')}
-      />
-      <CarouselSection
-        title="AA"
-        data={[item, item, item]}
-        onPressItem={handlePressItem}
-        onPressSeeMore={() => console.log('seemore')}
-      />
-    </View>
+    <>
+      <Divider size="extraLarge" />
+      {sections.map(({ title, params }) => {
+        return (
+          <RecipesPreviewSection
+            title={title}
+            params={params}
+            onPressItem={handlePressItem}
+            onPressSeeMore={handlePressSeeMore}
+          />
+        );
+      })}
+    </>
   );
 };
 

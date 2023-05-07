@@ -4,6 +4,8 @@ import { paginationParams } from 'app/utils';
 import { RECIPES_ENDPOINT } from '../config';
 import { SearchRecipesParams, SearchRecipesResponse } from './types';
 
+export * from './types';
+
 export const searchRecipes = async ({ page, pageSize }: SearchRecipesParams) => {
   const params = paginationParams({ page, pageSize });
   return (await request({

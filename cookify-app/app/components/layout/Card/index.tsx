@@ -9,7 +9,7 @@ import { CardProps } from './types';
 export const Card: React.FC<CardProps> = ({ imageUrl, title, small = false, onPress }) => {
   return (
     <CardContainer small={small} onPress={onPress} style={DEFAULT_SHADOW_STYLES}>
-      <CardImage source={{ uri: imageUrl }} />
+      <CardImage source={imageUrl ? { uri: imageUrl } : require('assets/images/noImage.png')} />
       <CardTitleContainer>
         <Subtitle>{title}</Subtitle>
       </CardTitleContainer>

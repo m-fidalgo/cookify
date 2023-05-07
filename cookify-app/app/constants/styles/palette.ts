@@ -1,7 +1,8 @@
 export const HUES = {
   yellow: '#FFA62B',
   white: '#FFFDFA',
-  lightGray: '#EDE7E2',
+  lightGray: '#DADADA',
+  skeletonGray: '#EDE7E2',
   gray: '#868686',
   lightBlue: '#82C0CC',
   blue: '#489FB5',
