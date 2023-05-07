@@ -2,9 +2,8 @@ import styled from 'styled-components/native';
 
 import { BORDER_RADIUS, HUES, PADDING } from 'app/constants/styles';
 
-const DEFAULT_CARD_HEIGHT_IN_PX = 190;
-const DEFAULT_CARD_IMAGE_HEIGHT_IN_PX = 140;
-const DEFAULT_CARD_WIDTH_IN_PX = 260;
+const DEFAULT_CARD_IMAGE_HEIGHT_IN_PX = 200;
+const DEFAULT_CARD_WIDTH_IN_PX = 320;
 const SMALL_CARD_WIDTH_IN_PX = 130;
 
 export type StyleProps = {
@@ -17,7 +16,6 @@ export const CardContainer = styled.TouchableOpacity<StyleProps>`
   border-radius: ${BORDER_RADIUS.small};
   border-width: 1;
   box-sizing: border-box;
-  height: ${DEFAULT_CARD_HEIGHT_IN_PX}px;
   width: ${({ small }) => (small ? SMALL_CARD_WIDTH_IN_PX : DEFAULT_CARD_WIDTH_IN_PX)}px;
 `;
 
