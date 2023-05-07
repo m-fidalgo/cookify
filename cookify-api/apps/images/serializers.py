@@ -9,7 +9,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
-        fields = ("id", "image_url", "image", "recipe")
+        fields = ("id", "image_url", "image", "recipe_id")
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -20,6 +20,6 @@ class ImageSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         request = self.context["request"]
         validated_data["recipe_id"] = attempt_json_deserialize(
-            request.data.get("recipe"), expect_type=int
+            request.data.get("recipe_id"), expect_type=int
         )
         return super().create(validated_data)
