@@ -1,18 +1,18 @@
 import { Slot } from 'expo-router';
-import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BottomBarNavigator } from 'app/components';
 
-const ScreenLayout: React.FC = () => {
+const MainScreensLayout: React.FC = () => {
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
         <Slot />
       </ScrollView>
       <BottomBarNavigator />
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default ScreenLayout;
+export default MainScreensLayout;

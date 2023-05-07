@@ -1,5 +1,5 @@
 import { Slot } from 'expo-router';
-import { SafeAreaView } from 'react-native';
+import { View } from 'react-native';
 import { EventProvider } from 'react-native-outside-press';
 import { RecoilRoot } from 'recoil';
 
@@ -9,9 +9,9 @@ const AppLayout: React.FC = () => {
   return (
     <RecoilRoot>
       <EventProvider style={{ flex: 1 }}>
-        <SafeAreaView style={{ flex: 1, backgroundColor: HUES.white }}>
+        <View style={{ flex: 1, backgroundColor: HUES.white }}>
           <Slot />
-        </SafeAreaView>
+        </View>
       </EventProvider>
     </RecoilRoot>
   );

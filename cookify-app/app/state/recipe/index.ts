@@ -1,6 +1,6 @@
 import { atom, atomFamily, selector } from 'recoil';
 
-import { searchRecipes } from 'app/services';
+import { SearchRecipesResponse, searchRecipes } from 'app/services';
 import { PaginationResponse, Recipe } from 'app/types';
 
 import {
@@ -26,7 +26,7 @@ export const recipePageState = atom<number>({
   default: 1,
 });
 
-export const recipesGetState = selector({
+export const recipesGetState = selector<SearchRecipesResponse>({
   key: SEARCH_RECIPES_KEY,
   get: async ({ get }) => {
     const page = get(recipePageState);

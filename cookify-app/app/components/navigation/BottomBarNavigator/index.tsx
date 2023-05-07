@@ -1,22 +1,24 @@
 import { usePathname, useRouter } from 'expo-router';
 import * as React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useRecoilValue } from 'recoil';
 
 import { Icon } from 'app/components/common';
-import { Body } from 'app/components/typography';
+import { currentUserState } from 'app/state/user';
 import { IconName } from 'app/types';
 
 import { BottomBar } from './styles';
 
 export const BottomBarNavigator: React.FC = () => {
+  const currentUser = useRecoilValue(currentUserState);
   const pathname = usePathname();
   const router = useRouter();
 
   const items: { route: string; icon: IconName }[] = [
     { route: '/home', icon: 'home' },
     { route: '/search', icon: 'search' },
-    { route: '/recipes/new', icon: 'add-circle-outline' },
-    { route: '/user', icon: 'person' },
+    { route: currentUser ? '/recipes/new' : '/auth', icon: 'add-circle-outline' },
+    { route: currentUser ? '/user' : '/auth', icon: 'person' },
   ];
 
   const handleOnPress = (route: string) => {
