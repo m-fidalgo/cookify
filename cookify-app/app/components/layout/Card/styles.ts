@@ -27,6 +27,6 @@ export const CardImage = styled.Image`
 `;
 
 export const CardTitleContainer = styled.View`
-  width: 100%;
   padding: ${PADDING.medium};
+  width: 100%;
 `;

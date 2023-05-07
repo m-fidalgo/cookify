@@ -11,7 +11,7 @@ export const Card: React.FC<CardProps> = ({ imageUrl, title, small = false, onPr
     <CardContainer small={small} onPress={onPress} style={DEFAULT_SHADOW_STYLES}>
       <CardImage source={imageUrl ? { uri: imageUrl } : require('assets/images/noImage.png')} />
       <CardTitleContainer>
-        <Subtitle>{title}</Subtitle>
+        <Subtitle numberOfLines={1}>{title}</Subtitle>
       </CardTitleContainer>
     </CardContainer>
   );
