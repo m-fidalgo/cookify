@@ -1,15 +1,14 @@
 import { request } from 'app/services/config';
-import { paginationParams } from 'app/utils';
 
 import { RECIPES_ENDPOINT } from '../config';
 import { SearchRecipesParams, SearchRecipesResponse } from './types';
 
 export * from './types';
 
-export const searchRecipes = async ({ page, pageSize }: SearchRecipesParams) => {
-  const params = paginationParams({ page, pageSize });
+export const searchRecipes = async (params: SearchRecipesParams) => {
   return (await request({
-    path: `${RECIPES_ENDPOINT}${params}`,
+    path: RECIPES_ENDPOINT,
     method: 'get',
+    params,
   })) as SearchRecipesResponse;
 };

@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '@env';
 import axios from 'axios';
+import applyCaseMiddleware from 'axios-case-converter';
 
 import { RequestMethod } from 'app/types';
 
@@ -7,19 +8,23 @@ type RequestParams = {
   path: string;
   method: RequestMethod;
   data?: object;
+  params?: object;
 };
 
-const api = axios.create({
-  baseURL: API_BASE_URL,
-});
+const api = applyCaseMiddleware(
+  axios.create({
+    baseURL: API_BASE_URL,
+  })
+);
 
 export const request = async ({
   path,
   method,
   data,
+  params,
 }: RequestParams): Promise<object | undefined> => {
   try {
-    const response = await api.request({ url: path, method, data });
+    const response = await api.request({ url: path, method, data, params });
     return response.data;
   } catch (error) {
     // console.log(error);
