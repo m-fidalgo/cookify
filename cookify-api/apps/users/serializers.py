@@ -48,6 +48,12 @@ class UserTokenPairSerializer(TokenObtainPairSerializer):
         user.save()
         return token
 
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data["id"] = self.user.id
+        data["name"] = self.user.name
+        return data
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
