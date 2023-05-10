@@ -16,7 +16,7 @@ export const CardContainer = styled.View`
   padding: 0 ${PADDING.extraLarge};
 `;
 
-export const SeeMoreButton = styled.TouchableOpacity`
+export const SeeMoreButtonContainer = styled.View`
   align-items: center;
   height: 100%;
   justify-content: center;

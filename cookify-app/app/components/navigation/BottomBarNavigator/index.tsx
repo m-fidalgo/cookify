@@ -1,8 +1,7 @@
 import { usePathname, useRouter } from 'expo-router';
-import { TouchableOpacity } from 'react-native';
 import { useRecoilValue } from 'recoil';
 
-import { Icon } from 'app/components/common';
+import { IconButton } from 'app/components/common';
 import { currentUserState } from 'app/state/user';
 import { IconName } from 'app/types';
 
@@ -28,9 +27,12 @@ export const BottomBarNavigator: React.FC = () => {
     <BottomBar>
       {items.map(({ route, icon }, index) => {
         return (
-          <TouchableOpacity key={index} onPress={() => handleOnPress(route)}>
-            <Icon name={icon} color={pathname === route ? 'yellow' : 'gray'} />
-          </TouchableOpacity>
+          <IconButton
+            key={index}
+            onPress={() => handleOnPress(route)}
+            name={icon}
+            color={pathname === route ? 'yellow' : 'gray'}
+          />
         );
       })}
     </BottomBar>

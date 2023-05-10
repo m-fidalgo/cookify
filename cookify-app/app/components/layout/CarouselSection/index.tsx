@@ -1,12 +1,12 @@
 import { Dimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
-import { Icon, NoResults } from 'app/components/common';
+import { Icon, IconButton, NoResults } from 'app/components/common';
 import { Title } from 'app/components/typography';
 
 import { Card } from '../Card';
 import { CAROUSEL_HEIGHT, SCROLLING_OFFSET, SCROLLING_SCALE } from './config';
-import { CardContainer, SectionContainer, SeeMoreButton, TitleContainer } from './styles';
+import { CardContainer, SectionContainer, SeeMoreButtonContainer, TitleContainer } from './styles';
 import { CarouselSectionProps } from './types';
 
 export * from './skeleton';
@@ -47,9 +47,14 @@ export const CarouselSection: React.FC<CarouselSectionProps> = ({
                 onPress={() => onPressItem(item.id)}
               />
               {index === data.length - 1 && (
-                <SeeMoreButton onPress={onPressSeeMore}>
-                  <Icon name="chevron-right" color="aqua" size="large" />
-                </SeeMoreButton>
+                <SeeMoreButtonContainer>
+                  <IconButton
+                    onPress={onPressSeeMore}
+                    name="chevron-right"
+                    color="aqua"
+                    size="large"
+                  />
+                </SeeMoreButtonContainer>
               )}
             </CardContainer>
           )}

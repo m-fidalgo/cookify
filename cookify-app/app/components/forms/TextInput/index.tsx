@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Keyboard, TouchableOpacity } from 'react-native';
+import { Keyboard } from 'react-native';
 import OutsidePressHandler from 'react-native-outside-press';
 
-import { Icon } from 'app/components/common';
+import { Icon, IconButton } from 'app/components/common';
 import { HUES } from 'app/constants';
 
 import { StyledTextInput, TextInputContainer } from './styles';
@@ -35,9 +35,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           value={value}
         />
         {value && !hideClearButton && (
-          <TouchableOpacity onPress={() => onChange()}>
-            <Icon name="close" size="small" color="gray" />
-          </TouchableOpacity>
+          <IconButton onPress={() => onChange()} name="close" size="small" color="gray" />
         )}
       </TextInputContainer>
     </OutsidePressHandler>
