@@ -9,6 +9,7 @@ type RequestParams = {
   method: RequestMethod;
   data?: object;
   params?: object;
+  onError?: (e: any) => void;
 };
 
 const api = applyCaseMiddleware(
@@ -22,11 +23,12 @@ export const request = async ({
   method,
   data,
   params,
+  onError,
 }: RequestParams): Promise<object | undefined> => {
   try {
     const response = await api.request({ url: path, method, data, params });
     return response.data;
   } catch (error) {
-    // console.log(error);
+    onError?.(error);
   }
 };

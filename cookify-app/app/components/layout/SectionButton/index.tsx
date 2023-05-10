@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { Icon } from 'app/components/common';
 import { Subtitle } from 'app/components/typography';
 

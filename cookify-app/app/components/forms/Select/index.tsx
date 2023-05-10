@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { Keyboard } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
-import OutsidePressHandler from 'react-native-outside-press';
 
 import { Small } from 'app/components/typography';
-import { HUES } from 'app/constants';
 
 import { TextInput } from '../TextInput';
 import { InputContainer, ItemContainer, SelectContainer, selectStyles } from './styles';

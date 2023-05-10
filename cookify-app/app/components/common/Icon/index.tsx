@@ -1,5 +1,4 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import * as React from 'react';
 
 import { HUES } from 'app/constants';
 

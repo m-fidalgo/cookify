@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { Divider, RecipesPreviewSection } from 'app/components';
 
 const HomeScreen: React.FC = () => {

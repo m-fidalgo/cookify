@@ -1,5 +1,4 @@
 import { usePathname, useRouter } from 'expo-router';
-import * as React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useRecoilValue } from 'recoil';
 

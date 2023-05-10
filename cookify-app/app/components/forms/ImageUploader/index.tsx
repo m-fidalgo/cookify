@@ -1,5 +1,4 @@
 import * as ImagePicker from 'expo-image-picker';
-import * as React from 'react';
 
 import { Icon } from 'app/components/common';
 

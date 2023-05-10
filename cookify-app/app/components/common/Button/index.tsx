@@ -1,7 +1,5 @@
-import * as React from 'react';
-
 import { Body } from 'app/components/typography';
-import { HUES, Hue } from 'app/constants';
+import { Hue } from 'app/constants';
 
 import { ButtonContainer } from './styles';
 import { ButtonProps } from './types';

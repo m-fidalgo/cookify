@@ -18,3 +18,8 @@ export const AuthContentView = styled(SafeAreaView)`
   position: absolute;
   width: 100%;
 `;
+
+export const Logo = styled.Image`
+  resize-mode: contain;
+  width: 30%;
+`;
