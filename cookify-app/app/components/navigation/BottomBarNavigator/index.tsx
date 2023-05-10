@@ -15,8 +15,8 @@ export const BottomBarNavigator: React.FC = () => {
   const items: { route: string; icon: IconName }[] = [
     { route: '/home', icon: 'home' },
     { route: '/search', icon: 'search' },
-    { route: currentUser ? '/recipes/new' : '/auth', icon: 'add-circle-outline' },
-    { route: currentUser ? '/user' : '/auth', icon: 'person' },
+    { route: currentUser ? '/recipes/new' : '/login', icon: 'add-circle-outline' },
+    { route: currentUser ? '/user' : '/login', icon: 'person' },
   ];
 
   const handleOnPress = (route: string) => {
