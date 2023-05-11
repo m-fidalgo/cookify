@@ -4,6 +4,7 @@ from apps.ingredients.models import Ingredient
 from apps.ingredients.serializers import IngredientSerializer
 from apps.preparation_steps.models import PreparationStep
 from apps.preparation_steps.serializers import PreparationStepSerializer
+from apps.users.models import User
 from apps.users.serializers import UserSerializer
 from rest_framework import serializers
 from utils.exceptions import (
@@ -87,3 +88,8 @@ class RecipeSerializer(serializers.ModelSerializer):
             PreparationStep.objects.filter(pk=data["id"]).update(**data)
 
         return recipe
+
+    def list(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)

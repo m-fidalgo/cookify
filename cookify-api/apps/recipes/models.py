@@ -1,5 +1,6 @@
 from apps.categories.models import Category
 from django.db import models
+from django.db.models import Count
 from utils.constants import Fields
 
 
@@ -33,3 +34,13 @@ class Recipe(models.Model):
             title="default recipe", time=0, difficulty=0
         )
         return exam.pk
+
+    @classmethod
+    def filter_by_recommended(self, queryset):
+        return queryset.annotate(liked_by_count=Count("user")).order_by(
+            "-liked_by_count"
+        )
+
+    @classmethod
+    def filter_by_categories(self, queryset, category_ids):
+        return queryset.filter(categories__pk__in=category_ids)

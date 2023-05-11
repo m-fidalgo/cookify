@@ -12,3 +12,8 @@ class Actions(Enum):
 
 class Fields(Enum):
     MAX_CHAR_FIELD_LENGTH = 150
+
+
+class SortDirections(Enum):
+    ASC = "ASC"
+    DESC = "DESC"
