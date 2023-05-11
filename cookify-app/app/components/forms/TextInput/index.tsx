@@ -14,6 +14,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   keyboardType,
   multiline = false,
   placeholder,
+  secureTextEntry = false,
   value,
   onChange,
 }) => {
@@ -31,6 +32,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           onBlur={() => setFocused(false)}
           onChangeText={onChange}
           onFocus={() => setFocused(true)}
+          secureTextEntry={secureTextEntry}
           style={{ textAlignVertical: 'top' }}
           value={value}
         />

@@ -15,12 +15,14 @@ export const BottomBarNavigator: React.FC = () => {
   const items: { route: string; icon: IconName }[] = [
     { route: '/home', icon: 'home' },
     { route: '/search', icon: 'search' },
-    { route: currentUser ? '/recipes/new' : '/login', icon: 'add-circle-outline' },
-    { route: currentUser ? '/user' : '/login', icon: 'person' },
+    { route: '/recipes/new', icon: 'add-circle-outline' },
+    { route: '/user', icon: 'person' },
   ];
 
   const handleOnPress = (route: string) => {
-    if (pathname !== route) router.push(route);
+    if (pathname === route) return;
+    if (!currentUser) router.push({ pathname: '/login', params: { route } });
+    else router.push(route);
   };
 
   return (

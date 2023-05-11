@@ -8,6 +8,7 @@ export type TextInputProps = {
   keyboardType?: KeyboardType;
   multiline?: boolean;
   placeholder?: string;
+  secureTextEntry?: boolean;
   value?: string;
   onChange: (value?: string) => void;
 };

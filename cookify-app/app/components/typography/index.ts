@@ -33,3 +33,7 @@ export const Small = styled.Text<TypographyProps>`
   line-height: 18px;
   color: ${({ color = 'black' }) => HUES[color]};
 `;
+
+export const Error = styled(Small)<TypographyProps>`
+  align-self: center;
+`;

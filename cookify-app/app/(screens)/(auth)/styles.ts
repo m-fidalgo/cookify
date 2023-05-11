@@ -7,7 +7,7 @@ export const RoundView = styled.View`
   background-color: ${HUES.yellow};
   border-bottom-right-radius: 200%;
   border-bottom-left-radius: 200%;
-  height: 70%;
+  height: 75%;
   position: sticky;
 `;
 
