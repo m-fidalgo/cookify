@@ -3,6 +3,7 @@ from django.db.models.functions import Now
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User
 
@@ -35,8 +36,16 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         )
         user.name = validated_data["name"]
         user.save()
-
         return user
+
+    def to_representation(self, instance):
+        refresh = RefreshToken.for_user(instance)
+        return {
+            "id": instance.id,
+            "name": instance.name,
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }
 
 
 class UserTokenPairSerializer(TokenObtainPairSerializer):

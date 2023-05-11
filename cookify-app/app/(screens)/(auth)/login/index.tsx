@@ -36,9 +36,7 @@ const LoginScreen: React.FC = () => {
   };
 
   React.useEffect(() => {
-    if (errors?.email?.message) setErrorMesage(errors.email.message);
-    else if (errors?.password?.message) setErrorMesage(errors.password.message);
-    else setErrorMesage('');
+    setErrorMesage(errors?.email?.message || errors?.password?.message || '');
   }, [errors.email, errors.password]);
 
   return (
