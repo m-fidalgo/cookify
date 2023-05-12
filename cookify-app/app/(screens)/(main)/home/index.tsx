@@ -1,39 +1,24 @@
+import { useRouter } from 'expo-router';
+import { useSetRecoilState } from 'recoil';
+
 import { Divider, RecipesPreviewSection } from 'app/components';
-import { SearchRecipesParams } from 'app/services';
+import { getRecipe } from 'app/services';
+import { currentRecipeState } from 'app/state/recipe';
+
+import { sections } from './config';
 
 const HomeScreen: React.FC = () => {
-  const defaultParams: SearchRecipesParams = {
-    page: 1,
-    pageSize: 5,
-  };
+  const router = useRouter();
+  const setCurrentRecipe = useSetRecoilState(currentRecipeState);
 
-  const sections = [
-    {
-      title: 'Recentes',
-      params: defaultParams,
-    },
-    {
-      title: 'Recomendados',
-      params: {
-        ...defaultParams,
-        sortBy: 'popular',
-      },
-    },
-    {
-      title: 'Novos em Massas',
-      params: {
-        ...defaultParams,
-        categoryIds: [10],
-      },
-    },
-  ];
-
-  const handlePressItem = (id: number) => {
-    console.log(id);
+  const setRecipe = async (id: number) => {
+    router.push('/recipe');
+    const recipe = await getRecipe(id);
+    if (recipe) setCurrentRecipe(recipe);
   };
 
   const handlePressSeeMore = () => {
-    console.log('a');
+    router.push('/search');
   };
 
   return (
@@ -44,7 +29,7 @@ const HomeScreen: React.FC = () => {
           <RecipesPreviewSection
             title={title}
             params={params}
-            onPressItem={handlePressItem}
+            onPressItem={setRecipe}
             onPressSeeMore={handlePressSeeMore}
           />
         );

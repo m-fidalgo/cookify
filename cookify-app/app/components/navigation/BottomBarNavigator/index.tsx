@@ -12,26 +12,26 @@ export const BottomBarNavigator: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const items: { route: string; icon: IconName }[] = [
+  const items: { route: string; icon: IconName; requiresAuth?: boolean }[] = [
     { route: '/home', icon: 'home' },
     { route: '/search', icon: 'search' },
-    { route: '/recipes/new', icon: 'add-circle-outline' },
-    { route: '/user', icon: 'person' },
+    { route: '/recipes/new', icon: 'add-circle-outline', requiresAuth: true },
+    { route: '/user', icon: 'person', requiresAuth: true },
   ];
 
-  const handleOnPress = (route: string) => {
+  const handleOnPress = (route: string, requiresAuth?: boolean) => {
     if (pathname === route) return;
-    if (!currentUser) router.push({ pathname: '/login', params: { route } });
+    if (requiresAuth && !currentUser) router.push({ pathname: '/login', params: { route } });
     else router.push(route);
   };
 
   return (
     <BottomBar>
-      {items.map(({ route, icon }, index) => {
+      {items.map(({ route, icon, requiresAuth }, index) => {
         return (
           <IconButton
             key={index}
-            onPress={() => handleOnPress(route)}
+            onPress={() => handleOnPress(route, requiresAuth)}
             name={icon}
             color={pathname === route ? 'yellow' : 'gray'}
           />
