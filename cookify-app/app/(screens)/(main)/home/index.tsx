@@ -1,7 +1,8 @@
 import { Divider, RecipesPreviewSection } from 'app/components';
+import { SearchRecipesParams } from 'app/services';
 
 const HomeScreen: React.FC = () => {
-  const defaultParams = {
+  const defaultParams: SearchRecipesParams = {
     page: 1,
     pageSize: 5,
   };
@@ -13,11 +14,17 @@ const HomeScreen: React.FC = () => {
     },
     {
       title: 'Recomendados',
-      params: defaultParams,
+      params: {
+        ...defaultParams,
+        sortBy: 'popular',
+      },
     },
     {
       title: 'Novos em Massas',
-      params: defaultParams,
+      params: {
+        ...defaultParams,
+        categoryIds: [10],
+      },
     },
   ];
 

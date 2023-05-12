@@ -25,11 +25,11 @@ class RecipeViewSet(ModelViewSet):
 
         params = request.query_params
         sort_direction = params.get("sort_direction") or SortDirections.ASC.value
-        sort_by = params.get("sort_by") or "title"
+        sort_by = params.get("sort_by") or "-created_at"
         category_ids = params.get("category_ids")
 
-        if params.get("sort_by") == "recommended":
-            queryset = Recipe.filter_by_recommended(queryset)
+        if params.get("sort_by") == "popular":
+            queryset = Recipe.order_by_popular(queryset)
         else:
             if sort_direction.upper() == SortDirections.DESC.value:
                 sort_by = "-" + sort_by

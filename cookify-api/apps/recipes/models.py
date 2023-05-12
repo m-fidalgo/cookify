@@ -36,7 +36,7 @@ class Recipe(models.Model):
         return exam.pk
 
     @classmethod
-    def filter_by_recommended(self, queryset):
+    def order_by_popular(self, queryset):
         return queryset.annotate(liked_by_count=Count("user")).order_by(
             "-liked_by_count"
         )

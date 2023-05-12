@@ -1,5 +1,11 @@
-import { PaginatedResponse, PaginationParams, Recipe } from 'app/types';
+import { PaginatedResponse, PaginationParams, Recipe, SortDirection } from 'app/types';
 
-export type SearchRecipesParams = PaginationParams;
+type RecipeSortBy = 'popular' | 'created_at';
+
+export type SearchRecipesParams = PaginationParams & {
+  sortDirection?: SortDirection;
+  sortBy?: RecipeSortBy;
+  categoryIds?: number[];
+};
 
 export type SearchRecipesResponse = PaginatedResponse<Recipe>;

@@ -9,6 +9,9 @@ export const searchRecipes = async (params: SearchRecipesParams) => {
   return (await request({
     path: RECIPES_ENDPOINT,
     method: 'get',
-    params,
+    params: {
+      ...params,
+      categoryIds: params.categoryIds ? params.categoryIds.join(',') : undefined,
+    },
   })) as SearchRecipesResponse;
 };
