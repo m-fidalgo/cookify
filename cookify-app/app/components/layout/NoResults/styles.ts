@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { PADDING } from 'app/constants';
+import { SIZES } from 'app/constants';
 
 export type StyleProps = {
   heightInPx: number;
@@ -14,5 +14,5 @@ export const NoResultsContainer = styled.View<StyleProps>`
 `;
 
 export const IconContainer = styled.View`
-  padding-bottom: ${PADDING.medium};
+  padding-bottom: ${SIZES.medium};
 `;

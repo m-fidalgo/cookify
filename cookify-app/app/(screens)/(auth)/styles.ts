@@ -1,7 +1,7 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
-import { HUES, PADDING, Z_INDEX } from 'app/constants';
+import { HUES, SIZES, Z_INDEX } from 'app/constants';
 
 export const RoundView = styled.View`
   background-color: ${HUES.yellow};
@@ -15,13 +15,13 @@ export const AuthContentView = styled(SafeAreaView)`
   align-items: center;
   height: 100%;
   justify-content: space-around;
-  padding: 80px 0 ${PADDING.extraLarge} 0;
+  padding: 80px 0 ${SIZES.extraLarge} 0;
   position: absolute;
   width: 100%;
 `;
 
 export const GoBackButtonContainer = styled(SafeAreaView)`
-  padding: ${PADDING.large};
+  padding: ${SIZES.large};
   position: absolute;
   right: 0;
   z-index: ${Z_INDEX.small};
@@ -34,7 +34,7 @@ export const Logo = styled.Image`
 `;
 
 export const InputsContainer = styled.View`
-  gap: ${PADDING.extraLarge};
+  gap: ${SIZES.extraLarge};
   width: 70%;
 `;
 

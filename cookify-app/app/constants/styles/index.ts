@@ -1,5 +1,5 @@
 export * from './border';
-export * from './padding';
+export * from './sizes';
 export * from './palette';
 export * from './shadow';
 export * from './typography';

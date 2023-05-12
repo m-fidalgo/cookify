@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { BORDER_RADIUS, HUES, PADDING, Z_INDEX } from 'app/constants';
+import { BORDER_RADIUS, HUES, SIZES, Z_INDEX } from 'app/constants';
 
 const IMAGE_UPLOADER_SIZE_IN_PX = 150;
 const ICON_OFFSET_IN_PX = 5;
@@ -24,7 +24,7 @@ export const Image = styled.Image`
 export const IconContainer = styled.View`
   background-color: ${HUES.white};
   border-radius: ${BORDER_RADIUS.circle};
-  padding: ${PADDING.extraSmall};
+  padding: ${SIZES.extraSmall};
   position: absolute;
   right: ${ICON_OFFSET_IN_PX}px;
   top: ${ICON_OFFSET_IN_PX}px;

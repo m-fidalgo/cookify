@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-import { BORDER_RADIUS, DEFAULT_SHADOW_STYLES, HUES, PADDING } from 'app/constants';
+import { BORDER_RADIUS, DEFAULT_SHADOW_STYLES, HUES, SIZES } from 'app/constants';
 
 const SELECT_DROPDOWN_MAX_HEIGHT_IN_PX = 300;
 const SELECT_INPUT_MIN_WIDTH_IN_PX = 200;
@@ -30,13 +30,13 @@ export const SelectContainer = styled.View<StyleProps>`
   border-color: ${({ focused = false }) => (focused ? HUES.lightBlue : HUES.lightGray)};
   border-radius: ${BORDER_RADIUS.small};
   border-width: 1;
-  padding: 0 ${PADDING.small};
+  padding: 0 ${SIZES.small};
 `;
 
 export const InputContainer = styled.View`
-  padding: ${PADDING.small};
+  padding: ${SIZES.small};
 `;
 
 export const ItemContainer = styled.View`
-  padding: ${PADDING.medium};
+  padding: ${SIZES.medium};
 `;

@@ -1,10 +1,11 @@
 import { Dimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
-import { Icon, IconButton, NoResults } from 'app/components/common';
+import { IconButton } from 'app/components/common';
 import { Title } from 'app/components/typography';
 
 import { Card } from '../Card';
+import { NoResults } from '../NoResults';
 import { CAROUSEL_HEIGHT, SCROLLING_OFFSET, SCROLLING_SCALE } from './config';
 import { CardContainer, SectionContainer, SeeMoreButtonContainer, TitleContainer } from './styles';
 import { CarouselSectionProps } from './types';

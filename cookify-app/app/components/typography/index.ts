@@ -6,6 +6,10 @@ export type TypographyProps = {
   color?: Hue;
 };
 
+type BodyProps = {
+  bold?: boolean;
+};
+
 export const Title = styled.Text<TypographyProps>`
   font-family: ${TYPOGRAPHY.Bold};
   font-size: 26px;
@@ -20,8 +24,8 @@ export const Subtitle = styled.Text<TypographyProps>`
   color: ${({ color = 'black' }) => HUES[color]};
 `;
 
-export const Body = styled.Text<TypographyProps>`
-  font-family: ${TYPOGRAPHY.Regular};
+export const Body = styled.Text<TypographyProps & BodyProps>`
+  font-family: ${({ bold = false }) => (bold ? TYPOGRAPHY.Regular : TYPOGRAPHY.Light)};
   font-size: 18px;
   line-height: 20px;
   color: ${({ color = 'black' }) => HUES[color]};

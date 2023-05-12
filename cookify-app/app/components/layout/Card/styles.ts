@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { BORDER_RADIUS, HUES, PADDING } from 'app/constants/styles';
+import { BORDER_RADIUS, HUES, SIZES } from 'app/constants/styles';
 
 const DEFAULT_CARD_IMAGE_HEIGHT_IN_PX = 200;
 const DEFAULT_CARD_WIDTH_IN_PX = 320;
@@ -27,6 +27,6 @@ export const CardImage = styled.Image`
 `;
 
 export const CardTitleContainer = styled.View`
-  padding: ${PADDING.medium};
+  padding: ${SIZES.medium};
   width: 100%;
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { BORDER_RADIUS, HUES, PADDING } from 'app/constants';
+import { BORDER_RADIUS, HUES, SIZES } from 'app/constants';
 
 const INPUT_MIN_WIDTH_IN_PX = 100;
 
@@ -18,7 +18,7 @@ export const TextInputContainer = styled.View<StyleProps>`
   justify-content: space-between;
   flex-direction: row;
   min-width: ${INPUT_MIN_WIDTH_IN_PX}px;
-  padding: ${PADDING.small};
+  padding: ${SIZES.small};
 `;
 
 export const StyledTextInput = styled.TextInput`

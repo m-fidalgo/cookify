@@ -1,24 +1,24 @@
 import styled from 'styled-components/native';
 
-import { PADDING } from 'app/constants';
+import { SIZES } from 'app/constants';
 
 export const SectionContainer = styled.View`
-  padding: ${PADDING.medium} 0;
+  padding: ${SIZES.medium} 0;
 `;
 
 export const TitleContainer = styled.View`
-  padding: ${PADDING.extraLarge};
+  padding: ${SIZES.extraLarge};
   padding-top: 0;
 `;
 
 export const CardContainer = styled.View`
   flex-direction: row;
-  padding: 0 ${PADDING.extraLarge};
+  padding: 0 ${SIZES.extraLarge};
 `;
 
 export const SeeMoreButtonContainer = styled.View`
   align-items: center;
   height: 100%;
   justify-content: center;
-  padding-left: ${PADDING.large};
+  padding-left: ${SIZES.large};
 `;

@@ -1,6 +1,6 @@
+import { Icon } from 'app/components/common';
 import { Body } from 'app/components/typography';
 
-import { Icon } from '../Icon';
 import { IconContainer, NoResultsContainer } from './styles';
 import { NoResultsProps } from './types';
 

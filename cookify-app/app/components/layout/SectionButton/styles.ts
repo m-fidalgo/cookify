@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { BORDER_RADIUS, HUES, Hue, PADDING } from 'app/constants';
+import { BORDER_RADIUS, HUES, Hue, SIZES } from 'app/constants';
 
 export type StyleProps = {
   color: Hue;
@@ -13,6 +13,6 @@ export const SectionButtonContainer = styled.TouchableOpacity<StyleProps>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: ${PADDING.medium} ${PADDING.extraSmall} ${PADDING.medium} ${PADDING.medium};
+  padding: ${SIZES.medium} ${SIZES.extraSmall} ${SIZES.medium} ${SIZES.medium};
   width: 100%;
 `;

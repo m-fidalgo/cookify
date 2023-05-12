@@ -12,7 +12,9 @@ export const Button: React.FC<React.PropsWithChildren<ButtonProps>> = ({
 }) => {
   return (
     <ButtonContainer color={color} variant={variant} onPress={onPress}>
-      <Body color={(variant === 'solid' ? 'white' : color) as Hue}>{children}</Body>
+      <Body bold color={(variant === 'solid' ? 'white' : color) as Hue}>
+        {children}
+      </Body>
     </ButtonContainer>
   );
 };

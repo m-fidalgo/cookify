@@ -1,8 +1,8 @@
 import { ObjectType } from 'app/types';
 
-export type Padding = 'extraSmall' | 'small' | 'medium' | 'large' | 'extraLarge';
+export type Size = 'extraSmall' | 'small' | 'medium' | 'large' | 'extraLarge';
 
-export const PADDING: ObjectType<Padding> = {
+export const SIZES: ObjectType<Size> = {
   extraSmall: '4px',
   small: '8px',
   medium: '12px',
