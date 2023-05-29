@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from utils.constants import Actions, SortDirections
@@ -64,3 +65,17 @@ class RecipeViewSet(ModelViewSet):
         recipe = get_object_or_404(queryset, pk=pk)
         serializer = self.get_serializer(recipe)
         return Response(serializer.data)
+
+    @action(detail=True, methods=["post"])
+    def save(self, request, *args, **kwargs):
+        recipe = self.get_object()
+        user = request.user
+        user.saved_recipes.add(recipe)
+        return Response(data="Success")
+
+    @action(detail=True, methods=["post"])
+    def remove(self, request, *args, **kwargs):
+        recipe = self.get_object()
+        user = request.user
+        user.saved_recipes.remove(recipe)
+        return Response(data="Success")

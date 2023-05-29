@@ -24,9 +24,10 @@ const HomeScreen: React.FC = () => {
   return (
     <>
       <Divider size="extraLarge" />
-      {sections.map(({ title, params }) => {
+      {sections.map(({ title, params }, index) => {
         return (
           <RecipesPreviewSection
+            key={index}
             title={title}
             params={params}
             onPressItem={setRecipe}

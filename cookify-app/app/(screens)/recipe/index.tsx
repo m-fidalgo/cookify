@@ -55,7 +55,11 @@ const RecipeScreen: React.FC = () => {
               </Title>
               {currentUser && (
                 <LikeButtonContainer>
-                  <IconButton color="yellow" name="favorite" onPress={() => {}} />
+                  <IconButton
+                    color="yellow"
+                    name={currentRecipe.isLiked ? 'favorite' : 'favorite-outline'}
+                    onPress={() => {}}
+                  />
                 </LikeButtonContainer>
               )}
             </TitleView>

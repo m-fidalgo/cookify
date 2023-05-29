@@ -9,6 +9,7 @@ export type Recipe = {
   title: string;
   time: number;
   servings: string;
+  isLiked?: boolean;
   creator: User;
   difficulty: Difficulty;
   categories: [];
