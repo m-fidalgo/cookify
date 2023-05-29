@@ -44,3 +44,9 @@ class Recipe(models.Model):
     @classmethod
     def filter_by_categories(self, queryset, category_ids):
         return queryset.filter(categories__pk__in=category_ids)
+
+    @classmethod
+    def check_is_liked_by_user(self, queryset, user):
+        return queryset.annotate(
+            is_liked=models.Exists(user.saved_recipes.filter(id=models.OuterRef("pk")))
+        )

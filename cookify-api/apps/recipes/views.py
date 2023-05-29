@@ -1,4 +1,6 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import permissions
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from utils.constants import Actions, SortDirections
 
@@ -40,6 +42,10 @@ class RecipeViewSet(ModelViewSet):
                 queryset=queryset, category_ids=category_ids.split(",")
             )
 
+        user = request.user
+        if user is not None:
+            queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
+
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
@@ -47,3 +53,14 @@ class RecipeViewSet(ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return serializer.data
+
+    def retrieve(self, request, pk):
+        queryset = self.get_queryset()
+
+        user = request.user
+        if user is not None:
+            queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
+
+        recipe = get_object_or_404(queryset, pk=pk)
+        serializer = self.get_serializer(recipe)
+        return Response(serializer.data)

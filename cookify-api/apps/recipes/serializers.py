@@ -22,6 +22,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     ingredients = IngredientSerializer(read_only=True, many=True)
     preparation_steps = PreparationStepSerializer(read_only=True, many=True)
     images = ImageSerializer(read_only=True, many=True)
+    is_liked = serializers.BooleanField()
 
     class Meta:
         model = Recipe
@@ -36,6 +37,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             "categories",
             "preparation_steps",
             "images",
+            "is_liked",
         )
 
     def create(self, validated_data):
@@ -89,7 +91,8 @@ class RecipeSerializer(serializers.ModelSerializer):
 
         return recipe
 
-    def list(self, request):
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
+
+class RecipeWithLikedSerializer(RecipeSerializer):
+    class Meta:
+        model = Recipe
+        fields = super
