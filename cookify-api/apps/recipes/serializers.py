@@ -32,12 +32,12 @@ class RecipeSerializer(serializers.ModelSerializer):
             "time",
             "servings",
             "difficulty",
+            "is_liked",
             "creator",
             "ingredients",
             "categories",
             "preparation_steps",
             "images",
-            "is_liked",
         )
 
     def create(self, validated_data):
