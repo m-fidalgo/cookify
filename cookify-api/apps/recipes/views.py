@@ -44,9 +44,7 @@ class RecipeViewSet(ModelViewSet):
             )
 
         user = request.user
-        print(user)
         if user is not None and user.is_anonymous == False:
-            print("here")
             queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
 
         page = self.paginate_queryset(queryset)
