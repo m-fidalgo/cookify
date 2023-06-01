@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework.decorators import action
@@ -10,7 +11,6 @@ from .serializers import RecipeSerializer
 
 
 class RecipeViewSet(ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
 
@@ -21,7 +21,7 @@ class RecipeViewSet(ModelViewSet):
         ):
             return [permissions.AllowAny()]
 
-        return super().get_permissions()
+        return [permissions.IsAuthenticated()]
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -44,7 +44,7 @@ class RecipeViewSet(ModelViewSet):
             )
 
         user = request.user
-        if user is not None:
+        if request.auth is not None and user is not None:
             queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
 
         page = self.paginate_queryset(queryset)
@@ -59,7 +59,7 @@ class RecipeViewSet(ModelViewSet):
         queryset = self.get_queryset()
 
         user = request.user
-        if user is not None:
+        if request.auth is not None and user is not None:
             queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
 
         recipe = get_object_or_404(queryset, pk=pk)
