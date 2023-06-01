@@ -4,6 +4,6 @@ export type User = {
 };
 
 export type AuthUser = User & {
-  access: string;
+  access?: string;
   refresh?: string;
 };

@@ -19,16 +19,14 @@ export const RecipesPreviewSection: React.FC<RecipesPreviewSectionProps> = ({
     setLoading(true);
     const response = await searchRecipes(params);
 
-    if (!response) return [];
-
-    const recipes = response.results.map(({ id, title, images }) => {
+    const recipes = response?.results.map(({ id, title, images }) => {
       return {
         id,
         title,
         imageUrl: images[0]?.imageUrl,
       };
     });
-    setFormattedRecipes(recipes);
+    setFormattedRecipes(recipes || []);
     setLoading(false);
   };
 
