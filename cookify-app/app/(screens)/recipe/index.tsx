@@ -55,7 +55,9 @@ const RecipeScreen: React.FC = () => {
     setCurrentRecipe({ ...currentRecipe, isLiked: false });
   };
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    router.push({ pathname: '/recipes', params: { id: currentRecipe.id } });
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
