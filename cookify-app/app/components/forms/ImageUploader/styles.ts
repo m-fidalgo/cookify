@@ -2,23 +2,26 @@ import styled from 'styled-components/native';
 
 import { BORDER_RADIUS, HUES, SIZES, Z_INDEX } from 'app/constants';
 
-const IMAGE_UPLOADER_SIZE_IN_PX = 150;
 const ICON_OFFSET_IN_PX = 5;
 
-export const ImageUploaderContainer = styled.TouchableOpacity`
+export type ImageUploaderStyleProps = {
+  sizeInPx: number;
+};
+
+export const ImageUploaderContainer = styled.TouchableOpacity<ImageUploaderStyleProps>`
   align-items: center;
   border-color: ${HUES.lightGray};
   border-radius: ${BORDER_RADIUS.small};
   border-width: 1;
   justify-content: center;
-  height: ${IMAGE_UPLOADER_SIZE_IN_PX}px;
-  width: ${IMAGE_UPLOADER_SIZE_IN_PX}px;
+  height: ${({ sizeInPx = false }) => `${sizeInPx}px`};
+  width: ${({ sizeInPx = false }) => `${sizeInPx}px`};
 `;
 
-export const Image = styled.Image`
+export const Image = styled.Image<ImageUploaderStyleProps>`
   border-radius: ${BORDER_RADIUS.small};
-  height: ${IMAGE_UPLOADER_SIZE_IN_PX}px;
-  width: ${IMAGE_UPLOADER_SIZE_IN_PX}px;
+  height: ${({ sizeInPx = false }) => `${sizeInPx}px`};
+  width: ${({ sizeInPx = false }) => `${sizeInPx}px`};
 `;
 
 export const IconContainer = styled.View`

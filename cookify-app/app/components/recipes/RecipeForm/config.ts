@@ -16,7 +16,7 @@ export const DEFAULT_VALUES = {
   servings: undefined,
   ingredients: [EMPTY_INGREDIENT, EMPTY_INGREDIENT],
   preparationSteps: [EMPTY_PREPARATION_STEP, EMPTY_PREPARATION_STEP],
-  images: [],
+  images: undefined,
 };
 
 export const getDefaultValuesFromRecipe = (recipe: Recipe) => {
@@ -27,6 +27,6 @@ export const getDefaultValuesFromRecipe = (recipe: Recipe) => {
     servings: recipe.servings,
     ingredients: recipe.ingredients,
     preparationSteps: recipe.preparationSteps,
-    images: [],
+    image: recipe.images.length ? recipe.images[0] : undefined,
   };
 };

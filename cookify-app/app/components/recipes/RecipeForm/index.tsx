@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import {
@@ -10,13 +10,13 @@ import {
   Divider,
   Error,
   IconButton,
+  ImageUploader,
   Select,
   Small,
-  Subtitle,
   TextInput,
   Title,
 } from 'app/components';
-import { createRecipe, getCategories, updateRecipe } from 'app/services';
+import { addImage, createRecipe, deleteImage, getCategories, updateRecipe } from 'app/services';
 import { currentRecipeState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 import { SelectItem } from 'app/types';
@@ -35,11 +35,13 @@ import {
   RemovableFieldContainer,
   Row,
   RowItem,
+  SectionTitle,
 } from './styles';
 import { FormValues, RecipeFormProps } from './types';
 import { calculateDifficulty } from './utils';
 
 export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
+  const width = Dimensions.get('window').width;
   const router = useRouter();
   const currentUser = useRecoilValue(currentUserState);
   const setCurrentRecipe = useSetRecoilState(currentRecipeState);
@@ -78,6 +80,20 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
     );
   };
 
+  const createImage = async (uri: string, recipeId: number) => {
+    const splitUri = uri.split('.');
+    const fileType = splitUri[splitUri.length - 1];
+    const imageData = {
+      uri,
+      name: `${recipeId}.${fileType}`,
+      type: `image/${fileType}`,
+    };
+    const formData = new FormData();
+    formData.append('image', imageData as unknown as Blob);
+    formData.append('recipe_id', recipeId.toString());
+    return await addImage(formData);
+  };
+
   const submit = async ({
     title,
     categories,
@@ -85,10 +101,11 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
     servings,
     ingredients,
     preparationSteps,
+    image,
   }: FormValues) => {
     if (!currentUser) return;
 
-    let newRecipe;
+    let newRecipe, newImage;
     const params = {
       title,
       categories: categories.map((category) => Number(category)),
@@ -107,13 +124,22 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
 
     if (recipe) {
       newRecipe = await updateRecipe(recipe.id, params);
+
+      if (image && !image.id) newImage = await createImage(image.imageUrl, recipe.id);
+
+      if (recipe.images.length && (!image || image.id !== recipe.images[0].id)) {
+        for (image of recipe.images) {
+          await deleteImage(image.id);
+        }
+      }
     } else {
       newRecipe = await createRecipe(params);
+      if (image) newImage = await createImage(image.imageUrl, newRecipe.id);
     }
 
     if (newRecipe) {
       router.push('/recipe');
-      setCurrentRecipe(newRecipe);
+      setCurrentRecipe({ ...newRecipe, images: newImage ? [newImage] : newRecipe.images });
     }
 
     reset(DEFAULT_VALUES);
@@ -197,9 +223,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
         />
       </Row>
       <>
-        <Divider size="small" />
-        <Subtitle>Ingredientes</Subtitle>
-        <Divider size="small" />
+        <SectionTitle>Ingredientes</SectionTitle>
         {ingredientsFieldArray.fields.map((item, index) => (
           <View key={item.id}>
             <RemovableFieldContainer>
@@ -241,9 +265,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
         </AddFieldButtonContainer>
       </>
       <>
-        <Divider size="small" />
-        <Subtitle>Modo de Preparo</Subtitle>
-        <Divider size="small" />
+        <SectionTitle>Modo de Preparo</SectionTitle>
         {preparationStepsFieldArray.fields.map((item, index) => (
           <View key={item.id}>
             <RemovableFieldContainer>
@@ -285,6 +307,19 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
           </AddFieldButton>
         </AddFieldButtonContainer>
       </>
+      <SectionTitle>Imagem</SectionTitle>
+      <Divider size="small" />
+      <Controller
+        control={control}
+        name="image"
+        render={({ field: { onChange, value } }) => (
+          <ImageUploader
+            imageUri={value?.imageUrl}
+            onChange={(uri) => onChange({ id: undefined, imageUrl: uri })}
+            sizeInPx={width - 36}
+          />
+        )}
+      />
       <Divider size="extraLarge" />
       <Button onPress={handleSubmit(submit)}>Salvar</Button>
     </>

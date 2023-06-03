@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 import { Button } from 'app/components/common';
+import { Subtitle } from 'app/components/typography';
 import { SIZES } from 'app/constants';
 
 export const FormItem = styled.View`
@@ -38,4 +39,8 @@ export const AddFieldButtonContainer = styled.View`
 
 export const AddFieldButton = styled(Button)`
   width: 100px;
+`;
+
+export const SectionTitle = styled(Subtitle)`
+  padding: ${SIZES.small} 0;
 `;
