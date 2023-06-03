@@ -1,7 +1,7 @@
-from django.contrib.auth.models import AnonymousUser
+from apps.users.models import User
 from django.shortcuts import get_object_or_404
-from rest_framework import permissions
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from utils.constants import Actions, SortDirections
@@ -11,17 +11,9 @@ from .serializers import RecipeSerializer
 
 
 class RecipeViewSet(ModelViewSet):
-    queryset = Recipe.objects.all()
+    permission_classes = (AllowAny,)
     serializer_class = RecipeSerializer
-
-    def get_permissions(self):
-        if (
-            self.action == Actions.LIST_ACTION.value
-            or self.action == Actions.GET_ACTION.value
-        ):
-            return [permissions.AllowAny()]
-
-        return [permissions.IsAuthenticated()]
+    queryset = Recipe.objects.all()
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -30,6 +22,7 @@ class RecipeViewSet(ModelViewSet):
         sort_direction = params.get("sort_direction") or SortDirections.ASC.value
         sort_by = params.get("sort_by") or "-created_at"
         category_ids = params.get("category_ids")
+        user_id = params.get("user_id")
 
         if params.get("sort_by") == "popular":
             queryset = Recipe.order_by_popular(queryset)
@@ -43,9 +36,10 @@ class RecipeViewSet(ModelViewSet):
                 queryset=queryset, category_ids=category_ids.split(",")
             )
 
-        user = request.user
-        if user is not None and user.is_anonymous == False:
-            queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
+        if user_id is not None:
+            user = User.objects.get(pk=user_id)
+            if user is not None:
+                queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
 
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -57,10 +51,13 @@ class RecipeViewSet(ModelViewSet):
 
     def retrieve(self, request, pk):
         queryset = self.get_queryset()
+        params = request.query_params
+        user_id = params.get("user_id")
 
-        user = request.user
-        if user is not None and user.is_anonymous == False:
-            queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
+        if user_id is not None:
+            user = User.objects.get(pk=user_id)
+            if user is not None:
+                queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
 
         recipe = get_object_or_404(queryset, pk=pk)
         serializer = self.get_serializer(recipe)
@@ -69,13 +66,21 @@ class RecipeViewSet(ModelViewSet):
     @action(detail=True, methods=["post"])
     def save(self, request, *args, **kwargs):
         recipe = self.get_object()
-        user = request.user
-        user.saved_recipes.add(recipe)
-        return Response(data="Success")
+        params = request.query_params
+        user_id = params.get("user_id")
+        if user_id is not None:
+            user = User.objects.get(pk=user_id)
+            if user is not None:
+                user.saved_recipes.add(recipe)
+                return Response(data="Success")
 
     @action(detail=True, methods=["post"])
     def remove(self, request, *args, **kwargs):
         recipe = self.get_object()
-        user = request.user
-        user.saved_recipes.remove(recipe)
-        return Response(data="Success")
+        params = request.query_params
+        user_id = params.get("user_id")
+        if user_id is not None:
+            user = User.objects.get(pk=user_id)
+            if user is not None:
+                user.saved_recipes.remove(recipe)
+                return Response(data="Success")

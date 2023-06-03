@@ -5,13 +5,13 @@ import { useSetRecoilState } from 'recoil';
 
 import { Button, Divider, Error, Small, TextInput } from 'app/components';
 import { login } from 'app/services';
-import { currentAuthUserState } from 'app/state/user';
+import { currentUserState } from 'app/state/user';
 
 import { ActionsContainer, InputsContainer } from '../styles';
 import { FormValues } from './types';
 
 const LoginScreen: React.FC = () => {
-  const setCurrentUser = useSetRecoilState(currentAuthUserState);
+  const setCurrentUser = useSetRecoilState(currentUserState);
   const router = useRouter();
   const { route } = useSearchParams();
   const [errorMessage, setErrorMesage] = React.useState('');

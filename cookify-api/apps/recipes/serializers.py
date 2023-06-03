@@ -22,7 +22,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     ingredients = IngredientSerializer(read_only=True, many=True)
     preparation_steps = PreparationStepSerializer(read_only=True, many=True)
     images = ImageSerializer(read_only=True, many=True)
-    is_liked = serializers.BooleanField(default=False)
+    is_liked = serializers.BooleanField(required=False)
 
     class Meta:
         model = Recipe

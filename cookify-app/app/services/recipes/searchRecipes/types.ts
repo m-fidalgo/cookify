@@ -6,6 +6,7 @@ export type SearchRecipesParams = PaginationParams & {
   sortDirection?: SortDirection;
   sortBy?: RecipeSortBy;
   categoryIds?: number[];
+  userId?: number;
 };
 
 export type SearchRecipesResponse = PaginatedResponse<Recipe>;
