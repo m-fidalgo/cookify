@@ -68,7 +68,12 @@ const RecipeScreen: React.FC = () => {
           }
         />
         <GoBackButtonContainer>
-          <IconButton color="white" name="chevron-left" size="large" onPress={router.back} />
+          <IconButton
+            color={currentRecipe.images.length ? 'white' : 'aqua'}
+            name="chevron-left"
+            size="large"
+            onPress={router.back}
+          />
         </GoBackButtonContainer>
         <ContentView>
           <Header>

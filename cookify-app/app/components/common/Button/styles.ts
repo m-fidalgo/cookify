@@ -8,6 +8,7 @@ export type StyleProps = {
 };
 
 export const ButtonContainer = styled.TouchableOpacity<StyleProps>`
+  align-items: center;
   background-color: ${({ color, variant }) => (variant === 'solid' ? HUES[color] : HUES.white)};
   border-radius: ${BORDER_RADIUS.small};
   padding: ${SIZES.small} ${SIZES.medium};
