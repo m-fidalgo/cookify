@@ -15,7 +15,7 @@ export const BottomBarNavigator: React.FC = () => {
   const items: { route: string; icon: IconName; requiresAuth?: boolean }[] = [
     { route: '/home', icon: 'home' },
     { route: '/search', icon: 'search' },
-    { route: '/recipes', icon: 'add-circle-outline', requiresAuth: false },
+    { route: '/recipes', icon: 'add-circle-outline', requiresAuth: true },
     { route: '/user', icon: 'person', requiresAuth: true },
   ];
 

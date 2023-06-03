@@ -1,6 +1,8 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import {
   Body,
@@ -14,7 +16,9 @@ import {
   TextInput,
   Title,
 } from 'app/components';
-import { getCategories } from 'app/services';
+import { createRecipe, getCategories } from 'app/services';
+import { currentRecipeState } from 'app/state/recipe';
+import { currentUserState } from 'app/state/user';
 import { SelectItem } from 'app/types';
 
 import {
@@ -33,19 +37,22 @@ import {
   RowItem,
 } from './styles';
 import { FormValues, RecipeFormProps } from './types';
+import { calculateDifficulty } from './utils';
 
 export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
+  const router = useRouter();
+  const currentUser = useRecoilValue(currentUserState);
+  const setCurrentRecipe = useSetRecoilState(currentRecipeState);
   const [categoryOptions, setCategoryOptions] = React.useState<SelectItem[]>([]);
   const {
     control,
     handleSubmit,
     watch,
     formState: { errors },
+    reset,
   } = useForm<FormValues>({
     defaultValues: recipe ? getDefaultValuesFromRecipe(recipe) : DEFAULT_VALUES,
   });
-  const watchedIngredients = watch('ingredients');
-  const watchedPreparationSteps = watch('preparationSteps');
   const ingredientsFieldArray = useFieldArray({
     control,
     name: 'ingredients',
@@ -54,6 +61,8 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
     control,
     name: 'preparationSteps',
   });
+  const watchedIngredients = watch('ingredients');
+  const watchedPreparationSteps = watch('preparationSteps');
 
   const getCategoryOptions = async () => {
     const response = await getCategories();
@@ -69,7 +78,46 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
     );
   };
 
-  const submit = (values: FormValues) => {};
+  const submit = async ({
+    title,
+    categories,
+    time,
+    servings,
+    ingredients,
+    preparationSteps,
+  }: FormValues) => {
+    if (!currentUser) return;
+
+    let newRecipe;
+    const params = {
+      title,
+      categories: categories.map((category) => Number(category)),
+      time,
+      servings,
+      ingredients,
+      preparationSteps: preparationSteps.map((step, index) => {
+        return {
+          position: index,
+          text: step.text,
+        };
+      }),
+      creator: currentUser.id,
+      difficulty: calculateDifficulty(ingredients.length, preparationSteps.length, time),
+    };
+
+    if (recipe) {
+      return;
+    } else {
+      newRecipe = await createRecipe(params);
+    }
+
+    if (newRecipe) {
+      router.push('/recipe');
+      setCurrentRecipe(newRecipe);
+    }
+
+    reset(DEFAULT_VALUES);
+  };
 
   React.useEffect(() => {
     getCategoryOptions();
