@@ -1,1 +1,1 @@
-export type RequestMethod = 'get' | 'delete' | 'patch' | 'post';
+export type RequestMethod = 'get' | 'delete' | 'patch' | 'post' | 'put';

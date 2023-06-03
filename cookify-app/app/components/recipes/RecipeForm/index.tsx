@@ -16,7 +16,7 @@ import {
   TextInput,
   Title,
 } from 'app/components';
-import { createRecipe, getCategories } from 'app/services';
+import { createRecipe, getCategories, updateRecipe } from 'app/services';
 import { currentRecipeState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 import { SelectItem } from 'app/types';
@@ -106,7 +106,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
     };
 
     if (recipe) {
-      return;
+      newRecipe = await updateRecipe(recipe.id, params);
     } else {
       newRecipe = await createRecipe(params);
     }
