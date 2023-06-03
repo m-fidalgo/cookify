@@ -71,23 +71,20 @@ class RecipeSerializer(serializers.ModelSerializer):
         )
         recipe = super().update(instance, validated_data)
 
+        Ingredient.objects.filter(recipe=recipe).delete()
+        PreparationStep.objects.filter(recipe=recipe).delete()
+
         ingredients_data = attempt_json_deserialize(
             request.data.get("ingredients"), expect_type=list
         )
         for data in ingredients_data:
-            if Ingredient.objects.get(pk=data["id"]).recipe_id != recipe.pk:
-                raise IngredientNotInRecipeException()
-
-            Ingredient.objects.filter(pk=data["id"]).update(**data)
+            Ingredient.objects.create(recipe=recipe, **data)
 
         preparation_steps_data = attempt_json_deserialize(
             request.data.get("preparation_steps"), expect_type=list
         )
         for data in preparation_steps_data:
-            if PreparationStep.objects.get(pk=data["id"]).recipe_id != recipe.pk:
-                raise PreparationStepNotInRecipeException()
-
-            PreparationStep.objects.filter(pk=data["id"]).update(**data)
+            PreparationStep.objects.create(recipe=recipe, **data)
 
         return recipe
 
