@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
+import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import {
   Chip,
@@ -9,8 +10,10 @@ import {
   IngredientsSection,
   PreparationStepsSection,
   RecipeInfo,
+  Small,
   Title,
 } from 'app/components';
+import { removeRecipe, saveRecipe } from 'app/services';
 import { currentRecipeState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 import { Category, Difficulty } from 'app/types';
@@ -29,10 +32,30 @@ import {
 
 const RecipeScreen: React.FC = () => {
   const router = useRouter();
-  const currentRecipe = useRecoilValue(currentRecipeState);
+  const [currentRecipe, setCurrentRecipe] = useRecoilState(currentRecipeState);
   const currentUser = useRecoilValue(currentUserState);
 
+  React.useEffect(() => {
+    return () => {
+      setCurrentRecipe(undefined);
+    };
+  }, []);
+
   if (!currentRecipe) return <RecipeScreenSkeleton />;
+
+  const handleAdd = async () => {
+    if (!currentUser) return;
+    await saveRecipe(currentRecipe.id, { userId: currentUser.id });
+    setCurrentRecipe({ ...currentRecipe, isLiked: true });
+  };
+
+  const handleRemove = async () => {
+    if (!currentUser) return;
+    await removeRecipe(currentRecipe.id, { userId: currentUser.id });
+    setCurrentRecipe({ ...currentRecipe, isLiked: false });
+  };
+
+  const handleEdit = () => {};
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -54,15 +77,28 @@ const RecipeScreen: React.FC = () => {
                 {currentRecipe.title}
               </Title>
               {currentUser && (
-                <LikeButtonContainer>
-                  <IconButton
-                    color="yellow"
-                    name={currentRecipe.isLiked ? 'favorite' : 'favorite-outline'}
-                    onPress={() => {}}
-                  />
-                </LikeButtonContainer>
+                <>
+                  {currentUser.id === currentRecipe.creator.id ? (
+                    <LikeButtonContainer>
+                      <IconButton color="yellow" name={'edit'} onPress={handleEdit} />
+                    </LikeButtonContainer>
+                  ) : (
+                    <LikeButtonContainer>
+                      <IconButton
+                        color="yellow"
+                        name={currentRecipe.isLiked ? 'favorite' : 'favorite-outline'}
+                        onPress={currentRecipe.isLiked ? handleRemove : handleAdd}
+                      />
+                    </LikeButtonContainer>
+                  )}
+                </>
               )}
             </TitleView>
+            <InfoView>
+              <Small italic color="aqua">
+                Por: {currentRecipe.creator.name}
+              </Small>
+            </InfoView>
             <InfoView>
               <RecipeInfo text={`${currentRecipe.time} min`} iconName="timer" />
               <RecipeInfo text={`Rende ${currentRecipe.servings}`} iconName="restaurant" />

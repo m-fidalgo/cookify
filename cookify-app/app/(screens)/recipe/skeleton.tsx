@@ -15,6 +15,9 @@ export const RecipeScreenSkeleton: React.FC = () => {
           <SkeletonLoader.Item style={{ width: 32, height: 32, borderRadius: 4 }} />
         </SkeletonLoader.Container>
         <SkeletonLoader.Container style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <SkeletonLoader.Item style={{ width: 100, height: 16, borderRadius: 4 }} />
+        </SkeletonLoader.Container>
+        <SkeletonLoader.Container style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <SkeletonLoader.Item style={{ width: 100, height: 18, borderRadius: 4 }} />
           <SkeletonLoader.Item style={{ width: 130, height: 18, borderRadius: 4 }} />
           <SkeletonLoader.Item style={{ width: 100, height: 18, borderRadius: 4 }} />

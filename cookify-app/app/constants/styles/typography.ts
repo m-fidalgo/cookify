@@ -8,6 +8,6 @@ export const TYPOGRAPHY = {
 
 export type Typography = keyof typeof TYPOGRAPHY;
 
-export const italic = (typography: Typography) => {
+export const asItalic = (typography: string) => {
   return `${typography}${ITALIC}`;
 };

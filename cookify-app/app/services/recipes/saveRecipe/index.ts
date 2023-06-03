@@ -3,10 +3,12 @@ import { Recipe } from 'app/types';
 import { buildEndpoint } from 'app/utils';
 
 import { SAVE_RECIPE_ENDPOINT } from './config';
+import { SaveRecipeParams } from './types';
 
-export const saveRecipe = async (id: number) => {
+export const saveRecipe = async (id: number, params: SaveRecipeParams) => {
   return (await request({
     path: buildEndpoint(SAVE_RECIPE_ENDPOINT, id.toString()),
-    method: 'get',
+    method: 'post',
+    params,
   })) as Recipe;
 };

@@ -1,1 +1,1 @@
-export const RECIPES_ENDPOINT = 'recipes';
+export const RECIPES_ENDPOINT = 'recipes/';
