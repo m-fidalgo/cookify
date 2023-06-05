@@ -16,7 +16,14 @@ import {
   TextInput,
   Title,
 } from 'app/components';
-import { addImage, createRecipe, deleteImage, getCategories, updateRecipe } from 'app/services';
+import {
+  addImage,
+  createRecipe,
+  deleteImage,
+  deleteRecipe,
+  getCategories,
+  updateRecipe,
+} from 'app/services';
 import { currentRecipeState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 import { SelectItem } from 'app/types';
@@ -128,7 +135,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
       if (image && !image.id) newImage = await createImage(image.imageUrl, recipe.id);
 
       if (recipe.images.length && (!image || image.id !== recipe.images[0].id)) {
-        for (image of recipe.images) {
+        for (const image of recipe.images) {
           await deleteImage(image.id);
         }
       }
@@ -143,6 +150,17 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
     }
 
     reset(DEFAULT_VALUES);
+  };
+
+  const handleDelete = async () => {
+    if (!recipe) return;
+
+    for (const image of recipe.images) {
+      await deleteImage(image.id);
+    }
+
+    await deleteRecipe(recipe.id);
+    router.push('home');
   };
 
   React.useEffect(() => {
@@ -322,6 +340,14 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
       />
       <Divider size="extraLarge" />
       <Button onPress={handleSubmit(submit)}>Salvar</Button>
+      {recipe && (
+        <>
+          <Divider size="medium" />
+          <Button color="aqua" onPress={handleDelete}>
+            Excluir
+          </Button>
+        </>
+      )}
     </>
   );
 };

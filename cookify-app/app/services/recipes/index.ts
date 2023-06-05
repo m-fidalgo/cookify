@@ -1,4 +1,5 @@
 export * from './createRecipe';
+export * from './deleteRecipe';
 export * from './getRecipe';
 export * from './removeRecipe';
 export * from './saveRecipe';
