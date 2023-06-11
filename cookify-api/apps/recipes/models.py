@@ -42,11 +42,23 @@ class Recipe(models.Model):
         )
 
     @classmethod
+    def filter_by_title(self, queryset, filter):
+        return queryset.filter(title__icontains=filter)
+
+    @classmethod
     def filter_by_categories(self, queryset, category_ids):
         return queryset.filter(categories__pk__in=category_ids)
+
+    @classmethod
+    def filter_by_creator(self, queryset, creator_id):
+        return queryset.filter(creator_id=creator_id)
 
     @classmethod
     def check_is_liked_by_user(self, queryset, user):
         return queryset.annotate(
             is_liked=models.Exists(user.saved_recipes.filter(id=models.OuterRef("pk")))
         )
+
+    @classmethod
+    def filter_by_liked(self, queryset, liked):
+        return queryset.filter(is_liked=liked)

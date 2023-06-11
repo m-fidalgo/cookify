@@ -22,7 +22,10 @@ class RecipeViewSet(ModelViewSet):
         sort_direction = params.get("sort_direction") or SortDirections.ASC.value
         sort_by = params.get("sort_by") or "-created_at"
         category_ids = params.get("category_ids")
+        creator_id = params.get("creator_id")
         user_id = params.get("user_id")
+        only_liked = params.get("liked")
+        filter_string = params.get("filter")
 
         if params.get("sort_by") == "popular":
             queryset = Recipe.order_by_popular(queryset)
@@ -36,10 +39,23 @@ class RecipeViewSet(ModelViewSet):
                 queryset=queryset, category_ids=category_ids.split(",")
             )
 
+        if creator_id is not None:
+            queryset = Recipe.filter_by_creator(
+                queryset=queryset, creator_id=creator_id
+            )
+
         if user_id is not None:
             user = User.objects.get(pk=user_id)
             if user is not None:
                 queryset = Recipe.check_is_liked_by_user(queryset=queryset, user=user)
+
+                if only_liked == "true":
+                    queryset = Recipe.filter_by_liked(queryset=queryset, liked=True)
+                elif only_liked == "false":
+                    queryset = Recipe.filter_by_liked(queryset=queryset, liked=False)
+
+        if filter_string is not None:
+            queryset = Recipe.filter_by_title(queryset=queryset, filter=filter_string)
 
         page = self.paginate_queryset(queryset)
         if page is not None:
