@@ -54,6 +54,18 @@ class Recipe(models.Model):
         return queryset.filter(creator_id=creator_id)
 
     @classmethod
+    def filter_by_difficulty(self, queryset, difficulty):
+        return queryset.filter(difficulty=difficulty)
+
+    @classmethod
+    def filter_by_servings(self, queryset, servings):
+        return queryset.filter(servings__icontains=servings)
+
+    @classmethod
+    def filter_by_time(self, queryset, time):
+        return queryset.filter(time__lte=time)
+
+    @classmethod
     def check_is_liked_by_user(self, queryset, user):
         return queryset.annotate(
             is_liked=models.Exists(user.saved_recipes.filter(id=models.OuterRef("pk")))
