@@ -54,8 +54,8 @@ class Recipe(models.Model):
         return queryset.filter(creator_id=creator_id)
 
     @classmethod
-    def filter_by_difficulty(self, queryset, difficulty):
-        return queryset.filter(difficulty=difficulty)
+    def filter_by_difficulties(self, queryset, difficulties):
+        return queryset.filter(difficulty__in=difficulties)
 
     @classmethod
     def filter_by_servings(self, queryset, servings):

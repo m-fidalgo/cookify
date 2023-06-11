@@ -3,16 +3,17 @@ import React from 'react';
 import OutsidePressHandler from 'react-native-outside-press';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { Button } from 'app/components/common';
-import { CheckboxWithLabel, Select } from 'app/components/forms';
+import { Button, Divider } from 'app/components/common';
+import { CheckboxWithLabel, Select, TextInput } from 'app/components/forms';
 import { Body, Subtitle } from 'app/components/typography';
-import { DEFAULT_SHADOW_STYLES, HUES } from 'app/constants';
+import { DEFAULT_SHADOW_STYLES } from 'app/constants';
 import { getCategories } from 'app/services';
 import { recipeFiltersState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 import { SelectItem } from 'app/types';
 
-import { Container, InlineView } from './styles';
+import { DIFFICULTY_OPTIONS } from './config';
+import { CheckboxContainer, Container, InlineItem, InlineView, Item } from './styles';
 import { RecipeFilterBottomSheetProps } from './types';
 
 export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = ({
@@ -22,7 +23,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
   const currentUser = useRecoilValue(currentUserState);
   const [filterParams, setFilterParams] = useRecoilState(recipeFiltersState);
   const [categoryOptions, setCategoryOptions] = React.useState<SelectItem[]>([]);
-  const snapPoints = React.useMemo(() => ['25%', '80%'], []);
+  const snapPoints = React.useMemo(() => ['25%', !currentUser ? '60%' : '50%'], [currentUser]);
 
   const getCategoryOptions = async () => {
     const response = await getCategories();
@@ -42,7 +43,11 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
     setFilterParams({
       filter: filterParams?.filter,
       categoryIds: undefined,
-      userId: undefined,
+      difficulties: undefined,
+      time: undefined,
+      servings: undefined,
+      creatorId: undefined,
+      liked: undefined,
     });
   };
 
@@ -50,15 +55,39 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
     setFilterParams({ ...filterParams, categoryIds: categoryIds?.map((id) => Number(id)) });
   };
 
-  const setUserId = (myRecipes: boolean) => {
+  const setDifficulties = (difficulties?: string[]) => {
+    setFilterParams({ ...filterParams, difficulties: difficulties?.map((id) => Number(id)) });
+  };
+
+  const setTime = (time?: string) => {
+    setFilterParams({ ...filterParams, time: Number(time) });
+  };
+
+  const setServings = (servings?: string) => {
+    setFilterParams({ ...filterParams, servings });
+  };
+
+  const setLiked = (liked: boolean) => {
     if (!currentUser) return;
 
-    setFilterParams({ ...filterParams, userId: myRecipes ? currentUser.id : undefined });
+    setFilterParams({ ...filterParams, liked });
+  };
+
+  const setCreatorId = (myRecipes: boolean) => {
+    if (!currentUser) return;
+
+    setFilterParams({ ...filterParams, creatorId: myRecipes ? currentUser.id : undefined });
   };
 
   React.useEffect(() => {
     getCategoryOptions();
   }, []);
+
+  React.useEffect(() => {
+    if (currentUser) {
+      setFilterParams({ ...filterParams, userId: currentUser.id });
+    }
+  }, [currentUser]);
 
   return (
     <BottomSheetModal
@@ -74,20 +103,58 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
               Limpar
             </Button>
           </InlineView>
-          <Body>Categorias</Body>
-          <Select
-            value={filterParams?.categoryIds?.map((id) => id.toString())}
-            onChange={setCategoryIds}
-            items={categoryOptions}
-            placeholder="Selecione categorias"
-            searchPlaceholder="Buscar"
-          />
-          {!currentUser && (
-            <CheckboxWithLabel
-              checked={!!filterParams?.userId}
-              onChange={setUserId}
-              label="Apenas receitas curtidas"
+          <Divider size="medium" />
+          <Item>
+            <Body>Categorias</Body>
+            <Select
+              value={filterParams?.categoryIds?.map((id) => id.toString())}
+              onChange={setCategoryIds}
+              items={categoryOptions}
+              placeholder="Selecione categorias"
+              searchPlaceholder="Buscar"
             />
+          </Item>
+          <Item>
+            <Body>Dificuldade</Body>
+            <Select
+              value={filterParams?.difficulties?.map((d) => d.toString())}
+              onChange={setDifficulties}
+              items={DIFFICULTY_OPTIONS}
+              placeholder="Selecione dificuldades"
+            />
+          </Item>
+          <InlineView>
+            <InlineItem>
+              <Body>Tempo de preparo</Body>
+              <TextInput
+                keyboardType="numeric"
+                value={filterParams?.time?.toString()}
+                onChange={setTime}
+                placeholder="Ex: 45(min)"
+              />
+            </InlineItem>
+            <InlineItem>
+              <Body>Rendimento</Body>
+              <TextInput
+                value={filterParams?.servings}
+                onChange={setServings}
+                placeholder="Ex: 2 porções"
+              />
+            </InlineItem>
+          </InlineView>
+          {!currentUser && (
+            <CheckboxContainer>
+              <CheckboxWithLabel
+                checked={!!filterParams?.liked}
+                onChange={setLiked}
+                label="Apenas receitas curtidas"
+              />
+              <CheckboxWithLabel
+                checked={!!filterParams?.creatorId}
+                onChange={setCreatorId}
+                label="Apenas minhas receitas"
+              />
+            </CheckboxContainer>
           )}
         </Container>
       </OutsidePressHandler>

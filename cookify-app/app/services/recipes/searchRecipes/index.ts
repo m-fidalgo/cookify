@@ -11,6 +11,7 @@ export const searchRecipes = async (params: SearchRecipesParams) => {
     method: 'get',
     params: {
       ...params,
+      difficulties: params.difficulties ? params.difficulties.join(',') : undefined,
       categoryIds: params.categoryIds ? params.categoryIds.join(',') : undefined,
     },
   })) as SearchRecipesResponse;

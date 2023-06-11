@@ -5,7 +5,11 @@ import { SIZES } from 'app/constants';
 
 export const Container = styled(BottomSheetView)`
   padding: ${SIZES.large};
-  gap: ${SIZES.small};
+`;
+
+export const Item = styled.View`
+  padding: ${SIZES.medium} 0;
+  gap: ${SIZES.extraSmall};
 `;
 
 export const InlineView = styled.View`
@@ -13,5 +17,13 @@ export const InlineView = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: ${SIZES.extraLarge};
+`;
+
+export const InlineItem = styled(Item)`
+  width: 48%;
+`;
+
+export const CheckboxContainer = styled.View`
+  padding: ${SIZES.medium} 0;
+  gap: ${SIZES.medium};
 `;

@@ -23,7 +23,7 @@ class RecipeViewSet(ModelViewSet):
         sort_by = params.get("sort_by") or "-created_at"
         category_ids = params.get("category_ids")
         creator_id = params.get("creator_id")
-        difficulty = params.get("difficulty")
+        difficulties = params.get("difficulties")
         servings = params.get("servings")
         time = params.get("time")
         user_id = params.get("user_id")
@@ -47,9 +47,9 @@ class RecipeViewSet(ModelViewSet):
                 queryset=queryset, creator_id=creator_id
             )
 
-        if difficulty is not None:
-            queryset = Recipe.filter_by_difficulty(
-                queryset=queryset, difficulty=difficulty
+        if difficulties is not None:
+            queryset = Recipe.filter_by_difficulties(
+                queryset=queryset, difficulties=difficulties.split(",")
             )
 
         if servings is not None:

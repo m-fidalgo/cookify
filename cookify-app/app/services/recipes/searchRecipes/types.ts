@@ -3,10 +3,15 @@ import { PaginatedResponse, PaginationParams, Recipe, SortDirection } from 'app/
 type RecipeSortBy = 'popular' | 'created_at';
 
 export type RecipeFilterParams = {
+  categoryIds?: number[];
+  creatorId?: number;
+  difficulties?: number[];
   filter?: string;
+  liked?: boolean;
+  servings?: string;
   sortDirection?: SortDirection;
   sortBy?: RecipeSortBy;
-  categoryIds?: number[];
+  time?: number;
   userId?: number;
 };
 

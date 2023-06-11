@@ -28,7 +28,7 @@ export const Select: React.FC<SelectProps> = ({
   return (
     <SelectContainer focused={focused}>
       <MultiSelect
-        search
+        search={!!searchPlaceholder}
         visibleSelectedItem={false}
         data={items}
         labelField="label"
