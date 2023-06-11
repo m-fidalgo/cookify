@@ -7,6 +7,7 @@ import {
   CURRENT_RECIPE_KEY,
   PAGINATION_RESPONSE_KEY,
   RECIPE_FILTERS_KEY,
+  RECIPE_HAS_FILTERS_KEY,
   RECIPE_IDS_LIST_KEY,
   RECIPE_KEY,
   RECIPE_PAGE_KEY,
@@ -36,6 +37,27 @@ export const recipePageState = atom<number>({
 export const recipeFiltersState = atom<RecipeFilterParams | undefined>({
   key: RECIPE_FILTERS_KEY,
   default: undefined,
+});
+
+export const recipeHasFiltersState = selector<boolean>({
+  key: RECIPE_HAS_FILTERS_KEY,
+  get: ({ get }) => {
+    const filters = get(recipeFiltersState);
+
+    if (!filters) return false;
+    if (
+      filters.categoryIds ||
+      filters.creatorId ||
+      filters.difficulties ||
+      filters.filter ||
+      filters.liked ||
+      filters.servings ||
+      filters.time
+    )
+      return true;
+
+    return false;
+  },
 });
 
 export const recipesGetState = selector<SearchRecipesResponse>({

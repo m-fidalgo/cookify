@@ -1,14 +1,14 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import React from 'react';
 import OutsidePressHandler from 'react-native-outside-press';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { Button, Divider } from 'app/components/common';
 import { CheckboxWithLabel, Select, TextInput } from 'app/components/forms';
 import { Body, Subtitle } from 'app/components/typography';
 import { DEFAULT_SHADOW_STYLES } from 'app/constants';
-import { getCategories } from 'app/services';
-import { recipeFiltersState } from 'app/state/recipe';
+import { RecipeFilterParams, getCategories } from 'app/services';
+import { recipeFiltersState, recipePageState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 import { SelectItem } from 'app/types';
 
@@ -21,6 +21,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
   close,
 }) => {
   const currentUser = useRecoilValue(currentUserState);
+  const resetPage = useResetRecoilState(recipePageState);
   const [filterParams, setFilterParams] = useRecoilState(recipeFiltersState);
   const [categoryOptions, setCategoryOptions] = React.useState<SelectItem[]>([]);
   const snapPoints = React.useMemo(() => ['25%', !currentUser ? '60%' : '50%'], [currentUser]);
@@ -39,8 +40,13 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
     );
   };
 
+  const setFilters = (filters: RecipeFilterParams) => {
+    setFilterParams(filters);
+    resetPage();
+  };
+
   const clearFilters = () => {
-    setFilterParams({
+    setFilters({
       filter: filterParams?.filter,
       categoryIds: undefined,
       difficulties: undefined,
@@ -52,31 +58,31 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
   };
 
   const setCategoryIds = (categoryIds?: string[]) => {
-    setFilterParams({ ...filterParams, categoryIds: categoryIds?.map((id) => Number(id)) });
+    setFilters({ ...filterParams, categoryIds: categoryIds?.map((id) => Number(id)) });
   };
 
   const setDifficulties = (difficulties?: string[]) => {
-    setFilterParams({ ...filterParams, difficulties: difficulties?.map((id) => Number(id)) });
+    setFilters({ ...filterParams, difficulties: difficulties?.map((id) => Number(id)) });
   };
 
   const setTime = (time?: string) => {
-    setFilterParams({ ...filterParams, time: Number(time) });
+    setFilters({ ...filterParams, time: Number(time) });
   };
 
   const setServings = (servings?: string) => {
-    setFilterParams({ ...filterParams, servings });
+    setFilters({ ...filterParams, servings });
   };
 
   const setLiked = (liked: boolean) => {
     if (!currentUser) return;
 
-    setFilterParams({ ...filterParams, liked });
+    setFilters({ ...filterParams, liked });
   };
 
   const setCreatorId = (myRecipes: boolean) => {
     if (!currentUser) return;
 
-    setFilterParams({ ...filterParams, creatorId: myRecipes ? currentUser.id : undefined });
+    setFilters({ ...filterParams, creatorId: myRecipes ? currentUser.id : undefined });
   };
 
   React.useEffect(() => {
@@ -85,7 +91,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
 
   React.useEffect(() => {
     if (currentUser) {
-      setFilterParams({ ...filterParams, userId: currentUser.id });
+      setFilters({ ...filterParams, userId: currentUser.id });
     }
   }, [currentUser]);
 
