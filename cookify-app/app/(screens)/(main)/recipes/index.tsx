@@ -1,8 +1,7 @@
 import { useSearchParams } from 'expo-router';
 import React from 'react';
 
-import { Divider } from 'app/components';
-import { RecipeForm } from 'app/components/recipes/RecipeForm';
+import { Divider, RecipeForm } from 'app/components';
 import { getRecipe } from 'app/services';
 import { Recipe } from 'app/types';
 

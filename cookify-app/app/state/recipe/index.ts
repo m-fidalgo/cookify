@@ -1,11 +1,12 @@
 import { atom, atomFamily, selector } from 'recoil';
 
-import { SearchRecipesResponse, searchRecipes } from 'app/services';
+import { RecipeFilterParams, SearchRecipesResponse, searchRecipes } from 'app/services';
 import { PaginationResponse, Recipe } from 'app/types';
 
 import {
   CURRENT_RECIPE_KEY,
   PAGINATION_RESPONSE_KEY,
+  RECIPE_FILTERS_KEY,
   RECIPE_IDS_LIST_KEY,
   RECIPE_KEY,
   RECIPE_PAGE_KEY,
@@ -32,12 +33,18 @@ export const recipePageState = atom<number>({
   default: 1,
 });
 
+export const recipeFiltersState = atom<RecipeFilterParams | undefined>({
+  key: RECIPE_FILTERS_KEY,
+  default: undefined,
+});
+
 export const recipesGetState = selector<SearchRecipesResponse>({
   key: SEARCH_RECIPES_KEY,
   get: async ({ get }) => {
     const page = get(recipePageState);
+    const filters = get(recipeFiltersState);
 
-    return searchRecipes({ page });
+    return searchRecipes({ page, ...filters });
   },
 });
 

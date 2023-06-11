@@ -2,11 +2,14 @@ import { PaginatedResponse, PaginationParams, Recipe, SortDirection } from 'app/
 
 type RecipeSortBy = 'popular' | 'created_at';
 
-export type SearchRecipesParams = PaginationParams & {
+export type RecipeFilterParams = {
+  filter?: string;
   sortDirection?: SortDirection;
   sortBy?: RecipeSortBy;
   categoryIds?: number[];
   userId?: number;
 };
+
+export type SearchRecipesParams = PaginationParams & RecipeFilterParams;
 
 export type SearchRecipesResponse = PaginatedResponse<Recipe>;
