@@ -20,11 +20,12 @@
 <br />
 
 <h2>Functionalities</h2>
-<p>:hourglass_flowing_sand: User sign up and sign in</p>
-<p>:hourglass_flowing_sand: Create, update and delete recipes</p>
+<p>:heavy_check_mark: User sign up and sign in</p>
+<p>:heavy_check_mark: Create, update and delete recipes</p>
+<p>:heavy_check_mark: Search reciper by name, difficulty, servings and categories</p>
+<p>:heavy_check_mark: Like and dislike recipes</p>
 <p>:hourglass_flowing_sand: Import recipes through an URL</p>
 <p>:hourglass_flowing_sand: Save recipes for offline visualization</p>
-<p>:hourglass_flowing_sand: Search recipes by name, categories and ingredients</p>
 <p>:hourglass_flowing_sand: Personalized user suggestions</p>
 
 <br />
