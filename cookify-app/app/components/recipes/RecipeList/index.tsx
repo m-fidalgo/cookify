@@ -25,7 +25,7 @@ export const RecipeList: React.FC = () => {
   const fetchRecipes = React.useCallback(
     async (page: number) => {
       setLoading(true);
-      const response = await searchRecipes({ pageSize: 3, page, ...filters });
+      const response = await searchRecipes({ page, ...filters });
       if (response) {
         addRecipes(response.results);
         setHasMore(!!response.next);
@@ -60,16 +60,23 @@ export const RecipeList: React.FC = () => {
 
   return (
     <>
-      {loading ? (
-        <ActivityIndicator size="large" color={HUES.yellow} />
-      ) : !recipes.length ? (
-        <NoResults heightInPx={100} message="Nenhuma receita com esses filtros" />
+      {!recipes.length ? (
+        <>
+          {loading ? (
+            <ActivityIndicator size="large" color={HUES.yellow} />
+          ) : (
+            <NoResults heightInPx={100} message="Nenhuma receita com esses filtros" />
+          )}
+        </>
       ) : (
         <FlatList
           data={recipes}
           renderItem={({ item }) => <RecipeCard recipe={item} />}
           onEndReached={loadMore}
           onEndReachedThreshold={0.8}
+          ListFooterComponent={
+            loading ? <ActivityIndicator size="small" color={HUES.yellow} /> : undefined
+          }
           contentContainerStyle={{
             width: '100%',
             minHeight: '100%',
