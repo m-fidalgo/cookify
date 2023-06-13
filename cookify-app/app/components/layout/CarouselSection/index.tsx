@@ -42,6 +42,7 @@ export const CarouselSection: React.FC<CarouselSectionProps> = ({
           renderItem={({ item, index }) => (
             <CardContainer>
               <Card
+                small
                 key={item.id}
                 imageUrl={item.imageUrl}
                 title={item.title}

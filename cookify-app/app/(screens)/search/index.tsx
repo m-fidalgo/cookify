@@ -1,14 +1,15 @@
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useRecoilValue } from 'recoil';
 
-import { BottomBarNavigator, RecipeFilterBottomSheet, RecipesSearchBar } from 'app/components';
-import { recipeHasFiltersState } from 'app/state/recipe';
+import {
+  BottomBarNavigator,
+  RecipeFilterBottomSheet,
+  RecipeList,
+  RecipesSearchBar,
+} from 'app/components';
 
 const SearchScreen: React.FC = () => {
-  const hasFilters = useRecoilValue(recipeHasFiltersState);
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
 
   const openBottomSheet = () => {
@@ -23,7 +24,7 @@ const SearchScreen: React.FC = () => {
     <BottomSheetModalProvider>
       <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
         <RecipesSearchBar onClickFilter={openBottomSheet} />
-        <ScrollView></ScrollView>
+        <RecipeList />
         <BottomBarNavigator />
         <RecipeFilterBottomSheet bottomSheetRef={bottomSheetRef} close={closeBottomSheet} />
       </SafeAreaView>

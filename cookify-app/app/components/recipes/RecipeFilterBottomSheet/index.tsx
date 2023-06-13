@@ -24,7 +24,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
   const resetPage = useResetRecoilState(recipePageState);
   const [filterParams, setFilterParams] = useRecoilState(recipeFiltersState);
   const [categoryOptions, setCategoryOptions] = React.useState<SelectItem[]>([]);
-  const snapPoints = React.useMemo(() => ['25%', !currentUser ? '60%' : '50%'], [currentUser]);
+  const snapPoints = React.useMemo(() => ['25%', currentUser ? '60%' : '50%'], [currentUser]);
 
   const getCategoryOptions = async () => {
     const response = await getCategories();
@@ -148,7 +148,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
               />
             </InlineItem>
           </InlineView>
-          {!currentUser && (
+          {currentUser && (
             <CheckboxContainer>
               <CheckboxWithLabel
                 checked={!!filterParams?.liked}

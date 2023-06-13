@@ -9,6 +9,7 @@ export const SearchBarContainer = styled.View`
   gap: ${SIZES.extraSmall};
   justify-content: space-between;
   padding: ${SIZES.extraLarge};
+  padding-bottom: ${SIZES.extraSmall};
   width: 100%;
 `;
 
