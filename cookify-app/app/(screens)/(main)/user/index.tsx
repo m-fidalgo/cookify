@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
+import React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { RecipesPreviewSection } from 'app/components';
+import { RecipesPreviewSection, UserHeader } from 'app/components';
 import { RecipeFilterParams, getRecipe } from 'app/services';
 import { currentRecipeState, recipeFiltersState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
@@ -11,6 +12,10 @@ const UserScreen: React.FC = () => {
   const currentUser = useRecoilValue(currentUserState);
   const setCurrentRecipe = useSetRecoilState(currentRecipeState);
   const setFilterParams = useSetRecoilState(recipeFiltersState);
+
+  React.useEffect(() => {
+    if (!currentUser) router.push('/');
+  }, [currentUser]);
 
   if (!currentUser) return null;
 
@@ -33,6 +38,7 @@ const UserScreen: React.FC = () => {
 
   return (
     <>
+      <UserHeader />
       <RecipesPreviewSection
         title="Minhas Receitas"
         params={{

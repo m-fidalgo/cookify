@@ -6,3 +6,4 @@ export * from './navigation';
 export * from './preparationSteps';
 export * from './recipes';
 export * from './typography';
+export * from './user';
