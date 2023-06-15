@@ -43,6 +43,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return {
             "id": instance.id,
             "name": instance.name,
+            "email": instance.email,
             "refresh": str(refresh),
             "access": str(refresh.access_token),
         }
@@ -61,6 +62,7 @@ class UserTokenPairSerializer(TokenObtainPairSerializer):
         data = super().validate(attrs)
         data["id"] = self.user.id
         data["name"] = self.user.name
+        data["email"] = self.user.email
         return data
 
 
@@ -111,6 +113,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         return {
             "id": instance.id,
             "name": instance.name,
+            "email": instance.email,
             "refresh": str(refresh),
             "access": str(refresh.access_token),
         }

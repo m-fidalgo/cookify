@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { useRecoilValue } from 'recoil';
 
 import { IconButton } from 'app/components/common';
@@ -8,9 +9,12 @@ import { UserIcon } from '../UserIcon';
 import { HeaderContainer, IconContainer } from './styles';
 
 export const UserHeader: React.FC = () => {
+  const router = useRouter();
   const currentUser = useRecoilValue(currentUserState);
 
-  const goToSettings = () => {};
+  const goToSettings = () => {
+    router.push('/settings');
+  };
 
   if (!currentUser) return null;
 
