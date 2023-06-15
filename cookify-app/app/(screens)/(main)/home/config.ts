@@ -2,7 +2,6 @@ import { SearchRecipesParams } from 'app/services';
 
 const defaultParams: SearchRecipesParams = {
   page: 1,
-  pageSize: 5,
 };
 
 export const sections: { title: string; params: SearchRecipesParams }[] = [
