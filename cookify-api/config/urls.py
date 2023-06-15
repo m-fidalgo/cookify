@@ -12,6 +12,6 @@ router.registry.extend(recipe_router.registry)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("auth/", include("apps.users.urls")),
+    path("", include("apps.users.urls")),
     path("", include(router.urls)),
 ]

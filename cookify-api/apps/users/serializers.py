@@ -68,3 +68,49 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("id", "name")
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password]
+    )
+    password1 = serializers.CharField(write_only=True, required=True)
+    email = serializers.EmailField(
+        required=True,
+        validators=[UniqueValidator(queryset=User.objects.all())],
+    )
+
+    class Meta:
+        model = User
+        fields = ("email", "name", "password", "password1")
+
+    def validate(self, attrs):
+        if attrs.get("password") is not None:
+            if attrs["password"] != attrs["password1"]:
+                raise serializers.ValidationError(
+                    {"password": "Password fields didn't match."}
+                )
+
+        return attrs
+
+    def update(self, instance, validated_data):
+        if validated_data.get("email") is not None:
+            setattr(instance, "email", validated_data["email"])
+
+        if validated_data.get("password") is not None:
+            setattr(instance, "password", validated_data["password"])
+
+        if validated_data.get("name") is not None:
+            setattr(instance, "name", validated_data["name"])
+
+        instance.save()
+        return instance
+
+    def to_representation(self, instance):
+        refresh = RefreshToken.for_user(instance)
+        return {
+            "id": instance.id,
+            "name": instance.name,
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }
