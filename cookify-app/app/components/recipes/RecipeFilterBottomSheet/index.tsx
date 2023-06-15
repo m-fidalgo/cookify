@@ -1,14 +1,14 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import React from 'react';
 import OutsidePressHandler from 'react-native-outside-press';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { Button, Divider } from 'app/components/common';
 import { CheckboxWithLabel, Select, TextInput } from 'app/components/forms';
 import { Body, Subtitle } from 'app/components/typography';
 import { DEFAULT_SHADOW_STYLES } from 'app/constants';
 import { RecipeFilterParams, getCategories } from 'app/services';
-import { recipeFiltersState, recipePageState } from 'app/state/recipe';
+import { recipeFiltersChangedState, recipeFiltersState, recipePageState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 import { SelectItem } from 'app/types';
 
@@ -22,6 +22,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
 }) => {
   const currentUser = useRecoilValue(currentUserState);
   const resetPage = useResetRecoilState(recipePageState);
+  const setFilterChanged = useSetRecoilState(recipeFiltersChangedState);
   const [filterParams, setFilterParams] = useRecoilState(recipeFiltersState);
   const [categoryOptions, setCategoryOptions] = React.useState<SelectItem[]>([]);
   const snapPoints = React.useMemo(() => ['25%', currentUser ? '60%' : '50%'], [currentUser]);
@@ -42,6 +43,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
 
   const setFilters = (filters: RecipeFilterParams) => {
     setFilterParams(filters);
+    setFilterChanged(true);
     resetPage();
   };
 
@@ -76,7 +78,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
   const setLiked = (liked: boolean) => {
     if (!currentUser) return;
 
-    setFilters({ ...filterParams, liked });
+    setFilters({ ...filterParams, liked: liked ? true : undefined });
   };
 
   const setCreatorId = (myRecipes: boolean) => {
@@ -91,7 +93,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
 
   React.useEffect(() => {
     if (currentUser) {
-      setFilters({ ...filterParams, userId: currentUser.id });
+      setFilterParams({ ...filterParams, userId: currentUser.id });
     }
   }, [currentUser]);
 

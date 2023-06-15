@@ -5,8 +5,8 @@ import { Recipe } from 'app/types';
 
 import {
   CURRENT_RECIPE_KEY,
+  RECIPE_FILTERS_CHANGED_KEY,
   RECIPE_FILTERS_KEY,
-  RECIPE_HAS_FILTERS_KEY,
   RECIPE_PAGE_KEY,
 } from './keys';
 
@@ -25,23 +25,7 @@ export const recipeFiltersState = atom<RecipeFilterParams | undefined>({
   default: undefined,
 });
 
-export const recipeHasFiltersState = selector<boolean>({
-  key: RECIPE_HAS_FILTERS_KEY,
-  get: ({ get }) => {
-    const filters = get(recipeFiltersState);
-
-    if (!filters) return false;
-    if (
-      filters.categoryIds ||
-      filters.creatorId ||
-      filters.difficulties ||
-      filters.filter ||
-      filters.liked ||
-      filters.servings ||
-      filters.time
-    )
-      return true;
-
-    return false;
-  },
+export const recipeFiltersChangedState = atom<boolean>({
+  key: RECIPE_FILTERS_CHANGED_KEY,
+  default: false,
 });

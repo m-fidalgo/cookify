@@ -5,18 +5,18 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { NoResults } from 'app/components/layout';
 import { HUES, SIZES } from 'app/constants';
 import { searchRecipes } from 'app/services';
-import { recipeFiltersState, recipePageState } from 'app/state/recipe';
+import { recipeFiltersChangedState, recipeFiltersState, recipePageState } from 'app/state/recipe';
 import { Recipe } from 'app/types';
 
 import { RecipeCard } from '../RecipeCard';
 
 export const RecipeList: React.FC = () => {
   const filters = useRecoilValue(recipeFiltersState);
+  const [filtersChanged, setFiltersChanged] = useRecoilState(recipeFiltersChangedState);
   const [page, setPage] = useRecoilState(recipePageState);
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [hasMore, setHasMore] = React.useState<boolean>(false);
-  const [firstLoading, setFirstLoading] = React.useState<boolean>(true);
 
   const addRecipes = (newRecipes: Recipe[]) => {
     setRecipes((prev) => [...prev, ...newRecipes]);
@@ -41,6 +41,7 @@ export const RecipeList: React.FC = () => {
 
   const reset = () => {
     setLoading(true);
+    setFiltersChanged(false);
     setRecipes([]);
     setPage(1);
     fetchRecipes(1);
@@ -51,12 +52,8 @@ export const RecipeList: React.FC = () => {
   }, [page]);
 
   React.useEffect(() => {
-    if (!firstLoading) reset();
-  }, [filters]);
-
-  React.useEffect(() => {
-    setFirstLoading(false);
-  }, []);
+    if (filtersChanged) reset();
+  }, [filtersChanged]);
 
   return (
     <>
@@ -65,7 +62,7 @@ export const RecipeList: React.FC = () => {
           {loading ? (
             <ActivityIndicator size="large" color={HUES.yellow} />
           ) : (
-            <NoResults heightInPx={100} message="Nenhuma receita com esses filtros" />
+            <NoResults heightInPx={100} message="Nenhuma receita encontrada" />
           )}
         </>
       ) : (
