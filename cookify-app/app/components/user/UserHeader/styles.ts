@@ -12,9 +12,13 @@ export const HeaderContainer = styled.View`
   width: 100%;
 `;
 
-export const IconContainer = styled.View`
+type StyleProps = {
+  spaced?: boolean;
+};
+
+export const IconContainer = styled.View<StyleProps>`
   align-items: center;
   display: flex;
   flex-direction: row;
-  gap: ${SIZES.small};
+  gap: ${({ spaced = false }) => (spaced ? SIZES.large : SIZES.small)};
 `;
