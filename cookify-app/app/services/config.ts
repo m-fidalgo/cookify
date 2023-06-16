@@ -14,7 +14,7 @@ type RequestParams = {
 
 const api = applyCaseMiddleware(
   axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: 'https://cookify-3uyg.onrender.com/',
   })
 );
 
@@ -27,6 +27,7 @@ export const request = async ({
 }: RequestParams): Promise<object | undefined> => {
   try {
     const response = await api.request({ url: path, method, data, params });
+    console.log(response);
     return response.data;
   } catch (error) {
     onError?.(error);
