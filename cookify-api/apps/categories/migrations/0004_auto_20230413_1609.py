@@ -37,7 +37,7 @@ def delete_categories(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("categories", "0002_alter_category_name"),
+        ("categories", "0003_category_created_at_category_updated_at"),
     ]
 
     operations = [migrations.RunPython(create_categories, delete_categories)]
