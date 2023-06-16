@@ -1,18 +1,24 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { View } from 'react-native';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
-import { Body, Button, Divider, Error, TextInput, Title } from 'app/components';
+import { Body, Button, Divider, Error, TextInput } from 'app/components';
+import { updateUser } from 'app/services';
 import { currentUserState } from 'app/state/user';
 
 import { FormItem } from './styles';
 import { FormValues } from './types';
 
 export const UserForm: React.FC = () => {
-  const currentUser = useRecoilValue(currentUserState);
-  const [errorMessage, setErrorMesage] = React.useState('');
-  const { control, handleSubmit } = useForm<FormValues>({
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const router = useRouter();
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty },
+  } = useForm<FormValues>({
     defaultValues: {
       email: currentUser?.email,
       name: currentUser?.name,
@@ -21,7 +27,26 @@ export const UserForm: React.FC = () => {
     },
   });
 
-  const submit = async () => {};
+  const handleUpdate = async ({ email, name, password, password1 }: FormValues) => {
+    if (password !== password1) {
+      setErrorMessage('As senhas devem ser iguais');
+      return;
+    }
+
+    if (!currentUser) return;
+
+    const updatedUser = await updateUser(currentUser?.id, {
+      email,
+      name,
+      password,
+      password1,
+    });
+
+    if (updatedUser) {
+      setCurrentUser(updatedUser);
+      router.back();
+    }
+  };
 
   return (
     <>
@@ -65,9 +90,6 @@ export const UserForm: React.FC = () => {
       />
       <Controller
         control={control}
-        rules={{
-          required: 'Confirme sua senha',
-        }}
         name="password1"
         render={({ field: { onChange, value } }) => (
           <FormItem>
@@ -78,7 +100,9 @@ export const UserForm: React.FC = () => {
         )}
       />
       <Divider size="extraLarge" />
-      <Button onPress={handleSubmit(submit)}>Confirmar</Button>
+      <Button onPress={handleSubmit(handleUpdate)} disabled={!isDirty}>
+        Salvar
+      </Button>
     </>
   );
 };

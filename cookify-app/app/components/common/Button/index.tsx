@@ -10,9 +10,14 @@ export const Button: React.FC<React.PropsWithChildren<ButtonProps>> = ({
   variant = 'solid',
   children,
   small = false,
+  disabled = false,
 }) => {
   return (
-    <ButtonContainer color={color} variant={variant} onPress={onPress}>
+    <ButtonContainer
+      color={disabled ? 'lightGray' : color}
+      variant={variant}
+      disabled={disabled}
+      onPress={onPress}>
       {small ? (
         <Small color={(variant === 'solid' ? 'white' : color) as Hue}>{children}</Small>
       ) : (

@@ -37,7 +37,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           value={value}
         />
         {value && !hideClearButton && (
-          <IconButton onPress={() => onChange()} name="close" size="small" color="gray" />
+          <IconButton onPress={() => onChange('')} name="close" size="small" color="gray" />
         )}
       </TextInputContainer>
     </OutsidePressHandler>
