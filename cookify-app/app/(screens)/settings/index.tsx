@@ -11,7 +11,7 @@ const SettingsScreen: React.FC = () => {
   return (
     <SettingsContainer>
       <IconContainer>
-        <IconButton size="large" color="aqua" onPress={router.back} name="close" />
+        <IconButton size="large" color="aqua" onPress={() => router.push('/user')} name="close" />
       </IconContainer>
       <FormContainer>
         <Title>Configurações de Conta</Title>

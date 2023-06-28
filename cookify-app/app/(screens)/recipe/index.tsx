@@ -74,7 +74,7 @@ const RecipeScreen: React.FC = () => {
             color={currentRecipe.images.length ? 'white' : 'aqua'}
             name="chevron-left"
             size="large"
-            onPress={router.back}
+            onPress={() => router.push({ pathname: '/home' })}
           />
         </GoBackButtonContainer>
         <ContentView>
