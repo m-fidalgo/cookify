@@ -1,4 +1,6 @@
 class Recipe < ApplicationRecord
+  include Recipes::FilterRecipes
+
   belongs_to :creator, class_name: User.name.to_s
 
   has_many :ingredients, dependent: :destroy

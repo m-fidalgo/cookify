@@ -4,7 +4,6 @@ class CreateIngredientsAndPreparationSteps < ActiveRecord::Migration[7.0]
       t.string :text, null: false
       t.references :recipe, null: false, index: true
       t.timestamps
-      t.datetime :deleted_at
     end
 
     create_table :preparation_steps do |t|
@@ -12,7 +11,6 @@ class CreateIngredientsAndPreparationSteps < ActiveRecord::Migration[7.0]
       t.integer :position, null: false
       t.references :recipe, null: false, index: true
       t.timestamps
-      t.datetime :deleted_at
     end
   end
 end

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
 
 
   protected def encode_token(payload)
-    JWT.encode(payload, SECRET_KEY) 
+    JWT.encode(payload, SECRET_KEY)
   end
 
 
@@ -31,5 +31,10 @@ class ApplicationController < ActionController::API
 
   protected def authenticate_user!
     raise Exceptions::AuthExceptions::NotAuthenticated unless current_user
+  end
+
+
+  protected def ensure_is_current_user!(user_id)
+    raise Exceptions::AuthExceptions::NotAuthorized unless current_user.id == user_id
   end
 end

@@ -11,7 +11,6 @@ class CreateRecipes < ActiveRecord::Migration[7.0]
       t.column :difficulty, :recipe_difficulty, null: false
       t.references :creator, foreign_key: {to_table: :users}, null: false, index: true
       t.timestamps
-      t.datetime :deleted_at
     end
   end
 end

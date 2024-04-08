@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_02_224209) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_05_131806) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +22,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_02_224209) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
     t.index ["name"], name: "index_categories_on_name"
   end
 
@@ -31,7 +30,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_02_224209) do
     t.bigint "recipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
     t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
   end
 
@@ -41,8 +39,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_02_224209) do
     t.bigint "recipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
     t.index ["recipe_id"], name: "index_preparation_steps_on_recipe_id"
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.string "text", null: false
+    t.integer "rating", null: false
+    t.bigint "user_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_ratings_on_recipe_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "recipe_categories", force: :cascade do |t|
@@ -62,7 +70,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_02_224209) do
     t.bigint "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
     t.index ["creator_id"], name: "index_recipes_on_creator_id"
     t.index ["title"], name: "index_recipes_on_title"
   end

@@ -26,4 +26,9 @@ module Renders
   protected def render_forbidden(error)
     render_error_message(message: error.message, status: :forbidden)
   end
+
+
+  protected def render_success
+    render json: {status: "success"}, status: :success
+  end
 end
