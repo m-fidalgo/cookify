@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     patch "/:recipe_id" => "recipes#update", recipe_id: /\d+/
     delete "/:recipe_id" => "recipes#destroy", recipe_id: /\d+/
     post "/:recipe_id/image" => "recipes#upload_image", recipe_id: /\d+/
+    post "/:recipe_id/save" => "recipes#save", recipe_id: /\d+/
+    delete "/:recipe_id/unsave" => "recipes#unsave", recipe_id: /\d+/
   end
 
   scope :ratings do

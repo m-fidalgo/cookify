@@ -45,13 +45,13 @@ const RecipeScreen: React.FC = () => {
 
   const handleAdd = async () => {
     if (!currentUser) return;
-    await saveRecipe(currentRecipe.id, { userId: currentUser.id });
+    await saveRecipe(currentRecipe.id);
     setCurrentRecipe({ ...currentRecipe, isLiked: true });
   };
 
   const handleRemove = async () => {
     if (!currentUser) return;
-    await removeRecipe(currentRecipe.id, { userId: currentUser.id });
+    await removeRecipe(currentRecipe.id);
     setCurrentRecipe({ ...currentRecipe, isLiked: false });
   };
 

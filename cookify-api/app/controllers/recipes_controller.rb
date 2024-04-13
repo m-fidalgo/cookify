@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update, :destroy, :upload_image]
+  before_action :authenticate_user!, only: [:create, :update, :destroy, :upload_image, :save]
 
   def create
     create_params = recipe_params.merge(creator_id: current_user.id)
@@ -86,6 +86,18 @@ class RecipesController < ApplicationController
     image.update!(url: response["secure_url"])
 
     render json: recipe.reload, serializer: RecipeSerializer
+  end
+
+
+  def save
+    current_user.user_saved_recipes.create!(recipe_id: params[:recipe_id])
+    render_success
+  end
+
+
+  def unsave
+    current_user.user_saved_recipes.find_by(recipe_id: params[:recipe_id]).destroy!
+    render_success
   end
 
 
