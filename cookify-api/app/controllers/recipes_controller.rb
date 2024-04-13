@@ -63,13 +63,13 @@ class RecipesController < ApplicationController
     recipes = recipes.search_by_text(search_params[:filter])
     recipes = recipes.search_by_time(search_params[:time])
 
-    render_paginated(recipes, "recipes", RecipeSerializer)
+    render_paginated(recipes, RecipeSerializer)
   end
 
 
   def ratings
     recipe = Recipe.find(params[:recipe_id])
-    render_paginated(recipe.ratings, "ratings", RatingSerializer)
+    render_paginated(recipe.ratings, RatingSerializer)
   end
 
 
@@ -77,13 +77,13 @@ class RecipesController < ApplicationController
     recipe = Recipe.find(params[:recipe_id])
     ensure_is_current_user!(recipe.creator_id)
 
+    image = RecipeImage.create!(recipe_id: recipe.id)
     response = Cloudinary::Uploader.upload(
       image_params[:image],
-      public_id: "recipe_#{recipe.id}",
+      public_id: image.name,
       folder: "recipes",
-      auto_tagging: "true",
     )
-    recipe.update!(image_url: response["secure_url"])
+    image.update!(url: response["secure_url"])
 
     render json: recipe.reload, serializer: RecipeSerializer
   end

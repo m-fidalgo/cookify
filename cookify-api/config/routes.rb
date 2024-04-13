@@ -30,4 +30,8 @@ Rails.application.routes.draw do
   scope :categories do
     get "/" => "categories#search"
   end
+
+  scope :images do
+    delete "/:image_id" => "recipe_images#destroy"
+  end
 end

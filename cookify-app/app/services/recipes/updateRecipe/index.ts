@@ -3,7 +3,7 @@ import { Recipe } from 'app/types';
 import { buildEndpoint } from 'app/utils';
 
 import { CreateRecipeParams } from '../createRecipe';
-import { RECIPE_ENDPOINT } from '../getRecipe/config';
+import { RECIPE_ENDPOINT } from '../config';
 
 export const updateRecipe = async (id: number, params: CreateRecipeParams) => {
   return (await request({

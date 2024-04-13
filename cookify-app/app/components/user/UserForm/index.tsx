@@ -39,7 +39,6 @@ export const UserForm: React.FC = () => {
       email,
       name,
       password,
-      password1,
     });
 
     if (updatedUser) {

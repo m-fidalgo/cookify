@@ -17,12 +17,12 @@ import {
   Title,
 } from 'app/components';
 import {
-  addImage,
   createRecipe,
   deleteImage,
   deleteRecipe,
   getCategories,
   updateRecipe,
+  uploadImage,
 } from 'app/services';
 import { currentRecipeState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
@@ -97,8 +97,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
     };
     const formData = new FormData();
     formData.append('image', imageData as unknown as Blob);
-    formData.append('recipe_id', recipeId.toString());
-    return await addImage(formData);
+    return await uploadImage(recipeId, formData);
   };
 
   const submit = async ({

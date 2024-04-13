@@ -3,9 +3,9 @@ import { User } from 'app/types';
 import { buildEndpoint } from 'app/utils';
 
 import { USER_ENDPOINT } from '../config';
-import { UpdateUserParams } from './types';
+import { UserParams } from '../types';
 
-export const updateUser = async (id: number, params: UpdateUserParams) => {
+export const updateUser = async (id: number, params: Partial<UserParams>) => {
   return (await request({
     path: buildEndpoint(USER_ENDPOINT, id.toString()),
     method: 'patch',

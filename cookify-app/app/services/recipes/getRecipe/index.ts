@@ -2,7 +2,7 @@ import { request } from 'app/services/config';
 import { Recipe } from 'app/types';
 import { buildEndpoint } from 'app/utils';
 
-import { RECIPE_ENDPOINT } from './config';
+import { RECIPE_ENDPOINT } from '../config';
 import { GetRecipeParams } from './types';
 
 export const getRecipe = async (id: number, params?: GetRecipeParams) => {

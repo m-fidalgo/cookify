@@ -1,7 +1,8 @@
 import { request } from 'app/services/config';
 import { buildEndpoint } from 'app/utils';
 
-import { RECIPE_ENDPOINT } from '../getRecipe/config';
+import { RECIPE_ENDPOINT } from '../config';
+
 
 export const deleteRecipe = async (id: number) => {
   return await request({

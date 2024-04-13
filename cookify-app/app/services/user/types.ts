@@ -1,6 +1,5 @@
-export type SignUpData = {
+export type UserParams = {
   email: string;
   name: string;
   password: string;
-  password1: string;
 };

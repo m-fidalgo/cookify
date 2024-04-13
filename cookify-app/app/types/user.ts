@@ -5,6 +5,7 @@ export type User = {
 };
 
 export type AuthUser = User & {
-  access?: string;
-  refresh?: string;
+  meta: {
+    token: string
+  }
 };

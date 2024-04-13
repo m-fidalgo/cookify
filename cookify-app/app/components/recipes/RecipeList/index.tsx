@@ -28,7 +28,8 @@ export const RecipeList: React.FC = () => {
       const response = await searchRecipes({ page, ...filters });
       if (response) {
         addRecipes(response.results);
-        setHasMore(!!response.next);
+        // TODO: USE PAGE SIZE
+        setHasMore(response.total > page * 5);
       }
       setLoading(false);
     },

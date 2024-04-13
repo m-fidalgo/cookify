@@ -5,11 +5,11 @@ module Pagination
   DEFAULT_OFFSET = 0
 
 
-  def render_paginated(items, root, serializer)
+  def render_paginated(items, serializer)
     paginated_items = paginate(items)
 
     render json: {
-      "#{root}": ActiveModel::Serializer::CollectionSerializer.new(
+      results: ActiveModel::Serializer::CollectionSerializer.new(
         paginated_items,
         serializer: serializer,
       ),

@@ -4,7 +4,5 @@ export type PaginationParams = {
 };
 
 export type PaginationResponse = {
-  count: number;
-  next?: string;
-  previous?: string;
+  total: number;
 };
