@@ -1,6 +1,4 @@
 class RecipesController < ApplicationController
-  include Pagination
-
   before_action :authenticate_user!, only: [:create, :update, :destroy, :upload_image]
 
   def create

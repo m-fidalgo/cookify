@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include Pagination
   include Renders
 
   SECRET_KEY = Rails.application.secrets.secret_key_base.to_s

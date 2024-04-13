@@ -26,4 +26,8 @@ Rails.application.routes.draw do
     patch "/:rating_id" => "ratings#update", rating_id: /\d+/
     delete "/:rating_id" => "ratings#destroy", rating_id: /\d+/
   end
+
+  scope :categories do
+    get "/" => "categories#search"
+  end
 end
