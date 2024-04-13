@@ -5,6 +5,7 @@ class Recipe < ApplicationRecord
 
   has_many :ingredients, dependent: :destroy
   has_many :preparation_steps, dependent: :destroy
+  has_many :ratings, dependent: :destroy
 
   has_many :recipe_categories, dependent: :destroy
   has_many :categories, through: :recipe_categories

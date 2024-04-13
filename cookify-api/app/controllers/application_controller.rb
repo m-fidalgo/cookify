@@ -35,6 +35,6 @@ class ApplicationController < ActionController::API
 
 
   protected def ensure_is_current_user!(user_id)
-    raise Exceptions::AuthExceptions::NotAuthorized unless current_user.id == user_id
+    raise Exceptions::AuthExceptions::NotAuthorized unless current_user.id.to_i == user_id.to_i
   end
 end

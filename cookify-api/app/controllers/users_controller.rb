@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     user = User.find(params[:user_id])
     user.update!(user_params)
 
-    render json: user.reload!, serializer: UserSerializer
+    render json: user.reload, serializer: UserSerializer
   rescue ActiveRecord::RecordNotFound
     raise Exceptions::UserExceptions::UserNotFound
   end

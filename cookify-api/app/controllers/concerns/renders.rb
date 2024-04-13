@@ -29,6 +29,6 @@ module Renders
 
 
   protected def render_success
-    render json: {status: "success"}, status: :success
+    render json: {status: "success"}, status: :ok
   end
 end

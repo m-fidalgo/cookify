@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
   include Pagination
 
-  before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :update, :destroy, :upload_image]
 
   def create
     create_params = recipe_params.merge(creator_id: current_user.id)
@@ -75,6 +75,22 @@ class RecipesController < ApplicationController
   end
 
 
+  def upload_image
+    recipe = Recipe.find(params[:recipe_id])
+    ensure_is_current_user!(recipe.creator_id)
+
+    response = Cloudinary::Uploader.upload(
+      image_params[:image],
+      public_id: "recipe_#{recipe.id}",
+      folder: "recipes",
+      auto_tagging: "true",
+    )
+    recipe.update!(image_url: response["secure_url"])
+
+    render json: recipe.reload, serializer: RecipeSerializer
+  end
+
+
   private def create_ingredients!(recipe)
     recipe_info_params[:ingredients].each do |ingredient|
       recipe.ingredients.create!(text: ingredient)
@@ -109,5 +125,10 @@ class RecipesController < ApplicationController
   private def search_params
     params.permit(:creator_id, :filter, :saved, :servings, :time,
                   category_ids: [], difficulties: [])
+  end
+
+
+  private def image_params
+    params.permit(:image)
   end
 end

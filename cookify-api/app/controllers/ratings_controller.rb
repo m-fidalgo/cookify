@@ -3,7 +3,7 @@ class RatingsController < ApplicationController
 
 
   def create
-    create_params = create_rating_params.merge(creator_id: current_user.id)
+    create_params = create_rating_params.merge(user_id: current_user.id)
     rating = Rating.create!(create_params)
 
     render json: rating, serializer: RatingSerializer

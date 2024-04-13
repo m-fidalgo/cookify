@@ -1,5 +1,5 @@
 class RecipeSerializer < ApplicationSerializer
-  attributes :id, :title, :time, :servings, :difficulty
+  attributes :id, :title, :time, :servings, :difficulty, :image_url
 
   has_one :creator, serializer: UserSerializer
   has_many :ingredients, each_serializer: IngredientSerializer

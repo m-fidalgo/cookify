@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get "/:recipe_id/ratings" => "recipes#ratings", recipe_id: /\d+/
     patch "/:recipe_id" => "recipes#update", recipe_id: /\d+/
     delete "/:recipe_id" => "recipes#destroy", recipe_id: /\d+/
+    post "/:recipe_id/image" => "recipes#upload_image", recipe_id: /\d+/
   end
 
   scope :ratings do
