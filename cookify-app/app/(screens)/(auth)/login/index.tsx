@@ -1,4 +1,4 @@
-import { Link, useRouter, useSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import * as React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
@@ -13,7 +13,7 @@ import { FormValues } from './types';
 const LoginScreen: React.FC = () => {
   const setCurrentUser = useSetRecoilState(currentUserState);
   const router = useRouter();
-  const { route } = useSearchParams();
+  const { route } = useLocalSearchParams();
   const [errorMessage, setErrorMesage] = React.useState('');
   const {
     control,

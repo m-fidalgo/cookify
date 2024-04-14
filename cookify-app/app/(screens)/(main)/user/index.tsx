@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
+import * as React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { RecipesPreviewSection, UserHeader } from 'app/components';

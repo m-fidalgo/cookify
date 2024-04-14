@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
+import * as React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -87,7 +87,7 @@ const RecipeScreen: React.FC = () => {
                 <>
                   {currentUser.id === currentRecipe.creator.id ? (
                     <LikeButtonContainer>
-                      <IconButton color="yellow" name={'edit'} onPress={handleEdit} />
+                      <IconButton color="yellow" name="edit" onPress={handleEdit} />
                     </LikeButtonContainer>
                   ) : (
                     <LikeButtonContainer>

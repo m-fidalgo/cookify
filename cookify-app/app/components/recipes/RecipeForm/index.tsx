@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
+import * as React from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { Dimensions, View } from 'react-native';
 import { useRecoilValue, useSetRecoilState } from 'recoil';

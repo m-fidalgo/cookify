@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom } from 'recoil';
 
 import { RecipeFilterParams } from 'app/services';
 import { Recipe } from 'app/types';

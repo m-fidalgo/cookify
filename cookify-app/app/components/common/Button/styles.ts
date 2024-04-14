@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
 
 import { BORDER_RADIUS, HUES, Hue, SIZES } from 'app/constants';
 

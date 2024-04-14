@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { NoResults } from 'app/components/layout';
-import { HUES, SIZES } from 'app/constants';
+import { HUES } from 'app/constants';
 import { searchRecipes } from 'app/services';
 import { recipeFiltersChangedState, recipeFiltersState, recipePageState } from 'app/state/recipe';
 import { Recipe } from 'app/types';

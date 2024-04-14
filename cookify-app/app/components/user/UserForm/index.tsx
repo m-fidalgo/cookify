@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
+import * as React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 
@@ -42,7 +42,7 @@ export const UserForm: React.FC = () => {
     });
 
     if (updatedUser) {
-      setCurrentUser(updatedUser);
+      setCurrentUser({ ...updatedUser, meta: currentUser.meta });
       router.back();
     }
   };

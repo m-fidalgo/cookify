@@ -1,4 +1,5 @@
 import SkeletonLoader from 'expo-skeleton-loader';
+import * as React from 'react';
 
 import { HUES } from 'app/constants';
 

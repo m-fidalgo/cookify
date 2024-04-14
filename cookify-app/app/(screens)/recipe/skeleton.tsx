@@ -1,4 +1,5 @@
 import SkeletonLoader from 'expo-skeleton-loader';
+import * as React from 'react';
 import { Dimensions } from 'react-native';
 
 import { HUES } from 'app/constants';
@@ -8,7 +9,7 @@ export const RecipeScreenSkeleton: React.FC = () => {
 
   return (
     <SkeletonLoader boneColor={HUES.lightGray} highlightColor={HUES.skeletonGray}>
-      <SkeletonLoader.Item style={{ width: width, height: 280 }} />
+      <SkeletonLoader.Item style={{ width, height: 280 }} />
       <SkeletonLoader.Container style={{ padding: 24, gap: 24 }}>
         <SkeletonLoader.Container style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <SkeletonLoader.Item style={{ width: 150, height: 32, borderRadius: 4 }} />

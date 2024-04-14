@@ -1,4 +1,4 @@
-import { Link, useRouter, useSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import * as React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
@@ -13,7 +13,7 @@ import { FormValues } from './types';
 const SignUpScreen: React.FC = () => {
   const setCurrentUser = useSetRecoilState(currentUserState);
   const router = useRouter();
-  const { route } = useSearchParams();
+  const { route } = useLocalSearchParams();
   const [errorMessage, setErrorMesage] = React.useState('');
   const {
     control,
@@ -35,7 +35,7 @@ const SignUpScreen: React.FC = () => {
       return;
     }
 
-    const user = await signUp({ name, email, password, password1 });
+    const user = await signUp({ name, email, password });
     if (!user) setErrorMesage('Erro ao cadastrar!');
     setCurrentUser(user);
     router.push(route ? route?.toString() : '/home');

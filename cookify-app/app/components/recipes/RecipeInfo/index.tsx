@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { Icon } from 'app/components/common';
 import { Small } from 'app/components/typography';
 

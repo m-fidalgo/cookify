@@ -1,4 +1,5 @@
-import Checkbox from 'expo-checkbox';
+import { Checkbox } from 'expo-checkbox';
+import * as React from 'react';
 
 import { Body } from 'app/components/typography';
 import { HUES } from 'app/constants';

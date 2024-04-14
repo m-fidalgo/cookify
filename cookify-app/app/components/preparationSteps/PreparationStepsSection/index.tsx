@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { Body, Subtitle } from 'app/components/typography';
 import { PreparationStep } from 'app/types';
 

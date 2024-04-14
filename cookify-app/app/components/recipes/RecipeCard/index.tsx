@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import * as React from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import { Card } from 'app/components/layout';
 import { currentRecipeState } from 'app/state/recipe';

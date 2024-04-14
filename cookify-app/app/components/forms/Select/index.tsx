@@ -52,7 +52,10 @@ export const Select: React.FC<SelectProps> = ({
         renderInputSearch={(onSearch: (value: string) => void) => {
           return (
             <InputContainer>
-              <TextInput placeholder={searchPlaceholder} onChange={onSearch} />
+              <TextInput
+                placeholder={searchPlaceholder}
+                onChange={(value?: string) => onSearch(value || '')}
+              />
             </InputContainer>
           );
         }}

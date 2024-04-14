@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { Body, Small } from 'app/components/typography';
 import { Hue } from 'app/constants';
 

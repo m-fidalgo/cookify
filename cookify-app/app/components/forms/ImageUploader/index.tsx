@@ -1,5 +1,6 @@
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
+import * as React from 'react';
 
 import { Icon } from 'app/components/common';
 
@@ -24,7 +25,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   };
 
   const handleOnPress = () => {
-    imageUri ? onChange() : chooseImage();
+    return imageUri ? onChange() : chooseImage();
   };
 
   return (

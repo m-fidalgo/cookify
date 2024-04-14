@@ -1,5 +1,5 @@
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import React from 'react';
+import * as React from 'react';
 import { SafeAreaView } from 'react-native';
 import { useResetRecoilState } from 'recoil';
 

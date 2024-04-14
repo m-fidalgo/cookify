@@ -11,16 +11,29 @@
   "plugins": ["import", "@typescript-eslint"],
   "root": true,
   "rules": {
-    "import/no-unresolved": "error"
+    "import/no-unresolved": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          ["builtin", "external"],
+          ["internal", "parent", "sibling", "index"]
+        ]
+      }
+    ]
   },
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
-      "babel-module": {},
-      "alwaysTryTypes": true,
-      "project": "."
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "."
+      },
+      "node": {
+        "moduleDirectory": ["node_modules", "app/"]
+      }
     }
   }
 }

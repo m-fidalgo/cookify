@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { Small } from 'app/components/typography';
 
 import { ChipContainer } from './styles';

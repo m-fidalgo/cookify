@@ -1,12 +1,12 @@
 import { Category, Recipe } from 'app/types';
 
 export const EMPTY_INGREDIENT = {
-  text: undefined,
+  text: '',
 };
 
 export const EMPTY_PREPARATION_STEP = {
-  position: undefined,
-  text: undefined,
+  position: 0,
+  text: '',
 };
 
 export const DEFAULT_VALUES = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { IconButton } from 'app/components/common';
