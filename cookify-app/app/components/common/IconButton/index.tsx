@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Pressable } from 'react-native';
 
 import { Icon } from '../Icon';
 import { IconButtonProps } from './types';
@@ -14,8 +14,8 @@ export const IconButton: React.FC<IconButtonProps> = ({
   return disabled ? (
     <Icon name={name} size={size} color={color} />
   ) : (
-    <TouchableOpacity onPress={onPress}>
+    <Pressable onPress={onPress}>
       <Icon name={name} size={size} color={color} />
-    </TouchableOpacity>
+    </Pressable>
   );
 };

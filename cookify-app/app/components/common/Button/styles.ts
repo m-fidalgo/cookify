@@ -7,7 +7,7 @@ export type StyleProps = {
   variant: 'text' | 'solid';
 };
 
-export const ButtonContainer = styled.TouchableOpacity<StyleProps>`
+export const ButtonContainer = styled.Pressable<StyleProps>`
   align-items: center;
   background-color: ${({ color, variant }) => (variant === 'solid' ? HUES[color] : HUES.white)};
   border-radius: ${BORDER_RADIUS.small};

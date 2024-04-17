@@ -13,7 +13,7 @@ export const TextInputContainer = styled.View<StyleProps>`
   background-color: ${HUES.trueWhite};
   border-color: ${({ focused = false }) => (focused ? HUES.lightBlue : HUES.lightGray)};
   border-radius: ${BORDER_RADIUS.small};
-  border-width: 1;
+  border-width: 1px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;

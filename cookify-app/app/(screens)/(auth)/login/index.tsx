@@ -5,6 +5,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { Button, Divider, Error, Small, TextInput } from 'app/components';
 import { login } from 'app/services';
+import { api } from 'app/services/config';
 import { currentUserState } from 'app/state/user';
 
 import { ActionsContainer, InputsContainer } from '../styles';
@@ -29,8 +30,14 @@ const LoginScreen: React.FC = () => {
 
   const handleLogin = async ({ email, password }: FormValues) => {
     const user = await login({ email, password });
-    if (!user) setErrorMesage('Dados inválidos!');
+
+    if (!user) {
+      setErrorMesage('Dados inválidos!');
+      return;
+    }
+
     setCurrentUser(user);
+    api.defaults.headers.common['Authorization'] = `Bearer ${user.meta.token}`;
     router.push(route ? route?.toString() : '/home');
     reset();
   };

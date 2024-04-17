@@ -6,7 +6,7 @@ export type StyleProps = {
   color: Hue;
 };
 
-export const SectionButtonContainer = styled.TouchableOpacity<StyleProps>`
+export const SectionButtonContainer = styled.Pressable<StyleProps>`
   align-items: center;
   background-color: ${({ color }) => HUES[color]};
   border-radius: ${BORDER_RADIUS.small};

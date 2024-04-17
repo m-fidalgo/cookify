@@ -9,11 +9,11 @@ export type StyleProps = {
   small?: boolean;
 };
 
-export const CardContainer = styled.TouchableOpacity<StyleProps>`
+export const CardContainer = styled.Pressable<StyleProps>`
   background-color: ${HUES.white};
   border-color: ${HUES.lightGray};
   border-radius: ${BORDER_RADIUS.small};
-  border-width: 1;
+  border-width: 1px;
   box-sizing: border-box;
   width: ${({ small }) => (small ? `${SMALL_CARD_WIDTH_IN_PX}px` : '100%')};
 `;

@@ -5,6 +5,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { Button, Divider, Error, Small, TextInput } from 'app/components';
 import { signUp } from 'app/services';
+import { api } from 'app/services/config';
 import { currentUserState } from 'app/state/user';
 
 import { ActionsContainer, InputsContainer } from '../styles';
@@ -38,6 +39,7 @@ const SignUpScreen: React.FC = () => {
     const user = await signUp({ name, email, password });
     if (!user) setErrorMesage('Erro ao cadastrar!');
     setCurrentUser(user);
+    api.defaults.headers.common['Authorization'] = user.meta.token;
     router.push(route ? route?.toString() : '/home');
     reset();
   };

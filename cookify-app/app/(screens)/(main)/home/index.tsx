@@ -1,8 +1,9 @@
 import { useRouter } from 'expo-router';
 import * as React from 'react';
+import { View } from 'react-native';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { Divider, RecipesPreviewSection } from 'app/components';
+import { Chip, Divider, RecipesPreviewSection } from 'app/components';
 import { RecipeFilterParams, getRecipe } from 'app/services';
 import { currentRecipeState, recipeFiltersState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';

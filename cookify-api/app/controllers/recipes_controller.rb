@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update, :destroy, :upload_image, :save]
+  before_action :authenticate_user!,
+                only: [:create, :update, :destroy, :upload_image, :save, :unsave]
 
   def create
     create_params = recipe_params.merge(creator_id: current_user.id)

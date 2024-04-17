@@ -1,4 +1,4 @@
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import * as React from 'react';
 import { SafeAreaView } from 'react-native';
 import { useResetRecoilState } from 'recoil';
@@ -32,14 +32,12 @@ const SearchScreen: React.FC = () => {
   }, []);
 
   return (
-    <BottomSheetModalProvider>
-      <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
-        <RecipesSearchBar onClickFilter={openBottomSheet} />
-        <RecipeList />
-        <BottomBarNavigator />
-        <RecipeFilterBottomSheet bottomSheetRef={bottomSheetRef} close={closeBottomSheet} />
-      </SafeAreaView>
-    </BottomSheetModalProvider>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
+      <RecipesSearchBar onClickFilter={openBottomSheet} />
+      <RecipeList />
+      <BottomBarNavigator />
+      <RecipeFilterBottomSheet bottomSheetRef={bottomSheetRef} close={closeBottomSheet} />
+    </SafeAreaView>
   );
 };
 

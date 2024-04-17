@@ -10,11 +10,12 @@ import { RecipeCardProps } from './types';
 export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   const setCurrentRecipe = useSetRecoilState(currentRecipeState);
   const router = useRouter();
+  const imageUrl = recipe.images.length ? recipe.images[0].imageUrl : undefined;
 
   const onPress = () => {
     setCurrentRecipe(recipe);
     router.push('/recipe');
   };
 
-  return <Card imageUrl={recipe.images[0].imageUrl} title={recipe.title} onPress={onPress} />;
+  return <Card imageUrl={imageUrl} title={recipe.title} onPress={onPress} />;
 };

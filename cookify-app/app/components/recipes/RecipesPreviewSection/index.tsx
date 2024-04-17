@@ -23,7 +23,7 @@ export const RecipesPreviewSection: React.FC<RecipesPreviewSectionProps> = ({
       return {
         id,
         title,
-        imageUrl: images[0]?.imageUrl,
+        imageUrl: images.length ? images[0]?.imageUrl : undefined,
       };
     });
     setFormattedRecipes(recipes || []);

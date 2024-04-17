@@ -4,6 +4,7 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { IconButton } from 'app/components/common';
 import { Body } from 'app/components/typography';
+import { api } from 'app/services/config';
 import { currentUserState } from 'app/state/user';
 
 import { UserIcon } from '../UserIcon';
@@ -19,6 +20,7 @@ export const UserHeader: React.FC = () => {
   };
 
   const signOut = () => {
+    api.defaults.headers.common['Authorization'] = '';
     resetCurrentUser();
     router.push('/home');
   };

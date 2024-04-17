@@ -43,4 +43,5 @@ export const LikeButtonContainer = styled.View`
 export const ChipsSection = styled.View`
   flex-direction: row;
   gap: ${SIZES.small};
+  flex-wrap: wrap;
 `;

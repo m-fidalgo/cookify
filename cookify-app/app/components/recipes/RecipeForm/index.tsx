@@ -4,18 +4,9 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { Dimensions, View } from 'react-native';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import {
-  Body,
-  Button,
-  Divider,
-  Error,
-  IconButton,
-  ImageUploader,
-  Select,
-  Small,
-  TextInput,
-  Title,
-} from 'app/components';
+import { Button, Divider, IconButton } from 'app/components/common';
+import { ImageUploader, Select, TextInput } from 'app/components/forms';
+import { Body, Error, Small, Title } from 'app/components/typography';
 import {
   createRecipe,
   deleteImage,

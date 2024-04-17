@@ -16,7 +16,7 @@ import {
 import { removeRecipe, saveRecipe } from 'app/services';
 import { currentRecipeState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
-import { Category, Difficulty } from 'app/types';
+import { Category, DIFFICULTIES } from 'app/types';
 
 import { RecipeScreenSkeleton } from './skeleton';
 import {
@@ -109,7 +109,7 @@ const RecipeScreen: React.FC = () => {
             <InfoView>
               <RecipeInfo text={`${currentRecipe.time} min`} iconName="timer" />
               <RecipeInfo text={`Rende ${currentRecipe.servings}`} iconName="restaurant" />
-              <RecipeInfo text={Difficulty[currentRecipe.difficulty]} iconName="bar-chart" />
+              <RecipeInfo text={DIFFICULTIES[currentRecipe.difficulty]} iconName="bar-chart" />
             </InfoView>
             <ChipsSection>
               {currentRecipe.categories.map((category: Category) => (

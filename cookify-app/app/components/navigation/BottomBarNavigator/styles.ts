@@ -6,7 +6,7 @@ export const BottomBar = styled.View`
   align-items: center;
   background-color: ${HUES.white};
   border-color: ${HUES.lightGray};
-  border-top-width: 1;
+  border-top-width: 1px;
   bottom: 0;
   display: flex;
   flex-direction: row;

@@ -8,11 +8,11 @@ export type ImageUploaderStyleProps = {
   sizeInPx: number;
 };
 
-export const ImageUploaderContainer = styled.TouchableOpacity<ImageUploaderStyleProps>`
+export const ImageUploaderContainer = styled.Pressable<ImageUploaderStyleProps>`
   align-items: center;
   border-color: ${HUES.lightGray};
   border-radius: ${BORDER_RADIUS.small};
-  border-width: 1;
+  border-width: 1px;
   justify-content: center;
   height: ${({ sizeInPx = false }) => `${sizeInPx}px`};
   width: ${({ sizeInPx = false }) => `${sizeInPx}px`};
