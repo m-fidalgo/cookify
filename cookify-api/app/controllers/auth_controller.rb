@@ -5,10 +5,7 @@ class AuthController < ApplicationController
     raise Exceptions::AuthExceptions::IncorrectPassword unless authenticated
 
     token = encode_token(user_id: user.id)
-    render json: {
-      user: UserSerializer.new(user),
-      meta: {token: token},
-    }, status: :created
+    render json: user, serializer: UserWithTokenSerializer, token: token, status: :created
   rescue ActiveRecord::RecordNotFound
     raise Exceptions::UserExceptions::UserNotFound
   end

@@ -21,17 +21,16 @@ const UserScreen: React.FC = () => {
 
   const setRecipe = async (id: number) => {
     router.push('/recipe');
-    const recipe = await getRecipe(id, { userId: currentUser.id });
+    const recipe = await getRecipe(id);
     if (recipe) setCurrentRecipe(recipe);
   };
 
   const handlePressSeeMore = (params: RecipeFilterParams) => {
-    setFilterParams({ ...params, userId: currentUser.id });
+    setFilterParams(params);
     router.push('/search');
   };
 
   const defaultParams = {
-    userId: currentUser.id,
     page: 1,
     pageSize: 5,
   };

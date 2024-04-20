@@ -56,13 +56,14 @@ class RecipesController < ApplicationController
 
   def search
     recipes = Recipe.all
-    recipes = recipes.saved_by_user(current_user.id) if search_params[:saved] == true
+    recipes = recipes.saved_by_user(current_user.id) if search_params[:liked] == true
     recipes = recipes.search_by_categories(search_params[:category_ids])
     recipes = recipes.search_by_creator(search_params[:creator_id])
     recipes = recipes.search_by_difficulties(search_params[:difficulties])
     recipes = recipes.search_by_servings(search_params[:servings])
     recipes = recipes.search_by_text(search_params[:filter])
     recipes = recipes.search_by_time(search_params[:time])
+    recipes = recipes.order(:created_at)
 
     render_paginated(recipes, RecipeSerializer)
   end
@@ -134,7 +135,7 @@ class RecipesController < ApplicationController
 
 
   private def search_params
-    params.permit(:creator_id, :filter, :saved, :servings, :time,
+    params.permit(:creator_id, :filter, :liked, :servings, :time,
                   category_ids: [], difficulties: [])
   end
 

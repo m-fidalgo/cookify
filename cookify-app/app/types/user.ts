@@ -5,7 +5,5 @@ export type User = {
 };
 
 export type AuthUser = User & {
-  meta: {
-    token: string
-  }
+  token: string;
 };

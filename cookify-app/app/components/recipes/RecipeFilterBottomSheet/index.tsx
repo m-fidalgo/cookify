@@ -91,12 +91,6 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
     getCategoryOptions();
   }, []);
 
-  React.useEffect(() => {
-    if (currentUser) {
-      setFilterParams({ ...filterParams, userId: currentUser.id });
-    }
-  }, [currentUser]);
-
   return (
     <BottomSheetModal
       ref={bottomSheetRef}

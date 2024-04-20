@@ -12,7 +12,6 @@ export type RecipeFilterParams = {
   sortDirection?: SortDirection;
   sortBy?: RecipeSortBy;
   time?: number;
-  userId?: number;
 };
 
 export type SearchRecipesParams = PaginationParams & RecipeFilterParams;

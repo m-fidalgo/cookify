@@ -108,13 +108,8 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
       categories: categories.map((category) => Number(category)),
       time,
       servings,
-      ingredients,
-      preparationSteps: preparationSteps.map((step, index) => {
-        return {
-          position: index,
-          text: step.text,
-        };
-      }),
+      ingredients: ingredients.map((ingredient) => ingredient.text),
+      preparationSteps: preparationSteps.map((step) => step.text),
       creator: currentUser.id,
       difficulty: calculateDifficulty(ingredients.length, preparationSteps.length, time),
     };

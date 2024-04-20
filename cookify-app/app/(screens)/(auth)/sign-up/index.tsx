@@ -37,9 +37,13 @@ const SignUpScreen: React.FC = () => {
     }
 
     const user = await signUp({ name, email, password });
-    if (!user) setErrorMesage('Erro ao cadastrar!');
+    if (!user) {
+      setErrorMesage('Erro ao cadastrar!');
+      return;
+    }
+
     setCurrentUser(user);
-    api.defaults.headers.common['Authorization'] = user.meta.token;
+    api.defaults.headers.common['Authorization'] = user.token;
     router.push(route ? route?.toString() : '/home');
     reset();
   };

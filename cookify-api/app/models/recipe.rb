@@ -24,4 +24,9 @@ class Recipe < ApplicationRecord
     medium: "medium",
     hard: "hard",
   }
+
+
+  def average_rating
+    ratings.average(:rating)
+  end
 end

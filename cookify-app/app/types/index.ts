@@ -4,6 +4,7 @@ export * from './difficulty';
 export * from './image';
 export * from './ingredient';
 export * from './preparationStep';
+export * from './rating';
 export * from './recipe';
 export * from './services';
 export * from './user';
