@@ -16,7 +16,7 @@ export const GoBackButtonContainer = styled.View`
 `;
 
 export const ContentView = styled.View`
-  gap: ${SIZES.extraLarge};
+  gap: ${SIZES.large};
   padding: ${SIZES.extraLarge};
 `;
 
@@ -28,20 +28,21 @@ export const TitleView = styled.View`
   flex-direction: row;
   gap: ${SIZES.extraLarge};
   justify-content: space-between;
+  align-items: center;
+`;
+
+export const RatingsView = styled.View`
+  flex-direction: row;
+  justify-content: center;
 `;
 
 export const InfoView = styled.View`
   flex-direction: row;
   gap: ${SIZES.extraLarge};
+  justify-content: space-between;
 `;
 
 export const LikeButtonContainer = styled.View`
   padding-top: ${SIZES.extraSmall};
   float: right;
-`;
-
-export const ChipsSection = styled.View`
-  flex-direction: row;
-  gap: ${SIZES.small};
-  flex-wrap: wrap;
 `;

@@ -18,14 +18,13 @@ export const RecipeScreenSkeleton: React.FC = () => {
         <SkeletonLoader.Container style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <SkeletonLoader.Item style={{ width: 100, height: 16, borderRadius: 4 }} />
         </SkeletonLoader.Container>
+        <SkeletonLoader.Container style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <SkeletonLoader.Item style={{ width: 200, height: 25, borderRadius: 4 }} />
+        </SkeletonLoader.Container>
         <SkeletonLoader.Container style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <SkeletonLoader.Item style={{ width: 100, height: 18, borderRadius: 4 }} />
           <SkeletonLoader.Item style={{ width: 130, height: 18, borderRadius: 4 }} />
           <SkeletonLoader.Item style={{ width: 100, height: 18, borderRadius: 4 }} />
-        </SkeletonLoader.Container>
-        <SkeletonLoader.Container style={{ flexDirection: 'row', gap: 24 }}>
-          <SkeletonLoader.Item style={{ width: 100, height: 28, borderRadius: 16 }} />
-          <SkeletonLoader.Item style={{ width: 100, height: 28, borderRadius: 16 }} />
         </SkeletonLoader.Container>
         <SkeletonLoader.Item style={{ width: 150, height: 28, borderRadius: 4 }} />
         <SkeletonLoader.Item style={{ width: width - 48, height: 300, borderRadius: 4 }} />

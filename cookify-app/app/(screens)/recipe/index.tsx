@@ -1,31 +1,33 @@
 import { useRouter } from 'expo-router';
 import * as React from 'react';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import {
-  Chip,
+  CategoriesSection,
   IconButton,
   IngredientsSection,
   PreparationStepsSection,
   RecipeInfo,
   Small,
+  StarRating,
   Title,
 } from 'app/components';
 import { removeRecipe, saveRecipe } from 'app/services';
 import { currentRecipeState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
-import { Category, DIFFICULTIES } from 'app/types';
+import { DIFFICULTIES } from 'app/types';
 
 import { RecipeScreenSkeleton } from './skeleton';
 import {
-  ChipsSection,
   ContentView,
   GoBackButtonContainer,
   Header,
   InfoView,
   LikeButtonContainer,
+  RatingsView,
   RecipeImage,
   TitleView,
 } from './styles';
@@ -101,24 +103,23 @@ const RecipeScreen: React.FC = () => {
                 </>
               )}
             </TitleView>
-            <InfoView>
+            <View>
               <Small italic color="aqua">
                 Por: {currentRecipe.creator.name}
               </Small>
-            </InfoView>
-            <InfoView>
-              <RecipeInfo text={`${currentRecipe.time} min`} iconName="timer" />
-              <RecipeInfo text={`Rende ${currentRecipe.servings}`} iconName="restaurant" />
-              <RecipeInfo text={DIFFICULTIES[currentRecipe.difficulty]} iconName="bar-chart" />
-            </InfoView>
-            <ChipsSection>
-              {currentRecipe.categories.map((category: Category) => (
-                <Chip key={category.id} text={category.name} />
-              ))}
-            </ChipsSection>
+            </View>
           </Header>
+          <RatingsView>
+            <StarRating rating={currentRecipe.averageRating || 0} />
+          </RatingsView>
+          <InfoView>
+            <RecipeInfo text={`${currentRecipe.time} min`} iconName="timer" />
+            <RecipeInfo text={`Rende ${currentRecipe.servings}`} iconName="restaurant" />
+            <RecipeInfo text={DIFFICULTIES[currentRecipe.difficulty]} iconName="bar-chart" />
+          </InfoView>
           <IngredientsSection ingredients={currentRecipe.ingredients} />
           <PreparationStepsSection preparationSteps={currentRecipe.preparationSteps} />
+          {currentRecipe.categories && <CategoriesSection categories={currentRecipe.categories} />}
         </ContentView>
       </ScrollView>
     </SafeAreaView>
