@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   scope :recipes do
     post "/" => "recipes#create"
-    get "/" => "recipes#search"
+    post "/search" => "recipes#search"
     get "/:recipe_id" => "recipes#show", recipe_id: /\d+/
     get "/:recipe_id/ratings" => "recipes#ratings", recipe_id: /\d+/
     patch "/:recipe_id" => "recipes#update", recipe_id: /\d+/
