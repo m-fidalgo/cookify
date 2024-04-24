@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   scope :ratings do
     post "/" => "ratings#create"
     get "/:rating_id" => "ratings#show", rating_id: /\d+/
+    get "/find/:recipe_id" => "ratings#find", recipe_id: /\d+/
     patch "/:rating_id" => "ratings#update", rating_id: /\d+/
     delete "/:rating_id" => "ratings#destroy", rating_id: /\d+/
   end

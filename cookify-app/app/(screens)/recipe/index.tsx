@@ -6,19 +6,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import {
+  Button,
   CategoriesSection,
   IconButton,
   IngredientsSection,
   PreparationStepsSection,
+  RateRecipeModal,
   RecipeInfo,
   Small,
   StarRating,
   Title,
 } from 'app/components';
-import { removeRecipe, saveRecipe } from 'app/services';
+import { findRating, getRecipe, removeRecipe, saveRecipe } from 'app/services';
 import { currentRecipeState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
-import { DIFFICULTIES } from 'app/types';
+import { DIFFICULTIES, Rating } from 'app/types';
 
 import { RecipeScreenSkeleton } from './skeleton';
 import {
@@ -36,6 +38,18 @@ const RecipeScreen: React.FC = () => {
   const router = useRouter();
   const [currentRecipe, setCurrentRecipe] = useRecoilState(currentRecipeState);
   const currentUser = useRecoilValue(currentUserState);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [rating, setRating] = React.useState<Rating | undefined>(undefined);
+
+  const fetchRating = async () => {
+    if (!currentRecipe) return;
+    const response = await findRating(currentRecipe.id);
+    if (response.id) setRating(response as Rating);
+  };
+
+  React.useEffect(() => {
+    if (currentUser) fetchRating();
+  }, [currentUser, currentRecipe]);
 
   React.useEffect(() => {
     return () => {
@@ -55,6 +69,11 @@ const RecipeScreen: React.FC = () => {
     if (!currentUser) return;
     await removeRecipe(currentRecipe.id);
     setCurrentRecipe({ ...currentRecipe, isLiked: false });
+  };
+
+  const refreshRecipe = async () => {
+    const updatedRecipe = await getRecipe(currentRecipe.id);
+    if (updatedRecipe) setCurrentRecipe(updatedRecipe);
   };
 
   const handleEdit = () => {
@@ -120,7 +139,21 @@ const RecipeScreen: React.FC = () => {
           <IngredientsSection ingredients={currentRecipe.ingredients} />
           <PreparationStepsSection preparationSteps={currentRecipe.preparationSteps} />
           {currentRecipe.categories && <CategoriesSection categories={currentRecipe.categories} />}
+          {currentUser && currentUser.id !== currentRecipe.creator.id && (
+            <RatingsView>
+              <Button onPress={() => setModalOpen(true)}>Avaliar</Button>
+            </RatingsView>
+          )}
         </ContentView>
+        {modalOpen && (
+          <RateRecipeModal
+            open={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onDone={refreshRecipe}
+            recipeId={currentRecipe.id}
+            rating={rating}
+          />
+        )}
       </ScrollView>
     </SafeAreaView>
   );

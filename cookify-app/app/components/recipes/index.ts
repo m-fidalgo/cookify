@@ -1,3 +1,4 @@
+export * from './RateRecipeModal';
 export * from './RecipeCard';
 export * from './RecipeFilterBottomSheet';
 export * from './RecipeForm';

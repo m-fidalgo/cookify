@@ -17,8 +17,16 @@ export const TextInput: React.FC<TextInputProps> = ({
   secureTextEntry = false,
   value,
   onChange,
+  numberOfLines,
 }) => {
   const [focused, setFocused] = React.useState(false);
+
+  const minLinesProps = numberOfLines
+    ? {
+        numberOfLines,
+        minHeight: numberOfLines * 20,
+      }
+    : {};
 
   return (
     <OutsidePressHandler disabled={false} onOutsidePress={Keyboard.dismiss}>
@@ -35,6 +43,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           secureTextEntry={secureTextEntry}
           style={{ textAlignVertical: 'top' }}
           value={value}
+          {...minLinesProps}
         />
         {value && !hideClearButton && (
           <IconButton onPress={() => onChange('')} name="close" size="small" color="gray" />

@@ -11,4 +11,5 @@ export type TextInputProps = {
   secureTextEntry?: boolean;
   value?: string;
   onChange: (value?: string) => void;
+  numberOfLines?: number;
 };

@@ -9,6 +9,7 @@ export const HUES = {
   aqua: '#166971',
   black: '#000000',
   trueWhite: '#FFFFFF',
+  opacityGray: 'rgba(0,0,0,0.2)',
 };
 
 export type Hue = keyof typeof HUES;

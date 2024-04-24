@@ -1,5 +1,5 @@
 class RatingsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :find, :update, :destroy]
 
 
   def create
@@ -15,6 +15,16 @@ class RatingsController < ApplicationController
     render json: rating, serializer: RatingSerializer
   rescue ActiveRecord::RecordNotFound
     raise Exceptions::RatingExceptions::RatingNotFound
+  end
+
+
+  def find
+    rating = Rating.find_by(
+      user_id: current_user.id,
+      recipe_id: params[:recipe_id],
+    )
+    rating = rating.presence || {rating: null}
+    render json: rating, serializer: RatingSerializer
   end
 
 

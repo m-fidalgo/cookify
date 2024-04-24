@@ -36,7 +36,6 @@ const LoginScreen: React.FC = () => {
       return;
     }
 
-    console.log(user);
     setCurrentUser(user);
     api.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
     router.push(route ? route?.toString() : '/home');
