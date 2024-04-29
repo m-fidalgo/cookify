@@ -9,15 +9,13 @@ class AddCategories < ActiveRecord::Migration[7.0]
     "Saladas",
     "Acompanhamentos",
     "Sopas",
-    "Massas",
+    "Massas e Risotos",
     "Bebidas",
     "Lanches",
     "Sem glúten",
     "Sem lactose",
     "Vegano",
     "Vegetariano",
-    "Saudável",
-    "Lanches",
   ].freeze
 
   def change
