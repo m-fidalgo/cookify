@@ -1,3 +1,5 @@
+import json
+
 from abc import ABC
 from main.connect import RabbitMQConnection
 
@@ -17,7 +19,8 @@ class RabbitMQPublisher(ABC):
             self.__define_exchange_and_queue()
             self.bound = True
 
-        self.channel.default_exchange.basic_publish(routing_key=self.__queue__, body=message)
+        message = bytes(json.dumps(message), 'utf-8')
+        self.channel.basic_publish(self.__exchange__, self.__queue__, message)
         print(f" [x] {self.__exchange__} | Sent {message}\n")
 
 
@@ -27,7 +30,6 @@ class RabbitMQPublisher(ABC):
 
     def __define_exchange_and_queue(self):
         self.__connect()
-        exchange = self.channel.declare_exchange(name=self.__exchange__, type="fanout", durable=True)
-        queue = self.channel.declare_queue(name=self.__queue__, durable=True,
-            arguments={"x-dead-letter-exchange": self.__queue__ + "-retry"})
-        queue.bind(exchange)
+        self.channel.exchange_declare(self.__exchange__, exchange_type="fanout", durable=True)
+        self.channel.queue_declare(self.__queue__, durable=True)
+        self.channel.queue_bind(self.__queue__, self.__exchange__)

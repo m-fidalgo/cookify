@@ -25,6 +25,9 @@ class IngredientLemmatizer:
         # remover medidas compostas
         pattern_measure_compound = '|'.join(map(re.escape, MEASURE_COMPOUND_WORDS))
         formatted_ingredient = re.sub(pattern_measure_compound, '', formatted_ingredient).strip()
+        
+        # remover pontuação
+        formatted_ingredient = re.sub(r'[^\w\s]', '', formatted_ingredient)
 
         doc = self.nlp(formatted_ingredient)
         
