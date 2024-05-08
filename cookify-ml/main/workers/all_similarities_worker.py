@@ -1,0 +1,3 @@
+from main.consumers.all_recipe_similarities_consumer import AllRecipeSimilaritiesConsumer
+
+AllRecipeSimilaritiesConsumer().consume()

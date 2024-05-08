@@ -3,6 +3,8 @@ module Consumer
 
   EXCHANGES = {
     ingredient_keywords: "ingredient_keywords",
+    all_similarities_result: "all_similarities_result",
+    similarities_result: "similarities_result",
   }.freeze
 
 
@@ -10,8 +12,8 @@ module Consumer
     Sneakers.logger.info(" [x] #{self.class.name} | Received #{message} \n")
     data = JSON.parse(message).deep_symbolize_keys
     process(data)
-    ack!
     Sneakers.logger.info(" [x] #{self.class.name} | Finished\n")
+    ack!
   rescue StandardError => e
     Sneakers.logger.info("error!")
     Sneakers.logger.info(e.full_message)

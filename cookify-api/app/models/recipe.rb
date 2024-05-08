@@ -1,5 +1,7 @@
 class Recipe < ApplicationRecord
   include Recipes::FilterRecipes
+  include Recipes::ManagesSimilarities
+  include Publisher
 
   belongs_to :creator, class_name: User.name.to_s
 

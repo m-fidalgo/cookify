@@ -3,6 +3,8 @@ module Publisher
 
   EXCHANGES = {
     ingredient_changed: "ingredient_changed",
+    get_all_similarities: "get_all_similarities",
+    get_similarities: "get_similarities",
   }.freeze
 
 

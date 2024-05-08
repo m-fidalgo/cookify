@@ -6,7 +6,7 @@ module Ingredients::ManagesIngredientUpdated
   end
 
 
-  private def publish_ingredient_text_changed
+  def publish_ingredient_text_changed
     publish(
       exchange_name: Publisher::EXCHANGES[:ingredient_changed],
       message: {
