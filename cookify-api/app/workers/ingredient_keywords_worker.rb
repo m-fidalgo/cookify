@@ -8,6 +8,8 @@ class IngredientKeywordsWorker
   def process(message)
     id = message[:ingredient_id]
     text = message[:text]
-    Ingredient.find(id).update!(keywords: text)
+    ingredient = Ingredient.find(id)
+    ingredient.update!(keywords: text)
+    ingredient.recipe.publish_get_similarities
   end
 end
