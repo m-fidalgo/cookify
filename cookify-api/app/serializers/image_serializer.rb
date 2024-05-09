@@ -1,3 +1,3 @@
 class ImageSerializer < ApplicationSerializer
-  attributes :id, :url, :position
+  attributes :id, :url
 end

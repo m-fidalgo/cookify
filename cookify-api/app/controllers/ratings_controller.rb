@@ -23,8 +23,12 @@ class RatingsController < ApplicationController
       user_id: current_user.id,
       recipe_id: params[:recipe_id],
     )
-    rating = rating.presence || {rating: null}
-    render json: rating, serializer: RatingSerializer
+
+    if rating.blank?
+      render json: {rating: nil}
+    else
+      render json: rating, serializer: RatingSerializer
+    end
   end
 
 
