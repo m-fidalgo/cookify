@@ -13,6 +13,7 @@ import {
   PreparationStepsSection,
   RateRecipeModal,
   RecipeInfo,
+  RecipesPreviewSection,
   Small,
   StarRating,
   Title,
@@ -40,6 +41,7 @@ const RecipeScreen: React.FC = () => {
   const currentUser = useRecoilValue(currentUserState);
   const [modalOpen, setModalOpen] = React.useState(false);
   const [rating, setRating] = React.useState<Rating | undefined>(undefined);
+  const scrollRef = React.useRef<ScrollView>(null);
 
   const fetchRating = async () => {
     if (!currentRecipe) return;
@@ -58,6 +60,15 @@ const RecipeScreen: React.FC = () => {
   }, []);
 
   if (!currentRecipe) return <RecipeScreenSkeleton />;
+
+  const setRecipe = async (id: number) => {
+    const recipe = await getRecipe(id);
+    if (recipe) setCurrentRecipe(recipe);
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
 
   const handleAdd = async () => {
     if (!currentUser) return;
@@ -82,11 +93,11 @@ const RecipeScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView ref={scrollRef}>
         <RecipeImage
           source={
             currentRecipe.images.length
-              ? { uri: currentRecipe.images[0].imageUrl }
+              ? { uri: currentRecipe.images[0].url }
               : require('assets/images/no-image.png')
           }
         />
@@ -139,12 +150,22 @@ const RecipeScreen: React.FC = () => {
           <IngredientsSection ingredients={currentRecipe.ingredients} />
           <PreparationStepsSection preparationSteps={currentRecipe.preparationSteps} />
           {currentRecipe.categories && <CategoriesSection categories={currentRecipe.categories} />}
-          {currentUser && currentUser.id !== currentRecipe.creator.id && (
+        </ContentView>
+        {currentRecipe.similarRecipes?.length && (
+          <RecipesPreviewSection
+            mini
+            recipes={currentRecipe.similarRecipes}
+            title="Recomendados"
+            onPressItem={setRecipe}
+          />
+        )}
+        {currentUser && currentUser.id !== currentRecipe.creator.id && (
+          <ContentView>
             <RatingsView>
               <Button onPress={() => setModalOpen(true)}>Avaliar</Button>
             </RatingsView>
-          )}
-        </ContentView>
+          </ContentView>
+        )}
         {modalOpen && (
           <RateRecipeModal
             open={modalOpen}

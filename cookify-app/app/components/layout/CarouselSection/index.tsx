@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
 import { IconButton } from 'app/components/common';
-import { Title } from 'app/components/typography';
+import { Subtitle, Title } from 'app/components/typography';
 
 import { Card } from '../Card';
 import { NoResults } from '../NoResults';
@@ -17,6 +17,7 @@ export const CarouselSection: React.FC<CarouselSectionProps> = ({
   title,
   emptyResultsMessage,
   data,
+  mini = false,
   onPressItem,
   onPressSeeMore,
 }) => {
@@ -25,7 +26,7 @@ export const CarouselSection: React.FC<CarouselSectionProps> = ({
   return (
     <SectionContainer>
       <TitleContainer>
-        <Title color="yellow">{title}</Title>
+        {mini ? <Subtitle>{title}</Subtitle> : <Title color="yellow">{title}</Title>}
       </TitleContainer>
       {data.length === 0 ? (
         <NoResults heightInPx={CAROUSEL_HEIGHT / 2} message={emptyResultsMessage} />
@@ -49,7 +50,7 @@ export const CarouselSection: React.FC<CarouselSectionProps> = ({
                 title={item.title}
                 onPress={() => onPressItem(item.id)}
               />
-              {index === data.length - 1 && (
+              {index === data.length - 1 && onPressSeeMore && (
                 <SeeMoreButtonContainer>
                   <IconButton
                     onPress={onPressSeeMore}

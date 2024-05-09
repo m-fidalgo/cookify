@@ -117,7 +117,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
     if (recipe) {
       newRecipe = await updateRecipe(recipe.id, params);
 
-      if (image && !image.id) newImage = await createImage(image.imageUrl, recipe.id);
+      if (image && !image.id) newImage = await createImage(image.url, recipe.id);
 
       if (recipe.images.length && (!image || image.id !== recipe.images[0].id)) {
         for (const image of recipe.images) {
@@ -126,7 +126,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
       }
     } else {
       newRecipe = await createRecipe(params);
-      if (image) newImage = await createImage(image.imageUrl, newRecipe.id);
+      if (image) newImage = await createImage(image.url, newRecipe.id);
     }
 
     if (newRecipe) {
@@ -317,7 +317,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
         name="image"
         render={({ field: { onChange, value } }) => (
           <ImageUploader
-            imageUri={value?.imageUrl}
+            imageUri={value?.url}
             onChange={(uri) => onChange({ id: undefined, imageUrl: uri })}
             sizeInPx={width - 36}
           />

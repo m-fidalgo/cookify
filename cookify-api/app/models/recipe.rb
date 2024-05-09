@@ -31,4 +31,9 @@ class Recipe < ApplicationRecord
   def average_rating
     ratings.average(:rating)
   end
+
+
+  def similar_recipes
+    Recipe.where(id: similar_ids)
+  end
 end

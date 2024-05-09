@@ -19,4 +19,5 @@ export type Recipe = {
   preparationSteps: PreparationStep[];
   images: Image[];
   ratings?: Rating[];
+  similarRecipes?: Recipe[];
 };

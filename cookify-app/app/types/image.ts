@@ -1,4 +1,4 @@
 export type Image = {
   id: number;
-  imageUrl: string;
+  url: string;
 };

@@ -10,13 +10,13 @@ class RecipesController < ApplicationController
     create_preparation_steps!(recipe)
     create_recipe_categories!(recipe)
 
-    render json: recipe, serializer: RecipeSerializer
+    render json: recipe, serializer: Recipes::RecipeSerializer
   end
 
 
   def show
     recipe = Recipe.find(params[:recipe_id])
-    render json: recipe, serializer: RecipeSerializer
+    render json: recipe, serializer: Recipes::RecipeWithDetailsSerializer
   rescue ActiveRecord::RecordNotFound
     raise Exceptions::RecipeExceptions::RecipeNotFound
   end
@@ -37,7 +37,7 @@ class RecipesController < ApplicationController
       create_recipe_categories!(recipe)
     end
 
-    render json: recipe.reload, serializer: RecipeSerializer
+    render json: recipe.reload, serializer: Recipes::RecipeSerializer
   rescue ActiveRecord::RecordNotFound
     raise Exceptions::RecipeExceptions::RecipeNotFound
   end
@@ -65,7 +65,7 @@ class RecipesController < ApplicationController
     recipes = recipes.search_by_time(search_params[:time])
     recipes = recipes.order(:created_at)
 
-    render_paginated(recipes, RecipeSerializer)
+    render_paginated(recipes, Recipes::BasicRecipeSerializer)
   end
 
 
@@ -87,7 +87,7 @@ class RecipesController < ApplicationController
     )
     image.update!(url: response["secure_url"])
 
-    render json: recipe.reload, serializer: RecipeSerializer
+    render json: recipe.reload, serializer: Recipes::RecipeSerializer
   end
 
 

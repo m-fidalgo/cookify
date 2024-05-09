@@ -1,8 +1,19 @@
 import { SearchRecipesParams } from 'app/services';
+import { Recipe } from 'app/types';
 
-export type RecipesPreviewSectionProps = {
+type RecipesProps =
+  | {
+      params: SearchRecipesParams;
+      recipes?: undefined;
+    }
+  | {
+      params?: undefined;
+      recipes: Recipe[];
+    };
+
+export type RecipesPreviewSectionProps = RecipesProps & {
   title: string;
-  params: SearchRecipesParams;
+  mini?: boolean;
   onPressItem: (id: number) => void;
-  onPressSeeMore: () => void;
+  onPressSeeMore?: () => void;
 };
