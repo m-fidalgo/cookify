@@ -5,15 +5,17 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { NoResults } from 'app/components/layout';
 import { HUES } from 'app/constants';
 import { searchRecipes } from 'app/services';
-import { recipeFiltersChangedState, recipeFiltersState, recipePageState } from 'app/state/recipe';
+import { recipeFiltersChangedState, recipeFiltersState, recipeOffsetState } from 'app/state/recipe';
 import { Recipe } from 'app/types';
 
 import { RecipeCard } from '../RecipeCard';
 
+const LIMIT = 5;
+
 export const RecipeList: React.FC = () => {
   const filters = useRecoilValue(recipeFiltersState);
   const [filtersChanged, setFiltersChanged] = useRecoilState(recipeFiltersChangedState);
-  const [page, setPage] = useRecoilState(recipePageState);
+  const [offset, setOffset] = useRecoilState(recipeOffsetState);
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [hasMore, setHasMore] = React.useState<boolean>(false);
@@ -23,13 +25,13 @@ export const RecipeList: React.FC = () => {
   };
 
   const fetchRecipes = React.useCallback(
-    async (page: number) => {
+    async (offset: number) => {
       setLoading(true);
-      const response = await searchRecipes({ page, ...filters });
+      const response = await searchRecipes({ ...filters, offset, limit: LIMIT });
+
       if (response) {
         addRecipes(response.results);
-        // TODO: USE PAGE SIZE
-        setHasMore(response.total > page * 5);
+        setHasMore(response.total > LIMIT + offset);
       }
       setLoading(false);
     },
@@ -37,20 +39,20 @@ export const RecipeList: React.FC = () => {
   );
 
   const loadMore = async () => {
-    if (hasMore) setPage(page + 1);
+    if (hasMore) setOffset(offset + LIMIT);
   };
 
   const reset = () => {
     setLoading(true);
     setFiltersChanged(false);
     setRecipes([]);
-    setPage(1);
-    fetchRecipes(1);
+    setOffset(0);
+    fetchRecipes(0);
   };
 
   React.useEffect(() => {
-    fetchRecipes(page);
-  }, [page]);
+    fetchRecipes(offset);
+  }, [offset]);
 
   React.useEffect(() => {
     if (filtersChanged) reset();

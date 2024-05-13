@@ -2,6 +2,9 @@ class RecipesController < ApplicationController
   before_action :authenticate_user!,
                 only: [:create, :update, :destroy, :upload_image, :save, :unsave]
 
+  DEFAULT_SORT_COLUMN = "created_at".freeze
+  DEFAULT_SORT_DIRECTION = "ASC".freeze
+
   def create
     create_params = recipe_params.merge(creator_id: current_user.id)
     recipe = Recipe.create!(create_params)
@@ -56,14 +59,22 @@ class RecipesController < ApplicationController
 
   def search
     recipes = Recipe.all
-    recipes = recipes.saved_by_user(current_user.id) if search_params[:liked] == true
+    recipes = recipes.saved_by_user(current_user.id) if search_params[:liked] == "true"
     recipes = recipes.search_by_categories(search_params[:category_ids])
     recipes = recipes.search_by_creator(search_params[:creator_id])
     recipes = recipes.search_by_difficulties(search_params[:difficulties])
     recipes = recipes.search_by_servings(search_params[:servings])
     recipes = recipes.search_by_text(search_params[:filter])
     recipes = recipes.search_by_time(search_params[:time])
-    recipes = recipes.order(:created_at)
+
+    sort_by = search_params[:sort_by] || DEFAULT_SORT_COLUMN
+    sort_direction = search_params[:sort_direction] || DEFAULT_SORT_DIRECTION
+
+    recipes = if sort_by == "popular"
+                recipes.sort_by_popular
+              else
+                recipes.order(sort_by => sort_direction)
+              end
 
     render_paginated(recipes, Recipes::BasicRecipeSerializer)
   end
@@ -135,7 +146,7 @@ class RecipesController < ApplicationController
 
 
   private def search_params
-    params.permit(:creator_id, :filter, :liked, :servings, :time,
+    params.permit(:creator_id, :filter, :liked, :servings, :time, :sort_by, :sort_direction,
                   category_ids: [], difficulties: [])
   end
 

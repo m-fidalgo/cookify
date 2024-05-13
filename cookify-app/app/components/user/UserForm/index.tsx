@@ -42,7 +42,7 @@ export const UserForm: React.FC = () => {
     });
 
     if (updatedUser) {
-      setCurrentUser({ ...updatedUser, meta: currentUser.meta });
+      setCurrentUser({ ...updatedUser, token: currentUser.token });
       router.back();
     }
   };

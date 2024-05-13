@@ -9,12 +9,12 @@ import {
   RecipeList,
   RecipesSearchBar,
 } from 'app/components';
-import { recipeFiltersState, recipePageState } from 'app/state/recipe';
+import { recipeFiltersState, recipeOffsetState } from 'app/state/recipe';
 
 const SearchScreen: React.FC = () => {
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
   const resetFilters = useResetRecoilState(recipeFiltersState);
-  const resetPage = useResetRecoilState(recipePageState);
+  const resetOffset = useResetRecoilState(recipeOffsetState);
 
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
@@ -26,7 +26,7 @@ const SearchScreen: React.FC = () => {
 
   React.useEffect(() => {
     return () => {
-      resetPage();
+      resetOffset();
       resetFilters();
     };
   }, []);

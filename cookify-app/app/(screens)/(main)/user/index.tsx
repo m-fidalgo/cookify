@@ -31,8 +31,8 @@ const UserScreen: React.FC = () => {
   };
 
   const defaultParams = {
-    page: 1,
-    pageSize: 5,
+    limit: 5,
+    offset: 0,
   };
 
   return (

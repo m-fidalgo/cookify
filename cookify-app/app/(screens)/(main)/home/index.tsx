@@ -32,7 +32,7 @@ const HomeScreen: React.FC = () => {
           <RecipesPreviewSection
             key={index}
             title={title}
-            params={{ ...params, pageSize: 5 }}
+            params={{ ...params, limit: 5, offset: 0 }}
             onPressItem={setRecipe}
             onPressSeeMore={() => handlePressSeeMore(params)}
           />

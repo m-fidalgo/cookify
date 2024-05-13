@@ -7,7 +7,7 @@ import {
   CURRENT_RECIPE_KEY,
   RECIPE_FILTERS_CHANGED_KEY,
   RECIPE_FILTERS_KEY,
-  RECIPE_PAGE_KEY,
+  RECIPE_OFFSET_KEY,
 } from './keys';
 
 export const currentRecipeState = atom<Recipe | undefined>({
@@ -15,9 +15,9 @@ export const currentRecipeState = atom<Recipe | undefined>({
   default: undefined,
 });
 
-export const recipePageState = atom<number>({
-  key: RECIPE_PAGE_KEY,
-  default: 1,
+export const recipeOffsetState = atom<number>({
+  key: RECIPE_OFFSET_KEY,
+  default: 0,
 });
 
 export const recipeFiltersState = atom<RecipeFilterParams | undefined>({

@@ -33,6 +33,7 @@ export const TextInput: React.FC<TextInputProps> = ({
       <TextInputContainer focused={focused}>
         {leadingIcon && <Icon name={leadingIcon} size="small" color="gray" />}
         <StyledTextInput
+          autoCapitalize="none"
           keyboardType={keyboardType}
           multiline={multiline}
           placeholder={placeholder}

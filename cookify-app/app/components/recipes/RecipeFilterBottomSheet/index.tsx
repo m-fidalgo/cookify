@@ -8,7 +8,7 @@ import { CheckboxWithLabel, Select, TextInput } from 'app/components/forms';
 import { Body, Subtitle } from 'app/components/typography';
 import { DEFAULT_SHADOW_STYLES } from 'app/constants';
 import { RecipeFilterParams, getCategories } from 'app/services';
-import { recipeFiltersChangedState, recipeFiltersState, recipePageState } from 'app/state/recipe';
+import { recipeFiltersChangedState, recipeFiltersState, recipeOffsetState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 import { SelectItem } from 'app/types';
 
@@ -21,7 +21,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
   close,
 }) => {
   const currentUser = useRecoilValue(currentUserState);
-  const resetPage = useResetRecoilState(recipePageState);
+  const resetOffset = useResetRecoilState(recipeOffsetState);
   const setFilterChanged = useSetRecoilState(recipeFiltersChangedState);
   const [filterParams, setFilterParams] = useRecoilState(recipeFiltersState);
   const [categoryOptions, setCategoryOptions] = React.useState<SelectItem[]>([]);
@@ -44,7 +44,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
   const setFilters = (filters: RecipeFilterParams) => {
     setFilterParams(filters);
     setFilterChanged(true);
-    resetPage();
+    resetOffset();
   };
 
   const clearFilters = () => {

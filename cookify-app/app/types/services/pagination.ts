@@ -1,6 +1,6 @@
 export type PaginationParams = {
-  page: number;
-  pageSize?: number;
+  limit?: number;
+  offset?: number;
 };
 
 export type PaginationResponse = {
