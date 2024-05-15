@@ -5,6 +5,7 @@ module Publisher
     ingredient_changed: "ingredient_changed",
     get_all_similarities: "get_all_similarities",
     get_similarities: "get_similarities",
+    get_user_recommendations: "get_user_recommendations",
   }.freeze
 
 

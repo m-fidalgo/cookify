@@ -1,6 +1,7 @@
 class Recipe < ApplicationRecord
   include Recipes::FilterRecipes
   include Recipes::SortRecipes
+  include Recipes::ManagesRecommendations
   include Recipes::ManagesSimilarities
   include Publisher
 

@@ -1,4 +1,6 @@
 class Rating < ApplicationRecord
+  include Ratings::ManagesRecommendations
+
   belongs_to :recipe
   belongs_to :user
 

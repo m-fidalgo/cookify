@@ -5,6 +5,7 @@ module Consumer
     ingredient_keywords: "ingredient_keywords",
     all_similarities_result: "all_similarities_result",
     similarities_result: "similarities_result",
+    user_recommendations_result: "user_recommendations_result",
   }.freeze
 
 

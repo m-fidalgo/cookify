@@ -14,9 +14,10 @@ class UserRecommendationsConsumer(RabbitMQConsumer):
 
 
     def callback(self, body):
-        recommended_ids = self.recommendator.recommendations(body['user_id'])
+        user_id = body['user_id']
+        recommended_ids = self.recommendator.recommendations(user_id)
         self.publisher.publish({
-            'user_id': body['user_id'],
-            'recommended_ids': recommended_ids
+            'user_id': user_id,
+            'recommended_ids': [str(id) for id in recommended_ids]
         })
 

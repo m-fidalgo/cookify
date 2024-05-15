@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  include Users::ManagesRecommendations
+  include Publisher
+
   has_secure_password
 
   has_many :created_recipes,

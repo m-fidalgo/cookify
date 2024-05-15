@@ -11,7 +11,7 @@ class UserRecommendations:
 
 
     def recommendations(self, user_id, n=5):
-        self.set_ratings_dataframe()
+        self.set_ratings_dataframe(user_id)
         
         user_ratings = self.ratings_dataframe[self.ratings_dataframe['user_id'] == user_id]
         
@@ -43,10 +43,16 @@ class UserRecommendations:
         return recommended_ids[:n]
 
 
-    def set_ratings_dataframe(self):
+    def set_ratings_dataframe(self, user_id):
         ratings_df = Rating.ratings_dataframe()
         saved_reciped_df = UserSavedRecipe.saved_recipes_dataframe()
         creators_df = Recipe.creators_dataframe()
+        
+        user_ratings = ratings_df[ratings_df['user_id'] == user_id]
+        user_saved_recipes = saved_reciped_df[saved_reciped_df['user_id'] == user_id]
+        
+        if(len(user_ratings) == 0 and len(user_saved_recipes) == 0):
+            self.ratings_dataframe = pd.DataFrame([])
         
         new_ratings = []
         
