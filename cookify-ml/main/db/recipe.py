@@ -22,3 +22,19 @@ class Recipe:
         cursor.close()
         psql_connection.close_connection()
         return pd.DataFrame(records, columns=[col.name for col in cursor.description])
+
+
+    @classmethod
+    def creators_dataframe(self):
+        psql_connection = PostgreSQLConnection()
+        connection = psql_connection.get_connection()
+        cursor = connection.cursor()
+        query = '''
+            SELECT r.id AS recipe_id, r.creator_id
+            FROM recipes r
+        '''
+        cursor.execute(query)
+        records = cursor.fetchall()
+        cursor.close()
+        psql_connection.close_connection()
+        return pd.DataFrame(records, columns=[col.name for col in cursor.description])
