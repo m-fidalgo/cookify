@@ -21,4 +21,8 @@ class User < ApplicationRecord
   validates :email, format: {with: URI::MailTo::EMAIL_REGEXP, message: "is not an email"}
 
   validates :name, presence: {message: "name can't be empty"}
+
+  def recommended_recipes
+    Recipe.where(id: recommended_recipe_ids)
+  end
 end

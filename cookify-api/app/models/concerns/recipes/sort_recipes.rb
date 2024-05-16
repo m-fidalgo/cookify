@@ -10,7 +10,7 @@ module Recipes::SortRecipes
           GROUP BY r.recipe_id
         ) AS r ON TRUE
       SQL
-        .order("r.rating DESC")
+        .order("r.rating DESC NULLS LAST")
     }
   end
 end

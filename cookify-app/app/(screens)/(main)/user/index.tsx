@@ -4,7 +4,11 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { RecipesPreviewSection, UserHeader } from 'app/components';
 import { RecipeFilterParams, getRecipe } from 'app/services';
-import { currentRecipeState, recipeFiltersState } from 'app/state/recipe';
+import {
+  currentRecipeState,
+  recipeFiltersState,
+  recommendedRecipesFetchState,
+} from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 
 const UserScreen: React.FC = () => {
@@ -12,6 +16,7 @@ const UserScreen: React.FC = () => {
   const currentUser = useRecoilValue(currentUserState);
   const setCurrentRecipe = useSetRecoilState(currentRecipeState);
   const setFilterParams = useSetRecoilState(recipeFiltersState);
+  const recommendedRecipes = useRecoilValue(recommendedRecipesFetchState);
 
   React.useEffect(() => {
     if (!currentUser) router.push('/');
@@ -55,6 +60,12 @@ const UserScreen: React.FC = () => {
         }}
         onPressItem={setRecipe}
         onPressSeeMore={() => handlePressSeeMore({ liked: true })}
+      />
+      <RecipesPreviewSection
+        title="Receitas Recomendadas"
+        recipes={recommendedRecipes}
+        onPressItem={setRecipe}
+        onPressSeeMore={() => handlePressSeeMore({})}
       />
     </>
   );

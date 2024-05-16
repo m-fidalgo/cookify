@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     post "/:recipe_id/image" => "recipes#upload_image", recipe_id: /\d+/
     post "/:recipe_id/save" => "recipes#save", recipe_id: /\d+/
     delete "/:recipe_id/unsave" => "recipes#unsave", recipe_id: /\d+/
+    get "/recommended" => "recipes#recommended", recipe_id: /\d+/
   end
 
   scope :ratings do

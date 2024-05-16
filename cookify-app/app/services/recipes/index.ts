@@ -2,6 +2,7 @@ export * from './createRecipe';
 export * from './deleteRecipe';
 export * from './getRatings';
 export * from './getRecipe';
+export * from './getRecommendedRecipes';
 export * from './removeRecipe';
 export * from './saveRecipe';
 export * from './searchRecipes';
