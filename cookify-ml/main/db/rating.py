@@ -8,8 +8,12 @@ class Rating:
         connection = psql_connection.get_connection()
         cursor = connection.cursor()
         query = '''
-            SELECT r.user_id, r.recipe_id, r.rating
+            SELECT r.user_id, r.recipe_id, r.rating,
+            array_remove(array_agg(DISTINCT c.name), NULL) AS categories
             FROM ratings r
+            LEFT JOIN recipe_categories rc ON rc.recipe_id = r.recipe_id
+            LEFT JOIN categories c ON rc.category_id = c.id
+            GROUP BY r.user_id, r.recipe_id, r.rating
         '''
         cursor.execute(query)
         records = cursor.fetchall()

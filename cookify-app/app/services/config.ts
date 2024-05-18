@@ -14,7 +14,7 @@ type RequestParams = {
 
 export const api = applyCaseMiddleware(
   axios.create({
-    baseURL: 'http://192.168.0.38:6000',
+    baseURL: API_BASE_URL,
   })
 );
 

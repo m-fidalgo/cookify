@@ -3,4 +3,8 @@ export type FormValues = {
   name?: string;
   password?: string;
   password1?: string;
+  vegan?: boolean;
+  vegetarian?: boolean;
+  lactoseIntolerant?: boolean;
+  celiac?: boolean;
 };

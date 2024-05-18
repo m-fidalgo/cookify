@@ -5,7 +5,13 @@ module Users::ManagesRecommendations
     publish(
       exchange_name: Publisher::EXCHANGES[:get_user_recommendations],
       message: {
-        user_id: id,
+        user_info: {
+          user_id: id,
+          vegan: vegan,
+          vegetarian: vegetarian,
+          lactose_intolerant: lactose_intolerant,
+          celiac: celiac,
+        },
       },
     )
   end

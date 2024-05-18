@@ -37,6 +37,6 @@ class UsersController < ApplicationController
 
 
   private def user_params
-    params.permit(:email, :name, :password)
+    params.permit(:email, :name, :password, :vegetarian, :vegan, :celiac, :lactose_intolerant)
   end
 end

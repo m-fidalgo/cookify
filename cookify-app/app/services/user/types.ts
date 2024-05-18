@@ -1,5 +1,5 @@
-export type UserParams = {
-  email: string;
-  name: string;
-  password: string;
+import { User } from 'app/types';
+
+export type UserParams = Omit<User, 'id'> & {
+  password?: string;
 };

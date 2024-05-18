@@ -3,11 +3,11 @@ import * as React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 
-import { Body, Button, Divider, Error, TextInput } from 'app/components';
+import { Body, Button, Checkbox, Divider, Error, Subtitle, TextInput } from 'app/components';
 import { updateUser } from 'app/services';
 import { currentUserState } from 'app/state/user';
 
-import { FormItem } from './styles';
+import { CheckboxItem, FormItem } from './styles';
 import { FormValues } from './types';
 
 export const UserForm: React.FC = () => {
@@ -24,10 +24,14 @@ export const UserForm: React.FC = () => {
       name: currentUser?.name,
       password: undefined,
       password1: undefined,
+      vegan: currentUser?.vegan,
+      vegetarian: currentUser?.vegetarian,
+      celiac: currentUser?.celiac,
+      lactoseIntolerant: currentUser?.lactoseIntolerant,
     },
   });
 
-  const handleUpdate = async ({ email, name, password, password1 }: FormValues) => {
+  const handleUpdate = async ({ password, password1, ...values }: FormValues) => {
     if (password !== password1) {
       setErrorMessage('As senhas devem ser iguais');
       return;
@@ -36,8 +40,7 @@ export const UserForm: React.FC = () => {
     if (!currentUser) return;
 
     const updatedUser = await updateUser(currentUser?.id, {
-      email,
-      name,
+      ...values,
       password,
     });
 
@@ -96,6 +99,49 @@ export const UserForm: React.FC = () => {
             <TextInput secureTextEntry value={value} onChange={onChange} />
             {errorMessage && <Error color="gray">{errorMessage}</Error>}
           </FormItem>
+        )}
+      />
+      <Divider size="medium" />
+      <Subtitle>Preferências</Subtitle>
+      <Divider size="medium" />
+      <Controller
+        control={control}
+        name="vegan"
+        render={({ field: { onChange, value } }) => (
+          <CheckboxItem>
+            <Checkbox checked={value} onChange={onChange} />
+            <Body>Vegano</Body>
+          </CheckboxItem>
+        )}
+      />
+      <Controller
+        control={control}
+        name="vegetarian"
+        render={({ field: { onChange, value } }) => (
+          <CheckboxItem>
+            <Checkbox checked={value} onChange={onChange} />
+            <Body>Vegetariano</Body>
+          </CheckboxItem>
+        )}
+      />
+      <Controller
+        control={control}
+        name="lactoseIntolerant"
+        render={({ field: { onChange, value } }) => (
+          <CheckboxItem>
+            <Checkbox checked={value} onChange={onChange} />
+            <Body>Intolerante a lactose</Body>
+          </CheckboxItem>
+        )}
+      />
+      <Controller
+        control={control}
+        name="celiac"
+        render={({ field: { onChange, value } }) => (
+          <CheckboxItem>
+            <Checkbox checked={value} onChange={onChange} />
+            <Body>Celíaco</Body>
+          </CheckboxItem>
         )}
       />
       <Divider size="extraLarge" />
