@@ -1,0 +1,3 @@
+from main.consumers.user_recommendations_consumer import UserRecommendationsConsumer
+
+UserRecommendationsConsumer().consume()

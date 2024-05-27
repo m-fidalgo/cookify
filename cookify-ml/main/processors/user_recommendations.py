@@ -28,10 +28,11 @@ class UserRecommendations:
                 common_recipes = pd.merge(user_ratings, other_user_ratings, on='recipe_id', how='inner')
                 if len(common_recipes) > 1:
                     correlation, _ = pearsonr(common_recipes['rating_x'], common_recipes['rating_y'])
-                    similar_user_ids.append((id, correlation))
+                    if not pd.isna(correlation):
+                        similar_user_ids.append((id, correlation))
 
         similar_user_ids.sort(key=lambda x: x[1], reverse=True)
-        
+
         recommended_ids = []
         for id, _ in similar_user_ids:
             other_user_ratings = self.ratings_dataframe[self.ratings_dataframe['user_id'] == id]
@@ -74,4 +75,29 @@ class UserRecommendations:
             new_ratings.append({'user_id': user_id, 'recipe_id': recipe_id, 'rating': 5})
         
         new_ratings_df = pd.DataFrame(new_ratings)
-        self.ratings_dataframe = pd.concat([ratings_df, new_ratings_df], ignore_index=True)
+        all_ratings_df = pd.concat([ratings_df, new_ratings_df], ignore_index=True)        
+        self.ratings_dataframe = self.__filter_by_user_preferences(all_ratings_df, user_info)
+        
+
+    def __filter_by_user_preferences(self, df, user_info):
+        mandatory_categories = []
+
+        if user_info['vegan'] == True:
+            mandatory_categories.append('Vegano')
+        if user_info['vegetarian'] == True:
+            mandatory_categories.append('Vegetariano')
+        if user_info['lactose_intolerant'] == True:
+            mandatory_categories.append('Sem lactose')
+        if user_info['celiac'] == True:
+            mandatory_categories.append('Sem glúten')
+
+        if len(mandatory_categories) == 0:
+            return df
+        else:
+            return df[df['categories'].apply(
+                lambda categories: isinstance(categories, list) and self.__all_mandatory_present(categories, mandatory_categories)
+            )]
+        
+    
+    def __all_mandatory_present(self, categories, mandatory):
+        return all(category in categories for category in mandatory)
