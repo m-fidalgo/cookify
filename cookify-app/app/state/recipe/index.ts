@@ -1,13 +1,14 @@
 import { atom, selector } from 'recoil';
 
-import { RecipeFilterParams, getRecommendedRecipes } from 'app/services';
-import { Recipe } from 'app/types';
+import { RecipeFilterParams, getRatings, getRecommendedRecipes } from 'app/services';
+import { Rating, Recipe } from 'app/types';
 
 import {
   CURRENT_RECIPE_KEY,
   RECIPE_FILTERS_CHANGED_KEY,
   RECIPE_FILTERS_KEY,
   RECIPE_OFFSET_KEY,
+  RECIPE_RATINGS_GET_KEY,
   RECOMMENDED_RECIPES_GET_KEY,
 } from './keys';
 
@@ -36,5 +37,15 @@ export const recommendedRecipesFetchState = selector<Recipe[]>({
   get: async () => {
     const recipes = await getRecommendedRecipes();
     return recipes;
+  },
+});
+
+export const recipeRatingsFetchState = selector<Rating[]>({
+  key: RECIPE_RATINGS_GET_KEY,
+  get: async ({ get }) => {
+    const currentRecipe = get(currentRecipeState);
+    if (!currentRecipe) return [];
+    const ratings = await getRatings(currentRecipe.id);
+    return ratings;
   },
 });

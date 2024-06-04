@@ -31,7 +31,9 @@ module Recipes::FilterRecipes
       return all if text.blank?
 
       joins(:ingredients)
-        .where("recipes.title ILIKE :filter OR ingredients.text ILIKE :filter", filter: "%#{text}%")
+        .where(<<~SQL, {filter: "%#{text}%"})
+          recipes.title ILIKE :filter OR ingredients.keywords ILIKE :filter OR ingredients.text ILIKE :filter
+        SQL
         .distinct
     }
 

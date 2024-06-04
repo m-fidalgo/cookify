@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_18_191325) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_04_200101) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_18_191325) do
     t.index ["title"], name: "index_recipes_on_title"
   end
 
+  create_table "user_menus", force: :cascade do |t|
+    t.bigint "breakfast_id", null: false
+    t.bigint "lunch_id", null: false
+    t.bigint "dinner_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["breakfast_id"], name: "index_user_menus_on_breakfast_id"
+    t.index ["dinner_id"], name: "index_user_menus_on_dinner_id"
+    t.index ["lunch_id"], name: "index_user_menus_on_lunch_id"
+    t.index ["user_id"], name: "index_user_menus_on_user_id"
+  end
+
   create_table "user_saved_recipes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "recipe_id", null: false
@@ -108,4 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_18_191325) do
   end
 
   add_foreign_key "recipes", "users", column: "creator_id"
+  add_foreign_key "user_menus", "recipes", column: "breakfast_id"
+  add_foreign_key "user_menus", "recipes", column: "dinner_id"
+  add_foreign_key "user_menus", "recipes", column: "lunch_id"
 end

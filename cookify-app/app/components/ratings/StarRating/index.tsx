@@ -5,14 +5,14 @@ import { HUES } from 'app/constants';
 
 import { StarRatingProps } from './types';
 
-export const StarRating: React.FC<StarRatingProps> = ({ rating, onFinishRating }) => {
+export const StarRating: React.FC<StarRatingProps> = ({ rating, onFinishRating, size = 30 }) => {
   return (
     <AirbnbRating
       showRating={false}
       defaultRating={rating}
       onFinishRating={onFinishRating}
       selectedColor={HUES.yellow}
-      size={30}
+      size={size}
       isDisabled={rating !== undefined}
     />
   );

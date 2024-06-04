@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import * as React from 'react';
-import { View } from 'react-native';
+import { Pressable, View, findNodeHandle } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -12,6 +12,7 @@ import {
   IngredientsSection,
   PreparationStepsSection,
   RateRecipeModal,
+  RatingList,
   RecipeInfo,
   RecipesPreviewSection,
   Small,
@@ -19,7 +20,7 @@ import {
   Title,
 } from 'app/components';
 import { findRating, getRecipe, removeRecipe, saveRecipe } from 'app/services';
-import { currentRecipeState } from 'app/state/recipe';
+import { currentRecipeState, recipeRatingsFetchState } from 'app/state/recipe';
 import { currentUserState } from 'app/state/user';
 import { DIFFICULTIES, Rating } from 'app/types';
 
@@ -38,10 +39,16 @@ import {
 const RecipeScreen: React.FC = () => {
   const router = useRouter();
   const [currentRecipe, setCurrentRecipe] = useRecoilState(currentRecipeState);
+  const ratings = useRecoilValue(recipeRatingsFetchState);
   const currentUser = useRecoilValue(currentUserState);
   const [modalOpen, setModalOpen] = React.useState(false);
   const [rating, setRating] = React.useState<Rating | undefined>(undefined);
   const scrollRef = React.useRef<ScrollView>(null);
+  const ratingsRef = React.useRef<View>(null);
+
+  const filteredRatings = currentUser
+    ? ratings.filter((rating) => rating.user.id !== currentUser.id)
+    : ratings;
 
   const fetchRating = async () => {
     if (!currentRecipe) return;
@@ -89,6 +96,15 @@ const RecipeScreen: React.FC = () => {
 
   const handleEdit = () => {
     router.push({ pathname: '/recipes', params: { id: currentRecipe.id } });
+  };
+
+  const handleSeeRatings = () => {
+    const scrollViewNode = findNodeHandle(scrollRef.current);
+    if (!ratingsRef.current || !scrollViewNode || !scrollRef.current) return;
+
+    ratingsRef.current.measureLayout(scrollViewNode, (_, y) => {
+      scrollRef.current?.scrollTo({ y, animated: true });
+    });
   };
 
   return (
@@ -141,6 +157,11 @@ const RecipeScreen: React.FC = () => {
           </Header>
           <RatingsView>
             <StarRating rating={currentRecipe.averageRating || 0} />
+            {ratings.length && (
+              <Pressable onPress={handleSeeRatings}>
+                <Small color="yellow">Ver {ratings.length} avaliações</Small>
+              </Pressable>
+            )}
           </RatingsView>
           <InfoView>
             <RecipeInfo text={`${currentRecipe.time} min`} iconName="timer" />
@@ -164,6 +185,11 @@ const RecipeScreen: React.FC = () => {
             <RatingsView>
               <Button onPress={() => setModalOpen(true)}>Avaliar</Button>
             </RatingsView>
+          </ContentView>
+        )}
+        {filteredRatings.length && (
+          <ContentView ref={ratingsRef}>
+            <RatingList ratings={filteredRatings} />
           </ContentView>
         )}
         {modalOpen && (

@@ -32,8 +32,10 @@ export const TitleView = styled.View`
 `;
 
 export const RatingsView = styled.View`
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: ${SIZES.small};
 `;
 
 export const InfoView = styled.View`

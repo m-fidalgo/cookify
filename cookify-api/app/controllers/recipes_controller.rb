@@ -82,7 +82,7 @@ class RecipesController < ApplicationController
 
   def ratings
     recipe = Recipe.find(params[:recipe_id])
-    render_paginated(recipe.ratings, RatingSerializer)
+    render json: recipe.ratings, each_serializer: RatingSerializer
   end
 
 
