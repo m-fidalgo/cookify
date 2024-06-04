@@ -80,6 +80,32 @@ class RecipesController < ApplicationController
   end
 
 
+  def search_by_ingredients
+    to_include = search_by_ingredients_params[:included_ingredients]
+    to_exclude = search_by_ingredients_params[:excluded_ingredients]
+
+    recipes = Recipe.joins(:ingredients).all
+
+    recipes = if to_include.present?
+                recipes.where(<<~SQL, {filter: to_include.join("|")})
+                  ingredients.text ~* :filter OR ingredients.keywords ~* :filter
+                SQL
+              end
+
+    recipes = if to_exclude.present?
+                filter = "'#{to_exclude.join('|')}'"
+                recipes
+                  .joins(<<~SQL)
+                    LEFT JOIN ingredients i ON recipes.id = i.recipe_id
+                    AND (i.text ~* #{filter} OR i.keywords ~* #{filter})
+                  SQL
+                  .where("i.id IS NULL")
+              end
+
+    render_paginated(recipes.distinct, Recipes::BasicRecipeSerializer)
+  end
+
+
   def ratings
     recipe = Recipe.find(params[:recipe_id])
     render json: recipe.ratings, each_serializer: RatingSerializer
@@ -154,6 +180,11 @@ class RecipesController < ApplicationController
   private def search_params
     params.permit(:creator_id, :filter, :liked, :servings, :time, :sort_by, :sort_direction,
                   category_ids: [], difficulties: [])
+  end
+
+
+  private def search_by_ingredients_params
+    params.permit(included_ingredients: [], excluded_ingredients: [])
   end
 
 
