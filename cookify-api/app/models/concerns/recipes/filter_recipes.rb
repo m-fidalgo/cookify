@@ -40,6 +40,28 @@ module Recipes::FilterRecipes
     scope :search_by_time, ->(time) {
       time.present? ? where(time: time) : all
     }
+
+    scope :include_ingredients, ->(to_include) {
+      return all if to_include.blank?
+
+      joins(:ingredients)
+        .where(<<~SQL, {filter: to_include.join("|")})
+          ingredients.text ~* :filter OR ingredients.keywords ~* :filter
+        SQL
+        .distinct
+    }
+
+    scope :exclude_ingredients, ->(to_exclude) {
+      return all if to_exclude.blank?
+
+      filter = "'#{to_exclude.join('|')}'"
+      joins(<<~SQL)
+        LEFT JOIN ingredients i ON recipes.id = i.recipe_id
+        AND (i.text ~* #{filter} OR i.keywords ~* #{filter})
+      SQL
+        .where("i.id IS NULL")
+        .distinct
+    }
   end
   # rubocop:enable Metrics/BlockLength
 end

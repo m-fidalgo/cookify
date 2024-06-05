@@ -7,6 +7,9 @@ export type StyleProps = {
 };
 
 export const ChipContainer = styled.View<StyleProps>`
+  display: flex;
+  flex-direction: row;
+  gap: ${SIZES.small};
   background-color: ${({ color = 'lightBlue' }) => HUES[color]};
   border-radius: ${BORDER_RADIUS.large};
   padding: ${SIZES.small};

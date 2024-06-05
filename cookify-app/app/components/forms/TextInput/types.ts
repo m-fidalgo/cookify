@@ -12,4 +12,5 @@ export type TextInputProps = {
   value?: string;
   onChange: (value?: string) => void;
   numberOfLines?: number;
+  onSubmit?: (value?: string) => void;
 };

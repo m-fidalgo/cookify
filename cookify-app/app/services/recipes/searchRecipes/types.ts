@@ -12,6 +12,8 @@ export type RecipeFilterParams = {
   sortDirection?: SortDirection;
   sortBy?: RecipeSortBy;
   time?: number;
+  includedIngredients?: string[];
+  excludedIngredients?: string[];
 };
 
 export type SearchRecipesParams = PaginationParams & RecipeFilterParams;

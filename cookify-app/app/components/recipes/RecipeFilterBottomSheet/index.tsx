@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState 
 
 import { Button, Divider } from 'app/components/common';
 import { CheckboxWithLabel, Select, TextInput } from 'app/components/forms';
+import { TagInput } from 'app/components/forms/TagInput';
 import { Body, Subtitle } from 'app/components/typography';
 import { DEFAULT_SHADOW_STYLES } from 'app/constants';
 import { RecipeFilterParams, getCategories } from 'app/services';
@@ -25,7 +26,7 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
   const setFilterChanged = useSetRecoilState(recipeFiltersChangedState);
   const [filterParams, setFilterParams] = useRecoilState(recipeFiltersState);
   const [categoryOptions, setCategoryOptions] = React.useState<SelectItem[]>([]);
-  const snapPoints = React.useMemo(() => ['25%', currentUser ? '60%' : '50%'], [currentUser]);
+  const snapPoints = React.useMemo(() => ['25%', currentUser ? '90%' : '80%'], [currentUser]);
 
   const getCategoryOptions = async () => {
     const response = await getCategories();
@@ -87,6 +88,14 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
     setFilters({ ...filterParams, creatorId: myRecipes ? currentUser.id : undefined });
   };
 
+  const setIncludedIngredients = (ingredients: string[]) => {
+    setFilters({ ...filterParams, includedIngredients: ingredients });
+  };
+
+  const setExcludedIngredients = (ingredients: string[]) => {
+    setFilters({ ...filterParams, excludedIngredients: ingredients });
+  };
+
   React.useEffect(() => {
     getCategoryOptions();
   }, []);
@@ -144,6 +153,20 @@ export const RecipeFilterBottomSheet: React.FC<RecipeFilterBottomSheetProps> = (
               />
             </InlineItem>
           </InlineView>
+          <Item>
+            <Body>Ingredientes obrigatórios</Body>
+            <TagInput
+              tags={filterParams?.includedIngredients || []}
+              onChangeTags={setIncludedIngredients}
+            />
+          </Item>
+          <Item>
+            <Body>Ingredientes não permitidos</Body>
+            <TagInput
+              tags={filterParams?.excludedIngredients || []}
+              onChangeTags={setExcludedIngredients}
+            />
+          </Item>
           {currentUser && (
             <CheckboxContainer>
               <CheckboxWithLabel

@@ -66,6 +66,8 @@ class RecipesController < ApplicationController
     recipes = recipes.search_by_servings(search_params[:servings])
     recipes = recipes.search_by_text(search_params[:filter])
     recipes = recipes.search_by_time(search_params[:time])
+    recipes = recipes.include_ingredients(search_params[:included_ingredients])
+    recipes = recipes.exclude_ingredients(search_params[:excluded_ingredients])
 
     sort_by = search_params[:sort_by] || DEFAULT_SORT_COLUMN
     sort_direction = search_params[:sort_direction] || DEFAULT_SORT_DIRECTION
@@ -77,32 +79,6 @@ class RecipesController < ApplicationController
               end
 
     render_paginated(recipes, Recipes::BasicRecipeSerializer)
-  end
-
-
-  def search_by_ingredients
-    to_include = search_by_ingredients_params[:included_ingredients]
-    to_exclude = search_by_ingredients_params[:excluded_ingredients]
-
-    recipes = Recipe.joins(:ingredients).all
-
-    recipes = if to_include.present?
-                recipes.where(<<~SQL, {filter: to_include.join("|")})
-                  ingredients.text ~* :filter OR ingredients.keywords ~* :filter
-                SQL
-              end
-
-    recipes = if to_exclude.present?
-                filter = "'#{to_exclude.join('|')}'"
-                recipes
-                  .joins(<<~SQL)
-                    LEFT JOIN ingredients i ON recipes.id = i.recipe_id
-                    AND (i.text ~* #{filter} OR i.keywords ~* #{filter})
-                  SQL
-                  .where("i.id IS NULL")
-              end
-
-    render_paginated(recipes.distinct, Recipes::BasicRecipeSerializer)
   end
 
 
@@ -179,12 +155,8 @@ class RecipesController < ApplicationController
 
   private def search_params
     params.permit(:creator_id, :filter, :liked, :servings, :time, :sort_by, :sort_direction,
-                  category_ids: [], difficulties: [])
-  end
-
-
-  private def search_by_ingredients_params
-    params.permit(included_ingredients: [], excluded_ingredients: [])
+                  category_ids: [], included_ingredients: [], excluded_ingredients: [],
+                  difficulties: [])
   end
 
 

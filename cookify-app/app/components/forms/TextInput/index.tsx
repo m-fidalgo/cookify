@@ -18,6 +18,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   value,
   onChange,
   numberOfLines,
+  onSubmit,
 }) => {
   const [focused, setFocused] = React.useState(false);
 
@@ -43,6 +44,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           onFocus={() => setFocused(true)}
           secureTextEntry={secureTextEntry}
           style={{ textAlignVertical: 'top' }}
+          onSubmitEditing={() => onSubmit?.()}
           value={value}
           {...minLinesProps}
         />
