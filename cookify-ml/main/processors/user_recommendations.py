@@ -10,7 +10,7 @@ class UserRecommendations:
         self.ratings_dataframe = None
 
 
-    def recommendations(self, user_info, n=5):
+    def recommendations(self, user_info):
         user_id = user_info['user_id']
         self.set_ratings_dataframe(user_info)
         
@@ -42,7 +42,7 @@ class UserRecommendations:
                 if recipe_id not in recommended_ids:
                     recommended_ids.append(recipe_id)
                     
-        return recommended_ids[:n]
+        return recommended_ids
 
 
     def set_ratings_dataframe(self, user_info):
@@ -76,10 +76,10 @@ class UserRecommendations:
         
         new_ratings_df = pd.DataFrame(new_ratings)
         all_ratings_df = pd.concat([ratings_df, new_ratings_df], ignore_index=True)        
-        self.ratings_dataframe = self.__filter_by_user_preferences(all_ratings_df, user_info)
+        self.ratings_dataframe = self.filter_by_user_preferences(all_ratings_df, user_info)
         
 
-    def __filter_by_user_preferences(self, df, user_info):
+    def filter_by_user_preferences(self, df, user_info):
         mandatory_categories = []
 
         if user_info['vegan'] == True:
@@ -95,9 +95,9 @@ class UserRecommendations:
             return df
         else:
             return df[df['categories'].apply(
-                lambda categories: isinstance(categories, list) and self.__all_mandatory_present(categories, mandatory_categories)
+                lambda categories: isinstance(categories, list) and self.all_mandatory_present(categories, mandatory_categories)
             )]
         
     
-    def __all_mandatory_present(self, categories, mandatory):
+    def all_mandatory_present(self, categories, mandatory):
         return all(category in categories for category in mandatory)
