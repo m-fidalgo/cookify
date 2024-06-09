@@ -2,14 +2,10 @@ import { useRouter } from 'expo-router';
 import * as React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { RecipesPreviewSection, UserHeader } from 'app/components';
+import { MenuSection, RecipesPreviewSection, UserHeader } from 'app/components';
 import { RecipeFilterParams, getRecipe } from 'app/services';
-import {
-  currentRecipeState,
-  recipeFiltersState,
-  recommendedRecipesFetchState,
-} from 'app/state/recipe';
-import { currentUserState } from 'app/state/user';
+import { currentRecipeState, recipeFiltersState } from 'app/state/recipe';
+import { currentUserState, menuFetchState, recommendedRecipesFetchState } from 'app/state/user';
 
 const UserScreen: React.FC = () => {
   const router = useRouter();
@@ -17,6 +13,7 @@ const UserScreen: React.FC = () => {
   const setCurrentRecipe = useSetRecoilState(currentRecipeState);
   const setFilterParams = useSetRecoilState(recipeFiltersState);
   const recommendedRecipes = useRecoilValue(recommendedRecipesFetchState);
+  const menu = useRecoilValue(menuFetchState);
 
   React.useEffect(() => {
     if (!currentUser) router.push('/');
@@ -67,6 +64,7 @@ const UserScreen: React.FC = () => {
         onPressItem={setRecipe}
         onPressSeeMore={() => handlePressSeeMore({})}
       />
+      {Boolean(menu.length) && <MenuSection menu={menu} onPressItem={setRecipe} />}
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
 
-import { RecipeFilterParams, getRatings, getRecommendedRecipes } from 'app/services';
+import { RecipeFilterParams, getRatings } from 'app/services';
 import { Rating, Recipe } from 'app/types';
 
 import {
@@ -9,7 +9,6 @@ import {
   RECIPE_FILTERS_KEY,
   RECIPE_OFFSET_KEY,
   RECIPE_RATINGS_GET_KEY,
-  RECOMMENDED_RECIPES_GET_KEY,
 } from './keys';
 
 export const currentRecipeState = atom<Recipe | undefined>({
@@ -30,14 +29,6 @@ export const recipeFiltersState = atom<RecipeFilterParams | undefined>({
 export const recipeFiltersChangedState = atom<boolean>({
   key: RECIPE_FILTERS_CHANGED_KEY,
   default: false,
-});
-
-export const recommendedRecipesFetchState = selector<Recipe[]>({
-  key: RECOMMENDED_RECIPES_GET_KEY,
-  get: async () => {
-    const recipes = await getRecommendedRecipes();
-    return recipes;
-  },
 });
 
 export const recipeRatingsFetchState = selector<Rating[]>({

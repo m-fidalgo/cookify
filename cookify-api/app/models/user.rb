@@ -28,4 +28,12 @@ class User < ApplicationRecord
   def recommended_recipes
     Recipe.where(id: recommended_recipe_ids)
   end
+
+
+  def day_menu
+    menu = user_menus.order(created_at: :DESC).first
+    return [] if menu.blank?
+
+    [menu.breakfast, menu.lunch, menu.dinner]
+  end
 end

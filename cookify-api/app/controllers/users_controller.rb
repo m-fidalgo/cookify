@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:update, :destroy]
+  before_action :authenticate_user!, only: [:update, :destroy, :recommended_recipes, :menu]
 
   def create
     user = User.create!(user_params)
@@ -33,6 +33,18 @@ class UsersController < ApplicationController
     render_success
   rescue ActiveRecord::RecordNotFound
     raise Exceptions::UserExceptions::UserNotFound
+  end
+
+
+  def recommended_recipes
+    recipes = current_user.recommended_recipes
+    render json: recipes, each_serializer: Recipes::BasicRecipeSerializer
+  end
+
+
+  def menu
+    recipes = current_user.day_menu
+    render json: recipes, each_serializer: Recipes::BasicRecipeSerializer
   end
 
 

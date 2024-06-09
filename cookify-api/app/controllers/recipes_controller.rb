@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!,
-                only: [:create, :update, :destroy, :upload_image, :save, :unsave, :recommended]
+                only: [:create, :update, :destroy, :upload_image, :save, :unsave]
 
   DEFAULT_SORT_COLUMN = "created_at".freeze
   DEFAULT_SORT_DIRECTION = "ASC".freeze
@@ -113,12 +113,6 @@ class RecipesController < ApplicationController
   def unsave
     current_user.user_saved_recipes.find_by(recipe_id: params[:recipe_id]).destroy!
     render_success
-  end
-
-
-  def recommended
-    recipes = current_user.recommended_recipes
-    render json: recipes, each_serializer: Recipes::BasicRecipeSerializer
   end
 
 
