@@ -6,6 +6,7 @@ module Consumer
     all_similarities_result: "all_similarities_result",
     similarities_result: "similarities_result",
     user_recommendations_result: "user_recommendations_result",
+    menu_recommendation_result: "menu_recommendation_result",
   }.freeze
 
 

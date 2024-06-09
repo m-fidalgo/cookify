@@ -6,6 +6,7 @@ module Publisher
     get_all_similarities: "get_all_similarities",
     get_similarities: "get_similarities",
     get_user_recommendations: "get_user_recommendations",
+    get_menu_recommendation: "get_menu_recommendation",
   }.freeze
 
 

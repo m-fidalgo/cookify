@@ -1,0 +1,3 @@
+from main.consumers.menu_recommendation_consumer import MenuRecommendationConsumer
+
+MenuRecommendationConsumer().consume()

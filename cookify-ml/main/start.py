@@ -14,6 +14,7 @@ def start_all():
         "main/workers/ingredient_changed_worker.py",
         "main/workers/recipe_similarities_worker.py",
         "main/workers/user_recommendations_worker.py",
+        "main/workers/menu_recommendation_worker.py",
     ]
 
     processes = []

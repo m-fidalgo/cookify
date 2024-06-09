@@ -36,6 +36,7 @@ class MenuRecommendation:
             dinner_recipe_id = ''
         
         return {
+            'user_id': user_info['user_id'],
             'breakfast_recipe_id': str(breakfast_recipe_id),
             'lunch_recipe_id': str(lunch_recipe_id),
             'dinner_recipe_id': str(dinner_recipe_id),

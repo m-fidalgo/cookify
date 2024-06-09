@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include Users::ManagesMenuRecommendation
   include Users::ManagesRecommendations
   include Publisher
 
@@ -15,6 +16,8 @@ class User < ApplicationRecord
            class_name: Recipe.name.to_s,
            source: :recipe,
            through: :user_saved_recipes
+
+  has_many :user_menus, dependent: :destroy, class_name: UserMenu.name.to_s
 
   validates :email, presence: {message: "email can't be empty"}
   validates :email, uniqueness: {message: "email already exists"}
