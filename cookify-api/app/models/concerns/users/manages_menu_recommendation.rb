@@ -29,7 +29,7 @@ module Users::ManagesMenuRecommendation
 
 
   def recent_menu_ids
-    ids = []
+    ids = recommended_recipe_ids
     user_menus.where("created_at > ?", Time.zone.today - 30.days).find_each do |menu|
       ids << menu.breakfast_id
       ids << menu.lunch_id

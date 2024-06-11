@@ -12,6 +12,7 @@ export const TitleContainer = styled.View`
 `;
 
 export const CardContainer = styled.View`
-  flex-direction: row;
-  padding: 0 ${SIZES.extraLarge};
+  flex-direction: column;
+  gap: ${SIZES.medium};
+  padding: ${SIZES.medium} ${SIZES.extraLarge};
 `;
