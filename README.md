@@ -26,9 +26,9 @@
 <p>:heavy_check_mark: Create, update and delete recipes</p>
 <p>:heavy_check_mark: Search reciper by name, difficulty, servings and categories</p>
 <p>:heavy_check_mark: Like and dislike recipes</p>
-<p>:hourglass_flowing_sand: Import recipes through an URL</p>
-<p>:hourglass_flowing_sand: Save recipes for offline visualization</p>
-<p>:hourglass_flowing_sand: Personalized user suggestions</p>
+<p>:heavy_check_mark: Personalized user suggestions</p>
+<p>:heavy_check_mark: Similar recipes suggestions</p>
+<p>:heavy_check_mark: Daily menu recommendation</p>
 
 <br />
 
